@@ -9,15 +9,15 @@
     public async Task CreateCollectionViewWithItemTemplate()
     {
         var items = new (int Index, string Name)[] { (1, "First"), (2, "Seconds"), (3, ("Third")) };
-        var collectionView = await Render<MC.CollectionView>(
-    @<CollectionView ItemsSource="items">
+        var collectionView = await Render<AC.ItemsControl>(
+    @<ItemsControl ItemsSource="items">
         <ItemTemplate>
-            <VerticalStackLayout>
+            <StackPanel>
                 <Label>@context.Index</Label>
                 <Label>@context.Name</Label>
-            </VerticalStackLayout>
+            </StackPanel>
         </ItemTemplate>
-    </CollectionView>);
+    </ItemsControl>);
 
         // It's nice that it doesn't crash at least, but is there any way to get templated items here?...
         Assert.That(collectionView.ItemsSource, Is.EqualTo(items));
@@ -31,12 +31,12 @@
     {
         var items = new ObservableCollection<int>(new[] { 1, 2, 3, 4 });
 
-        var collectionView = await Render<MC.CollectionView>(
-    @<CollectionView ItemsSource="items">
+        var collectionView = await Render<AC.ItemsControl>(
+    @<ItemsControl ItemsSource="items">
         <ItemTemplate>
             <Label>@context</Label>
         </ItemTemplate>
-    </CollectionView>);
+    </ItemsControl>);
 
         // Since collection is already observable, no need to diff additionally.
         Assert.That(collectionView.ItemsSource, Is.SameAs(items));
@@ -47,12 +47,12 @@
     {
         var items = ImmutableList.Create(1, 2, 3, 4);
 
-        var collectionView = await Render<MC.CollectionView>(
-    @<CollectionView ItemsSource="items">
+        var collectionView = await Render<AC.ItemsControl>(
+    @<ItemsControl ItemsSource="items">
         <ItemTemplate>
             <Label>@context</Label>
         </ItemTemplate>
-    </CollectionView>);
+    </ItemsControl>);
 
         // Since collection is immutable, there is no point in detecting changes there.
         Assert.That(collectionView.ItemsSource, Is.SameAs(items));

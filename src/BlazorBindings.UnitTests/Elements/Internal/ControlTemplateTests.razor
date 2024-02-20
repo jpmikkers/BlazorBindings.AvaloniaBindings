@@ -5,18 +5,17 @@
 public async Task CreateControlFromTemplate()
 {
     var template = await RenderTemplate(
-    @<StackLayout>
+    @<StackPanel>
         <Label>1</Label>
         <Label>2</Label>
-    </StackLayout>
-    );
+    </StackPanel>
+        );
+    var content = template.CreateContent().GetTemplateContent<AC.StackPanel>();
+    var label1 = (AC.Label)content.Children[0];
+    var label2 = (AC.Label)content.Children[1];
 
-    var content = template.CreateContent().GetTemplateContent<MC.StackLayout>();
-    var label1 = (MC.Label)content.Children[0];
-    var label2 = (MC.Label)content.Children[1];
-
-    Assert.That(label1.Text, Is.EqualTo("1"));
-    Assert.That(label2.Text, Is.EqualTo("2"));
+    Assert.That(label1.Content, Is.EqualTo("1"));
+    Assert.That(label2.Content, Is.EqualTo("2"));
 }
 
 [Test]
@@ -24,22 +23,22 @@ public async Task TemplateCreatesNewControlsEachTime()
 {
     var template = await RenderTemplate(@<Label>-</Label>);
 
-    var label1 = template.CreateContent().GetTemplateContent<MC.Label>();
-    var label2 = template.CreateContent().GetTemplateContent<MC.Label>();
+    var label1 = template.CreateContent().GetTemplateContent<AC.Label>();
+    var label2 = template.CreateContent().GetTemplateContent<AC.Label>();
 
-    Assert.That(label1.Text, Is.EqualTo("-"));
-    Assert.That(label2.Text, Is.EqualTo("-"));
+    Assert.That(label1.Content, Is.EqualTo("-"));
+    Assert.That(label2.Content, Is.EqualTo("-"));
 
-    label1.Text = "1";
-    label2.Text = "2";
+    label1.Content = "1";
+    label2.Content = "2";
 
-    Assert.That(label1.Text, Is.EqualTo("1"));
-    Assert.That(label2.Text, Is.EqualTo("2"));
+    Assert.That(label1.Content, Is.EqualTo("1"));
+    Assert.That(label2.Content, Is.EqualTo("2"));
 }
 
-private async Task<MC.ControlTemplate> RenderTemplate(RenderFragment fragment)
+private async Task<AC.Templates.IControlTemplate> RenderTemplate(RenderFragment fragment)
 {
-    var contentView = await Render<MC.ContentView>(@<ContentView ControlTemplate="fragment" />);
-    return contentView.ControlTemplate;
+    var contentView = await Render<AC.ContentControl>(@<ContentControl ControlTemplate="fragment" />);
+    return contentView.Template;
 }
 }

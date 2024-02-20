@@ -1,4 +1,7 @@
-﻿@inherits ElementTestBase
+﻿@using BlazorBindings.UnitTests
+@using Avalonia.Interactivity
+
+@inherits ElementTestBase
 
 @code {
 [Test]
@@ -6,9 +9,10 @@ public async Task ButtonOnClickEventCallback()
 {
     bool clicked = false;
     void HandleButtonClick() => clicked = true;
-    var button = await Render<MC.Button>(@<Button OnClick="HandleButtonClick" />);
+    var button = await Render<AC.Button>(@<Button OnClick="HandleButtonClick" />);
 
-    button.SendClicked();
+    button.ClickTrigger();
+
     StateHasChanged();
 
     Assert.That(clicked, Is.True);

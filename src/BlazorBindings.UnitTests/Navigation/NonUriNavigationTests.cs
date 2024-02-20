@@ -1,34 +1,43 @@
 ﻿// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
+using Avalonia;
+using BlazorBindings.AvaloniaBindings;
+using BlazorBindings.AvaloniaBindings.Navigation;
 using BlazorBindings.UnitTests.Components;
-using Microsoft.Maui.Dispatching;
 
 namespace BlazorBindings.UnitTests.Navigation;
 
-[TestFixture(nameof(MC.Shell))]
-[TestFixture(nameof(MC.NavigationPage))]
 public class NonUriNavigationTests
 {
-    private readonly Maui.Navigation _navigationService;
-    private readonly MC.INavigation _mauiNavigation;
-    private readonly MC.Page _rootPage;
+    private readonly AvaloniaBindings.BlazorNavigation _navigationService;
+    private readonly AvaloniaNavigation _nativeNavigation;
+    private readonly AC.Control _rootPage;
 
     public NonUriNavigationTests(string root)
     {
-        var mainPage = root == nameof(MC.Shell)
-            ? (MC.Page)new MC.Shell { Items = { new MC.ContentPage { Title = "Root" } } }
-            : new MC.NavigationPage(new MC.ContentPage { Title = "Root" });
+        //var mainPage = root == nameof(MC.Shell)
+        //    ? (MC.Page)new MC.Shell { Items = { new AC.ContentControl{ /*Title = "Root"*/ } } }
+        var blazorNavigation = new NavigationView { /*Title = "Root"*/ };
+        var nativeNavigation = new AvaloniaNavigation(blazorNavigation);
 
-        var sp = TestServiceProvider.Create();
-        MC.Application.Current = new TestApplication(sp) { MainPage = mainPage };
+        //var sp = TestServiceProvider.Create();
+        //MC.Application.Current = new TestApplication(sp) { main = mainPage };
+        var appBuilder = AppBuilder.Configure<TestApplication>()
+            .UsePlatformDetect()
+            .UseSkia()
+            .UseAvaloniaBlazorBindings(services =>
+            {
+            });
 
-        var ctx = MC.Application.Current.Handler.MauiContext;
-        var dsp = ctx.Services.GetService<IDispatcher>();
+        var serviceProvider = ((TestApplication)appBuilder.Instance).ServiceProvider;
 
-        _navigationService = sp.GetRequiredService<Maui.Navigation>();
-        _mauiNavigation = mainPage.Navigation;
-        _rootPage = _mauiNavigation.NavigationStack[0];
+        //var ctx = MC.Application.Current.Handler.MauiContext;
+        //var dsp = ctx.Services.GetService<IDispatcher>();
+
+        _navigationService = serviceProvider.GetRequiredService<BlazorNavigation>();
+        _nativeNavigation = nativeNavigation;
+        _rootPage = _nativeNavigation.NavigationStack[0];
     }
 
     [Test]
@@ -43,7 +52,7 @@ public class NonUriNavigationTests
             [nameof(PageContentWithParameters.Par2)] = par2
         });
 
-        var navigatedPage = _mauiNavigation.NavigationStack.Last();
+        var navigatedPage = _nativeNavigation.NavigationStack.Last();
         PageContentWithParameters.ValidateContent(navigatedPage, par1, par2);
     }
 
@@ -56,7 +65,7 @@ public class NonUriNavigationTests
 
         await _navigationService.PushAsync(renderFragment);
 
-        var navigatedPage = _mauiNavigation.NavigationStack.Last();
+        var navigatedPage = _nativeNavigation.NavigationStack.Last();
         PageContentWithParameters.ValidateContent(navigatedPage, par1, par2);
     }
 
@@ -72,7 +81,7 @@ public class NonUriNavigationTests
             [nameof(PageContentWithParameters.Par2)] = par2
         });
 
-        var navigatedPage = _mauiNavigation.ModalStack.Last();
+        var navigatedPage = _nativeNavigation.ModalStack.Last();
         PageContentWithParameters.ValidateContent(navigatedPage, par1, par2);
     }
 
@@ -85,7 +94,7 @@ public class NonUriNavigationTests
 
         await _navigationService.PushModalAsync(renderFragment);
 
-        var navigatedPage = _mauiNavigation.ModalStack.Last();
+        var navigatedPage = _nativeNavigation.ModalStack.Last();
         PageContentWithParameters.ValidateContent(navigatedPage, par1, par2);
     }
 
@@ -94,12 +103,12 @@ public class NonUriNavigationTests
     {
         await _navigationService.PushAsync<PageContent>();
 
-        Assert.That(_mauiNavigation.NavigationStack, Has.Count.EqualTo(2));
+        Assert.That(_nativeNavigation.NavigationStack, Has.Count.EqualTo(2));
 
         await _navigationService.PopAsync();
 
-        Assert.That(_mauiNavigation.NavigationStack, Has.Count.EqualTo(1));
-        Assert.That(_mauiNavigation.NavigationStack[0], Is.EqualTo(_rootPage));
+        Assert.That(_nativeNavigation.NavigationStack, Has.Count.EqualTo(1));
+        Assert.That(_nativeNavigation.NavigationStack[0], Is.EqualTo(_rootPage));
     }
 
     [Test]
@@ -108,12 +117,12 @@ public class NonUriNavigationTests
         await _navigationService.PushAsync<PageContent>();
         await _navigationService.PushAsync<PageContentWithParameters>();
 
-        Assert.That(_mauiNavigation.NavigationStack, Has.Count.EqualTo(3));
+        Assert.That(_nativeNavigation.NavigationStack, Has.Count.EqualTo(3));
 
         await _navigationService.PopToRootAsync();
 
-        Assert.That(_mauiNavigation.NavigationStack, Has.Count.EqualTo(1));
-        Assert.That(_mauiNavigation.NavigationStack[0], Is.EqualTo(_rootPage));
+        Assert.That(_nativeNavigation.NavigationStack, Has.Count.EqualTo(1));
+        Assert.That(_nativeNavigation.NavigationStack[0], Is.EqualTo(_rootPage));
     }
 
     [Test]
@@ -121,11 +130,11 @@ public class NonUriNavigationTests
     {
         await _navigationService.PushModalAsync<PageContent>();
 
-        Assert.That(_mauiNavigation.ModalStack, Has.Count.EqualTo(1));
+        Assert.That(_nativeNavigation.ModalStack, Has.Count.EqualTo(1));
 
         await _navigationService.PopModalAsync();
 
-        Assert.That(_mauiNavigation.ModalStack, Has.Count.EqualTo(0));
+        Assert.That(_nativeNavigation.ModalStack, Has.Count.EqualTo(0));
     }
 
     [Test]
@@ -133,7 +142,7 @@ public class NonUriNavigationTests
     {
         var isDisposed = false;
         await _navigationService.PushAsync<PageContentWithDispose>();
-        var mauiPage = _mauiNavigation.NavigationStack.Last();
+        var mauiPage = _nativeNavigation.NavigationStack.Last();
         var component = (PageContentWithDispose)mauiPage.GetValue(TestProperties.ComponentProperty);
         component.OnDispose += () => isDisposed = true;
 
@@ -146,48 +155,48 @@ public class NonUriNavigationTests
     public async Task NavigatedComponentShouldBeAbleToReplacePage()
     {
         await _navigationService.PushAsync<SwitchablePages>();
-        var navigatedPage = _mauiNavigation.NavigationStack.Last();
+        var navigatedPage = _nativeNavigation.NavigationStack.Last();
 
-        Assert.That(_mauiNavigation.NavigationStack.Count, Is.EqualTo(2));
-        Assert.That(navigatedPage.Title, Is.EqualTo("Page1"));
+        Assert.That(_nativeNavigation.NavigationStack.Count, Is.EqualTo(2));
+        Assert.That(navigatedPage.Tag, Is.EqualTo("Page1"));
 
-        var switchButton = (MC.Button)((MC.ContentPage)navigatedPage).Content;
-        switchButton.SendClicked();
-        navigatedPage = _mauiNavigation.NavigationStack.Last();
+        var switchButton = (AC.Button)((AC.ContentControl)navigatedPage).Content;
+        switchButton.ClickTrigger();
+        navigatedPage = _nativeNavigation.NavigationStack.Last();
 
-        Assert.That(_mauiNavigation.NavigationStack.Count, Is.EqualTo(2));
-        Assert.That(navigatedPage.Title, Is.EqualTo("Page2"));
+        Assert.That(_nativeNavigation.NavigationStack.Count, Is.EqualTo(2));
+        Assert.That(navigatedPage.Tag, Is.EqualTo("Page2"));
 
-        switchButton = (MC.Button)((MC.ContentPage)navigatedPage).Content;
-        switchButton.SendClicked();
-        navigatedPage = _mauiNavigation.NavigationStack.Last();
+        switchButton = (AC.Button)((AC.ContentControl)navigatedPage).Content;
+        switchButton.ClickTrigger();
+        navigatedPage = _nativeNavigation.NavigationStack.Last();
 
-        Assert.That(_mauiNavigation.NavigationStack.Count, Is.EqualTo(2));
-        Assert.That(navigatedPage.Title, Is.EqualTo("Page1"));
+        Assert.That(_nativeNavigation.NavigationStack.Count, Is.EqualTo(2));
+        Assert.That(navigatedPage.Tag, Is.EqualTo("Page1"));
     }
 
     [Test]
     public async Task NavigatedModalShouldBeAbleToReplacePage()
     {
         await _navigationService.PushModalAsync<SwitchablePages>();
-        var navigatedPage = _mauiNavigation.ModalStack.Last();
+        var navigatedPage = _nativeNavigation.ModalStack.Last();
 
-        Assert.That(_mauiNavigation.ModalStack.Count, Is.EqualTo(1));
-        Assert.That(navigatedPage.Title, Is.EqualTo("Page1"));
+        Assert.That(_nativeNavigation.ModalStack.Count, Is.EqualTo(1));
+        Assert.That(navigatedPage.Tag, Is.EqualTo("Page1"));
 
-        var switchButton = (MC.Button)((MC.ContentPage)navigatedPage).Content;
-        switchButton.SendClicked();
-        navigatedPage = _mauiNavigation.ModalStack.Last();
+        var switchButton = (AC.Button)((AC.ContentControl)navigatedPage).Content;
+        switchButton.ClickTrigger();
+        navigatedPage = _nativeNavigation.ModalStack.Last();
 
-        Assert.That(_mauiNavigation.ModalStack.Count, Is.EqualTo(1));
-        Assert.That(navigatedPage.Title, Is.EqualTo("Page2"));
+        Assert.That(_nativeNavigation.ModalStack.Count, Is.EqualTo(1));
+        Assert.That(navigatedPage.Tag, Is.EqualTo("Page2"));
 
-        switchButton = (MC.Button)((MC.ContentPage)navigatedPage).Content;
-        switchButton.SendClicked();
-        navigatedPage = _mauiNavigation.ModalStack.Last();
+        switchButton = (AC.Button)((AC.ContentControl)navigatedPage).Content;
+        switchButton.ClickTrigger();
+        navigatedPage = _nativeNavigation.ModalStack.Last();
 
-        Assert.That(_mauiNavigation.ModalStack.Count, Is.EqualTo(1));
-        Assert.That(navigatedPage.Title, Is.EqualTo("Page1"));
+        Assert.That(_nativeNavigation.ModalStack.Count, Is.EqualTo(1));
+        Assert.That(navigatedPage.Tag, Is.EqualTo("Page1"));
     }
 
     [Test]
@@ -196,7 +205,7 @@ public class NonUriNavigationTests
         _navigationService.SetWrapperComponentType(typeof(WrapperWithCascadingValue));
 
         await _navigationService.PushAsync<PageContentWithCascadingParameter>();
-        var navigatedPage = _mauiNavigation.NavigationStack.Last();
+        var navigatedPage = _nativeNavigation.NavigationStack.Last();
 
         PageContentWithCascadingParameter.ValidateContent(navigatedPage, WrapperWithCascadingValue.Value);
     }
@@ -207,7 +216,7 @@ public class NonUriNavigationTests
         _navigationService.SetWrapperComponentType(typeof(WrapperWithCascadingValue));
 
         await _navigationService.PushModalAsync<PageContentWithCascadingParameter>();
-        var navigatedPage = _mauiNavigation.ModalStack.Last();
+        var navigatedPage = _nativeNavigation.ModalStack.Last();
 
         PageContentWithCascadingParameter.ValidateContent(navigatedPage, WrapperWithCascadingValue.Value);
     }

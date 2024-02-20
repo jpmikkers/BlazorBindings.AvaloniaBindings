@@ -1,4 +1,4 @@
-﻿@using BlazorBindings.Maui.Elements.Handlers;
+﻿@using BlazorBindings.AvaloniaBindings.Elements.Handlers
 @using Microsoft.AspNetCore.Components.Rendering;
 @using System.Reflection;
 @using System.Runtime.ExceptionServices;
@@ -8,10 +8,13 @@
 @code {
     public ElementTestBase()
     {
-        MC.Application.Current = new TestApplication();
+        // Avalonia.Application.Current = new TestApplication();
+        _application = TestApplication.Create();
+        _renderer = (TestBlazorBindingsRenderer)TestBlazorBindingsRenderer.Get(_application);
     }
 
-    private TestBlazorBindingsRenderer _renderer = (TestBlazorBindingsRenderer)TestBlazorBindingsRenderer.Create();
+    private TestApplication _application;
+    private TestBlazorBindingsRenderer _renderer;
     private RenderFragmentComponent _renderedComponent;
 
     protected async Task<T> Render<T>(RenderFragment renderFragment)

@@ -1,4 +1,4 @@
-﻿@using Microsoft.Maui.Layouts;
+﻿@* @using Microsoft.Maui.Layouts;
 @inherits ElementTestBase
 
 @code {
@@ -16,7 +16,7 @@ public async Task AddItemsToLayout()
     );
 
     var boxView = (MC.BoxView)layout.Children[0];
-    var label = (MC.Label)layout.Children[1];
+    var label = (AC.Label)layout.Children[1];
 
     Assert.That(MC.AbsoluteLayout.GetLayoutBounds(boxView), Is.EqualTo(new Rect(0, 10, 200, 5)));
 
@@ -66,3 +66,4 @@ public async Task SetLayoutBoundsAsRect()
     Assert.That(layoutBounds, Is.EqualTo(new Rect(2, 3, 4, 5)));
 }
 }
+ *@

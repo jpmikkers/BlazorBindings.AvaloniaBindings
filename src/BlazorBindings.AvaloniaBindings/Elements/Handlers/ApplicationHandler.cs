@@ -31,6 +31,14 @@ internal class ApplicationHandler : IContainerElementHandler
         {
             single.MainView = child.Cast<AC.Control>();
         }
+        else if (_application is ITestApplication testApplication)
+        {
+            testApplication.Window.Content = child.Cast<AC.Control>();
+        }
+        else
+        {
+            throw new NotSupportedException($"Application lifetime '{_application.ApplicationLifetime?.GetType().FullName}' is not supported");
+        }
     }
 
     public void RemoveChild(object child, int physicalSiblingIndex)

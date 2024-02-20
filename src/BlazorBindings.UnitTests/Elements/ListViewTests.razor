@@ -1,29 +1,30 @@
-﻿@inherits ElementTestBase
+﻿@using Avalonia.Controls.Templates
+@inherits ElementTestBase
 
 @code {
     [Test]
     public async Task CreateListItemWithItemTemplate()
     {
         var items = new (int Index, string Name)[] { (1, "First"), (2, "Seconds"), (3, ("Third")) };
-        var listView = await Render<MC.ListView>(
-    @<ListView ItemsSource="items">
+        var listView = await Render<AC.ListBox>(
+    @<ListBox ItemsSource="items">
         <ItemTemplate>
-            <TextCell Text="@context.Index.ToString()" Detail="@context.Name" />
+            <TextBlock Text="@context.Index.ToString()" Tag="@context.Name" />
         </ItemTemplate>
-    </ListView>
-        );
+    </ListBox>
+    );
 
-        var templatedItems = listView.TemplatedItems;
+        
+        var templatedItems = listView.GetTemplateChildren().ToList();
 
         Assert.That(templatedItems, Has.Count.EqualTo(3));
         for (int i = 0; i < templatedItems.Count; i++)
         {
             var expectedItem = items[i];
-            var cell = templatedItems[i] as MC.TextCell;
+            var cell = templatedItems[i] as AC.TextBlock;
 
-            Assert.That(cell, Is.TypeOf<MC.TextCell>());
             Assert.That(cell.Text, Is.EqualTo(expectedItem.Index.ToString()));
-            Assert.That(cell.Detail, Is.EqualTo(expectedItem.Name));
+            Assert.That(cell.Tag, Is.EqualTo(expectedItem.Name));
         }
     }
 }

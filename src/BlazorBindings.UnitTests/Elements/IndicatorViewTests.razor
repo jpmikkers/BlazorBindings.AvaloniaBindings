@@ -1,4 +1,4 @@
-﻿@inherits ElementTestBase
+﻿@* @inherits ElementTestBase
 
 @code {
 [Test]
@@ -15,7 +15,7 @@ public async Task SetIndicatorTemplate()
         var children = indicatorView.IndicatorLayout.Children;
         Assert.That(children.Count, Is.EqualTo(3));
 
-        var label = children[0].GetTemplateContent<MC.Label>();
+        var label = children[0].GetTemplateContent<AC.Label>();
         Assert.That(label.Text, Is.EqualTo("x"));
 }
 
@@ -43,3 +43,4 @@ public async Task ChangeCount()
     Assert.That(children.Count, Is.EqualTo(2));
 }
 }
+ *@

@@ -10,7 +10,7 @@ public partial class BlazorNavigation : INavigation
     private readonly NavigationManager _navigationManager;
     private Type _wrapperComponentType;
 
-    internal BlazorNavigation(AvaloniaBlazorBindingsServiceProvider serviceProvider)
+    internal BlazorNavigation(IServiceProvider serviceProvider)
     {
         _renderer = serviceProvider.GetRequiredService<AvaloniaBlazorBindingsRenderer>();
         _navigationManager = serviceProvider.GetRequiredService<NavigationManager>();
@@ -22,6 +22,10 @@ public partial class BlazorNavigation : INavigation
     }
 
     protected AvaloniaNavigation AvaloniaNavigation => Application.Current.Cast<IAvaloniaBlazorApplication>().Navigation; //((IClassicDesktopStyleApplicationLifetime)Application.Current.ApplicationLifetime).MainWindow.MainWindow.Navigation;
+
+    public IReadOnlyList<RenderFragment> ModalStack => ModalStack.ToList().AsReadOnly();
+
+    public IReadOnlyList<RenderFragment> NavigationStack => NavigationStack.ToList().AsReadOnly();
 
     /// <summary>
     /// Push page component <typeparamref name="T"/> to the Navigation Stack.

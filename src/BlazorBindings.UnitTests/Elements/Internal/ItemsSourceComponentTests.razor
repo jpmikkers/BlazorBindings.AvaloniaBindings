@@ -271,7 +271,7 @@
 
     private async Task<ObservableCollection<T>> CreateObservableCollection<T>(Func<IEnumerable<T>> source, Func<T, object> keySelector = null)
     {
-        var collectionView = await Render<MC.CollectionView>(@<CollectionView ItemsSource="source()" ItemKeySelector="keySelector" />);
+        var collectionView = await Render<AC.ItemsControl>(@<ItemsControl ItemsSource="source()"  ItemKeySelector="keySelector" />);
         var observableCollection = (ObservableCollection<T>)collectionView.ItemsSource;
 
         Assert.That(observableCollection, Is.EqualTo(source()));

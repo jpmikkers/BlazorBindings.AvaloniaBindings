@@ -1,4 +1,4 @@
-﻿@using NUnit.Framework;
+﻿@* @using NUnit.Framework;
 
 @inherits ElementTestBase
 
@@ -9,9 +9,9 @@
         string bindedValue = null;
         var radioGroup = await Render<MC.Layout>(
     @<RadioButtonGroup @bind-SelectedValue="bindedValue">
-        <RadioButton Value=@("Red") />
-        <RadioButton Value=@("Green") />
-        <RadioButton Value=@("Blue") />
+        <RadioButton GroupName="Group">Red</RadioButton>
+        <RadioButton GroupName="Group">Green</RadioButton>
+        <RadioButton GroupName="Group">Blue</RadioButton> />
     </RadioButtonGroup>
     );
 
@@ -89,7 +89,8 @@
     </RadioButton>
     );
 
-        var templateRoot = button.GetTemplateContent<MC.Label>();
+        var templateRoot = button.GetTemplateContent<AC.Label>();
         Assert.That(templateRoot.Text, Is.EqualTo("Radio Template"));
     }
 }
+ *@

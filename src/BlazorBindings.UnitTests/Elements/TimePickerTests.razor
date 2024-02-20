@@ -4,10 +4,10 @@
 [Test]
 public async Task BindedTimeIsUpdatedWhenSelected()
 {
-    TimeOnly bindedTime = default;
-    var timePicker = await Render<MC.TimePicker>(@<TimePicker @bind-Time="bindedTime" />);
+    TimeSpan? bindedTime = default;
+    var timePicker = await Render<AC.TimePicker>(@<TimePicker @bind-SelectedTime="bindedTime" />);
 
-    timePicker.Time = new TimeSpan(12, 36, 42);
+    timePicker.SelectedTime = new TimeSpan(12, 36, 42);
 
     Assert.That(bindedTime, Is.EqualTo(new TimeOnly(12, 36, 42)));
 }
@@ -15,12 +15,12 @@ public async Task BindedTimeIsUpdatedWhenSelected()
 [Test]
 public async Task SelectedTimeIsUpdatedWhenBindedValueChanged()
 {
-    TimeOnly bindedTime = default;
-    var timePicker = await Render<MC.TimePicker>(@<TimePicker @bind-Time="bindedTime" />);
+    TimeSpan? bindedTime = default;
+    var timePicker = await Render<AC.TimePicker>(@<TimePicker @bind-SelectedTime="bindedTime" />);
 
-    bindedTime = new TimeOnly(11, 22, 33);
+    bindedTime = new TimeSpan(11, 22, 33);
     StateHasChanged();
 
-    Assert.That(timePicker.Time, Is.EqualTo(new TimeSpan(11, 22, 33)));
+    Assert.That(timePicker.SelectedTime, Is.EqualTo(new TimeSpan(11, 22, 33)));
 }
 }

@@ -1,82 +1,163 @@
-﻿using BlazorBindings.Maui;
+﻿using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Headless;
+using BlazorBindings.AvaloniaBindings;
+using BlazorBindings.AvaloniaBindings.Navigation;
+using BlazorBindings.Core;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
-using Microsoft.Maui;
-using Microsoft.Maui.Controls;
-using Microsoft.Maui.Controls.Internals;
-using Microsoft.Maui.Hosting;
+using System.Reflection;
 using System.Runtime.ExceptionServices;
 using System.Threading;
-using MauiDispatching = Microsoft.Maui.Dispatching;
+//using MauiDispatching = Microsoft.Maui.Dispatching;
+
+[assembly: AvaloniaTestApplication(typeof(BlazorBindings.UnitTests.TestApplication))]
 
 namespace BlazorBindings.UnitTests;
 
-class TestApplication : MC.Application
+
+public class TestApplication : BlazorBindingsApplication, IAvaloniaBlazorApplication, ITestApplication
 {
-    public TestApplication(IServiceProvider serviceProvider = null)
+    //private static MethodInfo CurrentGetter;
+    //private static MethodInfo BindToSelf;
+
+    //static TestApplication()
+    //{
+    //    CurrentGetter = typeof(AvaloniaLocator).GetProperty("Current", BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy).GetGetMethod(true);
+    //    BindToSelf = typeof(AvaloniaLocator).GetMethod("BindToSelf", BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance).MakeGenericMethod(typeof(Application));
+    //}
+
+    public TestApplication()
     {
-        serviceProvider ??= TestServiceProvider.Create();
-        Handler = new TestHandler
+        //AvaloniaLocator a;
+
+        //var avaloniaLocator = ((AvaloniaLocator)CurrentGetter.Invoke(null, null));
+        //BindToSelf.Invoke(avaloniaLocator, [this]);
+    }
+
+    public static AppBuilder BuildAvaloniaApp() => AppBuilder.Configure<TestApplication>()
+        .UseSkia()
+        .UseHeadless(new AvaloniaHeadlessPlatformOptions
         {
-            MauiContext = new MauiContext(serviceProvider),
-            VirtualView = this
-        };
+            UseHeadlessDrawing = false
+        })
+        .UseAvaloniaBlazorBindings(services =>
+        {
+            services.AddSingleton<AvaloniaBlazorBindingsRenderer, TestBlazorBindingsRenderer>();
+        });
 
-        DependencyService.RegisterSingleton(new TestSystemResources());
+    //public TestApplication(IServiceProvider serviceProvider = null)
+    //{
+    //    serviceProvider ??= TestServiceProvider.Create();
+    //    //Handler = new TestHandler
+    //    //{
+    //    //    MauiContext = new MauiContext(serviceProvider),
+    //    //    VirtualView = this
+    //    //};
+
+    //    //DependencyService.RegisterSingleton(new TestSystemResources());
+    //}
+
+    //class TestHandler : IElementHandler
+    //{
+    //    public object PlatformView => null;
+    //    public IElement VirtualView { get; set; }
+    //    public IMauiContext MauiContext { get; set; }
+    //    public void DisconnectHandler() { }
+    //    public void Invoke(string command, object args = null) { }
+    //    public void SetMauiContext(IMauiContext mauiContext) => MauiContext = mauiContext;
+    //    public void SetVirtualView(IElement view) => VirtualView = view;
+    //    public void UpdateValue(string property) { }
+    //}
+
+    //#pragma warning disable CS0612 // Type or member is obsolete. Unfortunately, I need to register this, otherwise some tests fail.
+    //    class TestSystemResources : ISystemResourcesProvider
+    //#pragma warning restore CS0612 // Type or member is obsolete
+    //    {
+    //        public IResourceDictionary GetSystemResources() => new ResourceDictionary();
+    //    }
+    public IServiceProvider ServiceProvider { get; private set; }
+    public AvaloniaNavigation Navigation { get; }
+    public Window Window { get; set; }
+
+    public void Initialize(IServiceProvider serviceProvider)
+    {
+        ServiceProvider = serviceProvider;
     }
 
-    class TestHandler : IElementHandler
+    public static TestApplication Create()
     {
-        public object PlatformView => null;
-        public IElement VirtualView { get; set; }
-        public IMauiContext MauiContext { get; set; }
-        public void DisconnectHandler() { }
-        public void Invoke(string command, object args = null) { }
-        public void SetMauiContext(IMauiContext mauiContext) => MauiContext = mauiContext;
-        public void SetVirtualView(IElement view) => VirtualView = view;
-        public void UpdateValue(string property) { }
-    }
+        //var appBuilder = AppBuilder.Configure<TestApplication>()
+        //    .UsePlatformDetect()
+        //    .UseSkia()
+        //    .UseAvaloniaBlazorBindings(services =>
+        //    {
+        //        services.AddSingleton<AvaloniaBlazorBindingsRenderer, TestBlazorBindingsRenderer>();
+        //    });
 
-#pragma warning disable CS0612 // Type or member is obsolete. Unfortunately, I need to register this, otherwise some tests fail.
-    class TestSystemResources : ISystemResourcesProvider
-#pragma warning restore CS0612 // Type or member is obsolete
-    {
-        public IResourceDictionary GetSystemResources() => new ResourceDictionary();
+        //_ = Task.Run(() => appBuilder.StartWithClassicDesktopLifetime([]));
+
+        //Task.Delay(1000).Wait();
+
+        //return (TestApplication)appBuilder.Instance;
+
+        var application = new TestApplication();
+        application.Initialize(TestServiceProvider.Get());
+
+        return application;
     }
 }
 
 public static class TestServiceProvider
 {
-    public static IServiceProvider Create()
+    public static IServiceProvider Get()
     {
-        var builder = MauiApp.CreateBuilder();
-        builder.UseMauiBlazorBindings();
-        builder.Services.AddSingleton<MauiBlazorBindingsRenderer, TestBlazorBindingsRenderer>();
-        builder.Services.AddSingleton<MauiDispatching.IDispatcher, TestDispatcher>();
-        return builder.Build().Services;
+        //var builder = AppBuilder.Configure<TestApplication>();
+        //builder.UseAvaloniaBlazorBindings(services =>
+        //{
+        //    services.AddSingleton<AvaloniaBlazorBindingsRenderer, TestBlazorBindingsRenderer>();
+        //    //services.AddSingleton<Avalonia., TestDispatcher>();
+        //});
+        //return ((TestApplication)builder.Instance).ServiceProvider;
+
+        var services = new ServiceCollection();
+        services.TryAddSingleton<AvaloniaBlazorBindingsRenderer, TestBlazorBindingsRenderer>();
+        AvaloniaAppBuilderExtensions.RegisterBlazorServices(services);
+
+        return services.BuildServiceProvider();
+
     }
 
-    class TestDispatcher : MauiDispatching.IDispatcher
+    public static IServiceProvider Get(IAvaloniaBlazorApplication application)
     {
-        public bool IsDispatchRequired => false;
-        public MauiDispatching.IDispatcherTimer CreateTimer() => null;
-        public bool Dispatch(Action action)
-        {
-            action();
-            return true;
-        }
 
-        public bool DispatchDelayed(TimeSpan delay, Action action)
-        {
-            Thread.Sleep(delay);
-            action();
-            return true;
-        }
+        return application.ServiceProvider;
     }
+
+    //class TestDispatcher : AvaloniaDispatching.IDispatcher
+    //{
+    //    public bool IsDispatchRequired => false;
+    //    public AvaloniaDispatching.IDispatcherTimer CreateTimer() => null;
+    //    public bool Dispatch(Action action)
+    //    {
+    //        action();
+    //        return true;
+    //    }
+
+    //    public bool DispatchDelayed(TimeSpan delay, Action action)
+    //    {
+    //        Thread.Sleep(delay);
+    //        action();
+    //        return true;
+    //    }
+    //}
 }
 
-internal class TestBlazorBindingsRenderer : MauiBlazorBindingsRenderer
+internal class TestBlazorBindingsRenderer : AvaloniaBlazorBindingsRenderer
 {
-    public TestBlazorBindingsRenderer(MauiBlazorBindingsServiceProvider serviceProvider, ILoggerFactory loggerFactory) : base(serviceProvider, loggerFactory)
+    public TestBlazorBindingsRenderer(IServiceProvider serviceProvider, ILoggerFactory loggerFactory)
+        : base(serviceProvider, loggerFactory)
     {
     }
 
@@ -94,9 +175,9 @@ internal class TestBlazorBindingsRenderer : MauiBlazorBindingsRenderer
 
     public override Dispatcher Dispatcher => NullDispatcher.Instance;
 
-    public static MauiBlazorBindingsRenderer Create()
+    public static AvaloniaBlazorBindingsRenderer Get(TestApplication application)
     {
-        return TestServiceProvider.Create().GetRequiredService<MauiBlazorBindingsRenderer>();
+        return application.ServiceProvider.GetRequiredService<AvaloniaBlazorBindingsRenderer>();
     }
 
     sealed class NullDispatcher : Dispatcher

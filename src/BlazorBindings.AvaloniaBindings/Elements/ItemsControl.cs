@@ -19,6 +19,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
     public partial class ItemsControl<T> : BlazorBindings.AvaloniaBindings.Elements.Primitives.TemplatedControl
     {
         [Parameter] public IEnumerable<T> ItemsSource { get; set; }
+        [Parameter] public Func<T, object> ItemKeySelector { get; set; }
 
         private bool AssignItemsSourceDirectly => ItemsSource is INotifyCollectionChanged || ItemsSource is IImmutableList<T>;
 
@@ -51,7 +52,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
             sequence++;
             if (!AssignItemsSourceDirectly)
             {
-                RenderTreeBuilderHelper.AddItemsSourceProperty<AC.ItemsControl, T>(builder, sequence, ItemsSource, /*ItemKeySelector*/null, 
+                RenderTreeBuilderHelper.AddItemsSourceProperty<AC.ItemsControl, T>(builder, sequence, ItemsSource, ItemKeySelector, 
                     (nativeElement, items) => nativeElement.ItemsSource = items);
             }
         }

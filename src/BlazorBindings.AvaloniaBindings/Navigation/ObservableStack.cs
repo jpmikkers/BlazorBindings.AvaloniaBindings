@@ -4,21 +4,21 @@ using System.ComponentModel;
 
 namespace BlazorBindings.AvaloniaBindings.Navigation;
 
-public class ObservableStack<T> : Stack<T>, INotifyCollectionChanged, INotifyPropertyChanged, IList
+public class ObservableStack<T> : Stack<T>, INotifyCollectionChanged, INotifyPropertyChanged, IList, IList<T>
 {
     public bool IsFixedSize => false;
     public bool IsReadOnly => false;
 
-    public object this[int index]
+    public T this[int index] 
+    { 
+        get => this.ElementAt(index); 
+        set => throw new NotSupportedException(); 
+    }
+
+    object IList.this[int index]
     {
-        get
-        {
-            return this.ElementAt(index);
-        }
-        set
-        {
-            throw new NotSupportedException();
-        }
+        get => this.ElementAt(index);
+        set => throw new NotSupportedException();
     }
 
     #region Constructors
@@ -115,6 +115,26 @@ public class ObservableStack<T> : Stack<T>, INotifyCollectionChanged, INotifyPro
     }
 
     public void RemoveAt(int index)
+    {
+        throw new NotImplementedException();
+    }
+
+    public int IndexOf(T item)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Insert(int index, T item)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Add(T item)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool Remove(T item)
     {
         throw new NotImplementedException();
     }

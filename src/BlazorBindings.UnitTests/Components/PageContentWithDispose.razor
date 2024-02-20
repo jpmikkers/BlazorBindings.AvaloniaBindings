@@ -1,11 +1,11 @@
 ﻿@implements IDisposable
 
-<ContentPage @ref="_page" Title="Test">
+<ContentControl @ref="_page" Tag="@("Test")">
     <NonPageContent />
-</ContentPage>
+</ContentControl>
 
 @code {
-ContentPage _page;
+ContentControl _page;
 
 public event Action OnDispose;
 

@@ -2,15 +2,15 @@
 
 @if (_switch)
 {
-    <ContentPage Title="Page1">
+    <ContentControl Tag="@("Page1")">
         <Button OnClick="Switch" />
-    </ContentPage>
+    </ContentControl>
 }
 else
 {
-    <ContentPage Title="Page2">
+    <ContentControl Tag="@("Page2")">
         <Button OnClick="Switch" />
-    </ContentPage>
+    </ContentControl>
 }
 
 @code {

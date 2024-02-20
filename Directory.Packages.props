@@ -7,6 +7,7 @@
     <PackageVersion Include="Avalonia.Controls.ItemsRepeater" Version="11.0.9" />
     <PackageVersion Include="Avalonia.Desktop" Version="11.0.9" />
     <PackageVersion Include="Avalonia.Diagnostics" Version="11.0.9" />
+    <PackageVersion Include="Avalonia.Headless.NUnit" Version="11.0.9" />
     <PackageVersion Include="Blazored.FluentValidation" Version="2.1.0" />
     <PackageVersion Include="Avalonia.Fonts.Inter" Version="11.0.9" />
     <PackageVersion Include="Avalonia.Themes.Fluent" Version="11.0.9" />
@@ -14,6 +15,7 @@
     <PackageVersion Include="CommunityToolkit.Maui" Version="7.0.1" />
     <PackageVersion Include="coverlet.collector" Version="6.0.0" />
     <PackageVersion Include="DotNet.ReproducibleBuilds" Version="1.1.1" />
+    <PackageVersion Include="FluentAssertions" Version="6.12.0" />
     <PackageVersion Include="Fluxor.Blazor.Web" Version="5.9.1" />
     <PackageVersion Include="Material.Components.Maui" Version="0.1.2-beta" />
     <PackageVersion Include="Microsoft.Maui.Controls" Version="8.0.6" />

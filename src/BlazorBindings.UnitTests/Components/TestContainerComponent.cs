@@ -1,5 +1,4 @@
 ﻿using BlazorBindings.Core;
-using BlazorBindings.Maui.Extensions;
 using System.Collections.Immutable;
 
 namespace BlazorBindings.UnitTests.Components;
@@ -60,5 +59,13 @@ public class TestContainerComponent : NativeControlComponentBase, IElementHandle
         public int Y { get; set; }
 
         public ImmutableList<TestTargetElement> Children { get; set; }
+    }
+}
+
+public static class TestExtensions
+{
+    public static T Cast<T>(this object obj)
+    {
+        return (T)obj;
     }
 }

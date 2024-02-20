@@ -2,6 +2,9 @@
 
 public interface INavigation
 {
+    public IReadOnlyList<RenderFragment> ModalStack { get; }
+    public IReadOnlyList<RenderFragment> NavigationStack { get; }
+
     /// <summary>
     /// Performs URI-based Shell navigation. This method is only available for Shell-based applications.
     /// </summary>

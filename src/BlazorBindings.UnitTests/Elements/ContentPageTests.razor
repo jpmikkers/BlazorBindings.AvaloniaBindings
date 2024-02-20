@@ -1,11 +1,11 @@
-﻿@inherits ElementTestBase
+﻿@* @inherits ElementTestBase
 @code {
 
 [Test]
 public async Task RenderShellAttachedProperties()
 {
-    var page = await Render<MC.ContentPage>(
-        @<ContentPage TabBarIsVisible="false"
+    var page = await Render<AC.ContentControl>(
+        @<ContentControl TabBarIsVisible="false"
              NavBarIsVisible="false"
              NavBarHasShadow="true"
              ShellPresentationMode="MC.PresentationMode.ModalNotAnimated" />);
@@ -19,14 +19,14 @@ public async Task RenderShellAttachedProperties()
 [Test]
 public async Task RenderShellAttachedProperties_TitleView()
 {
-    var page = await Render<MC.ContentPage>(
-    @<ContentPage>
+    var page = await Render<AC.ContentControl>(
+    @<ContentControl>
         <TitleView>
             <Label>TitleView</Label>
         </TitleView>
-    </ContentPage>);
+    </ContentControl>);
 
-    var titleView = MC.Shell.GetTitleView(page) as MC.Label;
+    var titleView = MC.Shell.GetTitleView(page) as AC.Label;
     Assert.That(titleView?.Text, Is.EqualTo("TitleView"));
 }
 
@@ -34,8 +34,8 @@ public async Task RenderShellAttachedProperties_TitleView()
 public async Task RenderShellAttachedProperties_BackButtonBehavior()
 {
     var isCommandInvoked = false;
-    var page = await Render<MC.ContentPage>(
-    @<ContentPage BackButtonVisible="true" OnBackButtonPressed="() => isCommandInvoked = true" />
+    var page = await Render<AC.ContentControl>(
+    @<ContentControl BackButtonVisible="true" OnBackButtonPressed="() => isCommandInvoked = true" />
 );
 
     var backButtonBehavior = MC.Shell.GetBackButtonBehavior(page);
@@ -48,3 +48,4 @@ public async Task RenderShellAttachedProperties_BackButtonBehavior()
     Assert.That(isCommandInvoked);
 }
 }
+ *@

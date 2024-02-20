@@ -49,6 +49,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorBindings.AvaloniaBind
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorBindings.AvaloniaBindings.Core", "src\BlazorBindings.AvaloniaBindings.Core\BlazorBindings.AvaloniaBindings.Core.csproj", "{E1B6387B-11C3-413F-9D75-24F4A169D3B2}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "templates", "templates", "{D0FF3725-31BD-4819-B51F-CA95D4E4B429}"
+	ProjectSection(SolutionItems) = preProject
+		..\AvaloniaXPlat\Directory.Build.props = ..\AvaloniaXPlat\Directory.Build.props
+		Directory.Packages.props = Directory.Packages.props
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -264,6 +270,7 @@ Global
 		{9A81174C-6F1B-4BCC-85C6-1A780622EEAA} = {9F4F3F1F-228A-4896-BB23-DE6CFE64A63A}
 		{F2E6A53B-6FAC-41B6-9B49-29388D0BFD05} = {9A81174C-6F1B-4BCC-85C6-1A780622EEAA}
 		{E1B6387B-11C3-413F-9D75-24F4A169D3B2} = {9F4F3F1F-228A-4896-BB23-DE6CFE64A63A}
+		{D0FF3725-31BD-4819-B51F-CA95D4E4B429} = {9F4F3F1F-228A-4896-BB23-DE6CFE64A63A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A645A7FF-3F09-414D-A391-7E50C3597F05}

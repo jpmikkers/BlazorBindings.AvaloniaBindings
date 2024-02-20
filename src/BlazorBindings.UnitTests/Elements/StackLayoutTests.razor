@@ -6,25 +6,25 @@
     [Test]
     public async Task AddLayoutChildren()
     {
-        var layout = await Render<MC.Layout>(
-            @<VerticalStackLayout>
+        var layout = await Render<AC.StackPanel>(
+            @<StackPanel>
                 <Label>First</Label>
                 <Button>Second</Button>
 
-                <HorizontalStackLayout>
+                <StackPanel>
                     <Label>Third</Label>
-                </HorizontalStackLayout>
-            </VerticalStackLayout>
+                </StackPanel>
+            </StackPanel>
             );
 
-        var label = (MC.Label)layout.Children[0];
-        var button = (MC.Button)layout.Children[1];
-        var innerLayout = (MC.Layout)layout.Children[2];
-        var innerLabel = (MC.Label)innerLayout.Children[0];
+        var label = (AC.Label)layout.Children[0];
+        var button = (AC.Button)layout.Children[1];
+        var innerLayout = (AC.StackPanel)layout.Children[2];
+        var innerLabel = (AC.Label)innerLayout.Children[0];
 
-        Assert.That(label.Text, Is.EqualTo("First"));
-        Assert.That(button.Text, Is.EqualTo("Second"));
-        Assert.That(innerLabel.Text, Is.EqualTo("Third"));
+        Assert.That(label.Content, Is.EqualTo("First"));
+        Assert.That(button.Content, Is.EqualTo("Second"));
+        Assert.That(innerLabel.Content, Is.EqualTo("Third"));
     }
 
     [Test]
@@ -32,8 +32,8 @@
     {
         var insertItems = false;
 
-        var layout = await Render<MC.Layout>(
-            @<VerticalStackLayout>
+        var layout = await Render<AC.StackPanel>(
+            @<StackPanel>
                 @if (insertItems)
                 {
                     <Label>1</Label>
@@ -58,22 +58,22 @@
                 {
                     <Label>7</Label>
                 }
-            </VerticalStackLayout>
+            </StackPanel>
             );
 
-        var items = layout.Children.Cast<MC.Label>().Select(l => l.Text).ToArray();
+        var items = layout.Children.Cast<AC.Label>().Select(l => l.Content).ToArray();
         Assert.That(items, Is.EqualTo(new[] { "2", "4", "6" }));
 
         insertItems = true;
         StateHasChanged();
 
-        items = layout.Children.Cast<MC.Label>().Select(l => l.Text).ToArray();
+        items = layout.Children.Cast<AC.Label>().Select(l => l.Content).ToArray();
         Assert.That(items, Is.EqualTo(new[] { "1", "2", "3", "4", "5", "7" }));
 
         insertItems = false;
         StateHasChanged();
 
-        items = layout.Children.Cast<MC.Label>().Select(l => l.Text).ToArray();
+        items = layout.Children.Cast<AC.Label>().Select(l => l.Content).ToArray();
         Assert.That(items, Is.EqualTo(new[] { "2", "4", "6" }));
     }
 
@@ -83,8 +83,8 @@
     {
         var insertItems = false;
 
-        var layout = await Render<MC.Layout>(
-            @<VerticalStackLayout>
+        var layout = await Render<AC.StackPanel>(
+            @<StackPanel>
                 <Label>0</Label>
                 @if (insertItems)
                 {
@@ -121,22 +121,22 @@
                 {
                     <Label>9</Label>
                 }
-            </VerticalStackLayout>
+            </StackPanel>
             );
 
-        var items = layout.Children.Cast<MC.Label>().Select(l => l.Text).ToArray();
+        var items = layout.Children.Cast<AC.Label>().Select(l => l.Content).ToArray();
         Assert.That(items, Is.EqualTo(new[] { "0", "3", "4", "8" }));
 
         insertItems = true;
         StateHasChanged();
 
-        items = layout.Children.Cast<MC.Label>().Select(l => l.Text).ToArray();
+        items = layout.Children.Cast<AC.Label>().Select(l => l.Content).ToArray();
         Assert.That(items, Is.EqualTo(new[] { "0", "1", "2", "3", "4", "5", "6", "7", "9" }));
 
         insertItems = false;
         StateHasChanged();
 
-        items = layout.Children.Cast<MC.Label>().Select(l => l.Text).ToArray();
+        items = layout.Children.Cast<AC.Label>().Select(l => l.Content).ToArray();
         Assert.That(items, Is.EqualTo(new[] { "0", "3", "4", "8" }));
     }
 
@@ -146,8 +146,8 @@
     {
         var replaceItems = true;
 
-        var layout = await Render<MC.Layout>(
-            @<VerticalStackLayout>
+        var layout = await Render<AC.StackPanel>(
+            @<StackPanel>
                 @if (replaceItems)
                 {
                     <Label>1</Label>
@@ -164,22 +164,22 @@
                     <Label>5</Label>
                     <Label>6</Label>
                 }
-            </VerticalStackLayout>
+            </StackPanel>
             );
 
-        var items = layout.Children.Cast<MC.Label>().Select(l => l.Text).ToArray();
+        var items = layout.Children.Cast<AC.Label>().Select(l => l.Content).ToArray();
         Assert.That(items, Is.EqualTo(new[] { "1", "2", "3" }));
 
         replaceItems = false;
         StateHasChanged();
 
-        items = layout.Children.Cast<MC.Label>().Select(l => l.Text).ToArray();
+        items = layout.Children.Cast<AC.Label>().Select(l => l.Content).ToArray();
         Assert.That(items, Is.EqualTo(new[] { "4", "5", "6" }));
 
         replaceItems = true;
         StateHasChanged();
 
-        items = layout.Children.Cast<MC.Label>().Select(l => l.Text).ToArray();
+        items = layout.Children.Cast<AC.Label>().Select(l => l.Content).ToArray();
         Assert.That(items, Is.EqualTo(new[] { "1", "2", "3" }));
     }
 

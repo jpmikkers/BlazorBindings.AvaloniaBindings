@@ -5,8 +5,8 @@
 @page "/test/nullable-long-route/{L:long?}"
 @page "/test/datetime/{Dt}/without-constraint"
 
-<ContentPage @ref="_page" Title="@Title">
-    <VerticalStackLayout>
+<ContentControl @ref="_page" Tag="@("Title")">
+    <StackPanel>
         <Label Text="@I.ToString()" />
         <Label Text="@L?.ToString()" />
         <Label Text="@Dt?.ToString()" />
@@ -14,11 +14,11 @@
         <Label Text="@string.Concat(AdditionalText)" />
 
         <NonPageContent />
-    </VerticalStackLayout>
-</ContentPage>
+    </StackPanel>
+</ContentControl>
 
 @code {
-    ContentPage _page;
+    ContentControl _page;
 
     [Parameter] public string Title { get; set; }
     [Parameter] public int I { get; set; }
@@ -43,25 +43,25 @@
         OnDispose = null;
     }
 
-    public static void ValidateContent(MC.Element content, int i = 0, long? l = null, DateTime? dt = null, string[] additionalLines = null)
+    public static void ValidateContent(Avalonia.Visual content, int i = 0, long? l = null, DateTime? dt = null, string[] additionalLines = null)
     {
-        var contentPage = content as MC.ContentPage;
-        Assert.That(contentPage, Is.Not.Null);
+        var contentControl = content as Avalonia.Controls.ContentControl;
+        Assert.That(contentControl, Is.Not.Null);
 
-        var layout = (MC.VerticalStackLayout)contentPage.Content;
-        var labelI = (MC.Label)layout[0];
-        var labelL = (MC.Label)layout[1];
-        var labelDt = (MC.Label)layout[2];
-        var labelAdditional = (MC.Label)layout[3];
+        var layout = (Avalonia.Controls.StackPanel)contentControl.Content;
+        var labelI = (Avalonia.Controls.Label)layout.Children[0];
+        var labelL = (Avalonia.Controls.Label)layout.Children[1];
+        var labelDt = (Avalonia.Controls.Label)layout.Children[2];
+        var labelAdditional = (Avalonia.Controls.Label)layout.Children[3];
 
-        Assert.That(labelI.Text, Is.EqualTo(i.ToString()));
-        Assert.That(labelL.Text, Is.EqualTo(l?.ToString()));
-        Assert.That(labelDt.Text, Is.EqualTo(dt?.ToString()));
+        Assert.That(labelI.Content, Is.EqualTo(i.ToString()));
+        Assert.That(labelL.Content, Is.EqualTo(l?.ToString()));
+        Assert.That(labelDt.Content, Is.EqualTo(dt?.ToString()));
 
         if (additionalLines != null)
-            Assert.That(labelAdditional.Text, Is.EqualTo(string.Concat(additionalLines)));
+            Assert.That(labelAdditional.Content, Is.EqualTo(string.Concat(additionalLines)));
 
-        var nonPageContent = layout[4];
+        var nonPageContent = layout.Children[4];
         NonPageContent.ValidateContent(nonPageContent);
     }
 }
