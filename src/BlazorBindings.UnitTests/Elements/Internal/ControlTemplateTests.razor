@@ -1,7 +1,7 @@
 @inherits ElementTestBase
 
 @code {
-[Test]
+[AvaloniaTest]
 public async Task CreateControlFromTemplate()
 {
     var template = await RenderTemplate(
@@ -18,7 +18,7 @@ public async Task CreateControlFromTemplate()
     Assert.That(label2.Content, Is.EqualTo("2"));
 }
 
-[Test]
+[AvaloniaTest]
 public async Task TemplateCreatesNewControlsEachTime()
 {
     var template = await RenderTemplate(@<Label>-</Label>);
@@ -38,7 +38,7 @@ public async Task TemplateCreatesNewControlsEachTime()
 
 private async Task<AC.Templates.IControlTemplate> RenderTemplate(RenderFragment fragment)
 {
-    var contentView = await Render<AC.ContentControl>(@<ContentControl ControlTemplate="fragment" />);
+    var contentView = await Render<AC.ContentControl>(@<ContentControl Template="fragment" />);
     return contentView.Template;
 }
 }

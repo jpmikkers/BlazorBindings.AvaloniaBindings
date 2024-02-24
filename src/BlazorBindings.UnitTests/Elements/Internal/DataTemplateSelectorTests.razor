@@ -2,7 +2,7 @@
 @inherits ElementTestBase
 
 @code {
-    [Test]
+    [AvaloniaTest]
     public async Task CreateContentFromDataTemplateSelector()
     {
         var templateSelector = await RenderTemplate<int>(i => i >= 0
@@ -21,7 +21,7 @@
         Assert.That(labelMinus1.Content, Is.EqualTo("-1 - Negative"));
     }
 
-    [Test]
+    [AvaloniaTest]
     public async Task SelectorShouldCreateSeparateDataTemplatesPerChildComponent()
     {
         DataTemplateSelector templateSelector = await RenderTemplate<int>(i => i >= 0
@@ -41,7 +41,7 @@
         Assert.That(templateA1, Is.Not.SameAs(templateB1));
     }
 
-    [Test]
+    [AvaloniaTest]
     public async Task TemplateContentChangesBasedOnBindingContext()
     {
         var template = await RenderTemplate<int>(i =>

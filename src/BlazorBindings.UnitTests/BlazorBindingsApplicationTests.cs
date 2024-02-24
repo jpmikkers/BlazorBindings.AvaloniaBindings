@@ -26,7 +26,7 @@ public class BlazorBindingsApplicationTests
         
         application.RenderComponent(true);
 
-        PageContent.ValidateContent(_window);
+        PageContent.ValidateContent((Avalonia.StyledElement)_window.Content);
     }
 
     [AvaloniaTest]
@@ -56,11 +56,26 @@ public class BlazorBindingsApplicationTests
         return _application;
     }
 
-    private static BlazorBindingsApplication<TMain> CreateApplicationWithWrapper<TMain, TWrapper>()
+    private BlazorBindingsApplication CreateApplicationWithWrapper<TMain, TWrapper>()
         where TMain : IComponent
         where TWrapper : IComponent
     {
-        return new BlazorBindingsApplicationWithWrapper<TMain, TWrapper>(TestServiceProvider.Get());
+        //return new BlazorBindingsApplicationWithWrapper<TMain, TWrapper>(TestServiceProvider.Get());
+        _application = (TestApplication)Application.Current;
+        _application.ComponentType = typeof(TMain);
+        _application.WrapperComponentType = typeof(TWrapper);
+
+        _renderer = (TestBlazorBindingsRenderer)TestBlazorBindingsRenderer.Get(_application);
+
+        Avalonia.Threading.Dispatcher.UIThread.VerifyAccess();
+        _window = new Window
+        {
+            Width = 100,
+            Height = 100
+        };
+        _application.Window = _window;
+
+        return _application;
     }
 
     class BlazorBindingsApplicationWithWrapper<TMain, TWrapper> : BlazorBindingsApplication<TMain>
@@ -69,9 +84,9 @@ public class BlazorBindingsApplicationTests
     {
         public BlazorBindingsApplicationWithWrapper(IServiceProvider serviceProvider) 
         {
-            Initialize(serviceProvider);
+            //Initialize(serviceProvider);
         }
 
-        public override Type WrapperComponentType => typeof(TWrapper);
+        //public override Type WrapperComponentType => typeof(TWrapper);
     }
 }

@@ -9,16 +9,28 @@
     public ElementTestBase()
     {
         // Avalonia.Application.Current = new TestApplication();
-        _application = TestApplication.Create();
-        _renderer = (TestBlazorBindingsRenderer)TestBlazorBindingsRenderer.Get(_application);
+        // _application = TestApplication.Create();
     }
 
     private TestApplication _application;
+    private AC.Window _window;
     private TestBlazorBindingsRenderer _renderer;
     private RenderFragmentComponent _renderedComponent;
 
     protected async Task<T> Render<T>(RenderFragment renderFragment)
     {
+        _application = (TestApplication)Avalonia.Application.Current;
+        //_application.ComponentType = typeof(T);
+        _renderer = (TestBlazorBindingsRenderer)TestBlazorBindingsRenderer.Get(_application);
+
+        Avalonia.Threading.Dispatcher.UIThread.VerifyAccess();
+        _window = new AC.Window
+            {
+                Width = 100,
+                Height = 100
+            };
+        _application.Window = _window;
+
         var container = new RootContainerHandler();
         _renderedComponent = await _renderer.AddComponent<RenderFragmentComponent>(container, new Dictionary<string, object>
             {

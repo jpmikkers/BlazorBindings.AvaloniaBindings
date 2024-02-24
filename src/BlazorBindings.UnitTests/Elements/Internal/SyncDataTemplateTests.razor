@@ -3,7 +3,7 @@
 @inherits ElementTestBase
 
 @code {
-[Test]
+[AvaloniaTest]
 public async Task CreateContentFromDataTemplate()
 {
     var template = await RenderTemplate<int>(i =>
@@ -16,7 +16,7 @@ public async Task CreateContentFromDataTemplate()
         Assert.That(label2.Content, Is.EqualTo("2 - many"));
 }
 
-[Test]
+[AvaloniaTest]
 public async Task TemplateContentChangesBasedOnBindingContext()
 {
     var template = await RenderTemplate<int>(i =>

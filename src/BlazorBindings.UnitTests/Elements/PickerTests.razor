@@ -1,25 +1,25 @@
 ﻿@inherits ElementTestBase
 
 @code {
-    [Test]
+    [AvaloniaTest]
     public async Task SetArrayItemsSource()
     {
         var items = new[] { 1, 2, 3 };
         var picker = await Render<AC.ComboBox>(@<ComboBox ItemsSource="items" />);
 
-        Assert.That(picker.Items, Is.EqualTo(new[] { "1", "2", "3" }));
+        Assert.That(picker.Items, Is.EqualTo(new[] { 1, 2, 3 }));
     }
 
-    [Test]
+    [AvaloniaTest]
     public async Task SetListItemsSource()
     {
         var items = new List<int> { 1, 2, 3 };
         var picker = await Render<AC.ComboBox>(@<ComboBox ItemsSource="items" />);
 
-        Assert.That(picker.Items, Is.EqualTo(new[] { "1", "2", "3" }));
+        Assert.That(picker.Items, Is.EqualTo(new[] { 1, 2, 3 }));
     }
 
-    // [Test]
+    // [AvaloniaTest]
     // public async Task SetDisplayBinding()
     // {
     //     var items = new[] { "A", "b", "c" };

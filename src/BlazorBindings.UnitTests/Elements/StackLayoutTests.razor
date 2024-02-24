@@ -3,7 +3,7 @@
 
 @code {
 
-    [Test]
+    [AvaloniaTest]
     public async Task AddLayoutChildren()
     {
         var layout = await Render<AC.StackPanel>(
@@ -27,7 +27,7 @@
         Assert.That(innerLabel.Content, Is.EqualTo("Third"));
     }
 
-    [Test]
+    [AvaloniaTest]
     public async Task InsertAndRemoveItems()
     {
         var insertItems = false;
@@ -78,7 +78,7 @@
     }
 
 
-    [Test]
+    [AvaloniaTest]
     public async Task InsertAndRemoveItems_WithNestedComponents()
     {
         var insertItems = false;
@@ -141,7 +141,7 @@
     }
 
 
-    [Test]
+    [AvaloniaTest]
     public async Task ReplaceItems()
     {
         var replaceItems = true;

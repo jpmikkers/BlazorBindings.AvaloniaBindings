@@ -21,47 +21,54 @@ public class BlazorBindingsApplication : Application, IAvaloniaBlazorApplication
 
     public Type ComponentType { get; set; }
 
+    public Type WrapperComponentType { get; set; }
+
     public virtual void Initialize(IServiceProvider serviceProvider)
     {
         _serviceProvider = serviceProvider ?? (new ServiceCollection().BuildServiceProvider());
 
         Configure();
 
-        var renderer = serviceProvider.GetRequiredService<AvaloniaBlazorBindingsRenderer>();
+        //var renderer = serviceProvider.GetRequiredService<AvaloniaBlazorBindingsRenderer>();
+    }
 
-        if (WrapperComponentType != null)
-        {
-            var navigation = _serviceProvider.GetService<INavigation>();
-            (navigation as BlazorNavigation)?.SetWrapperComponentType(WrapperComponentType);
-        }
+    public override void OnFrameworkInitializationCompleted()
+    {
+        //if (WrapperComponentType != null)
+        //{
+        //    var navigation = _serviceProvider.GetService<INavigation>();
+        //    (navigation as BlazorNavigation)?.SetWrapperComponentType(WrapperComponentType);
+        //}
 
-        RenderComponent(false);
+        //RenderComponent(false);
 
-        var navigationView = new NavigationView();
-        _avaloniaNavigation = new AvaloniaNavigation(navigationView);
-        Task pushTask;
+        //var navigationView = new NavigationView();
+        //_avaloniaNavigation = new AvaloniaNavigation(navigationView);
+        //Task pushTask;
 
-        if (Avalonia.Application.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime classic)
-        {
-            pushTask = _avaloniaNavigation.PushAsync((Control)classic.MainWindow.Content, false);
-            classic.MainWindow.Content = navigationView;
-        }
-        else if (Avalonia.Application.Current.ApplicationLifetime is ISingleViewApplicationLifetime single)
-        {
-            pushTask = _avaloniaNavigation.PushAsync((Control)single.MainView, false);
-            single.MainView = navigationView;
-        }
-        else if (Avalonia.Application.Current is ITestApplication testApplication)
-        {
-            pushTask = _avaloniaNavigation.PushAsync((Control)testApplication.Window.Content, false);
-            testApplication.Window.Content = navigationView;
-        }
-        else
-        {
-            throw new NotSupportedException($"Unsupported application lifetime '{Avalonia.Application.Current.ApplicationLifetime.GetType().FullName}'");
-        }
+        //if (Avalonia.Application.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime classic)
+        //{
+        //    pushTask = _avaloniaNavigation.PushAsync((Control)classic.MainWindow.Content, false);
+        //    classic.MainWindow.Content = navigationView;
+        //}
+        //else if (Avalonia.Application.Current.ApplicationLifetime is ISingleViewApplicationLifetime single)
+        //{
+        //    pushTask = _avaloniaNavigation.PushAsync((Control)single.MainView, false);
+        //    single.MainView = navigationView;
+        //}
+        //else if (Avalonia.Application.Current is ITestApplication testApplication)
+        //{
+        //    pushTask = _avaloniaNavigation.PushAsync((Control)testApplication.Window.Content, false);
+        //    testApplication.Window.Content = navigationView;
+        //}
+        //else
+        //{
+        //    throw new NotSupportedException($"Unsupported application lifetime '{Avalonia.Application.Current.ApplicationLifetime.GetType().FullName}'");
+        //}
 
-        AwaitVoid(pushTask);
+        //AwaitVoid(pushTask);
+
+        base.OnFrameworkInitializationCompleted();
     }
 
     static async void AwaitVoid(Task task) => await task;
@@ -76,31 +83,40 @@ public class BlazorBindingsApplication : Application, IAvaloniaBlazorApplication
             var task = renderer.AddComponent(componentType, this, parameters);
             AwaitVoid(task);
 
-            if (addToRoot)
-            {
-                var nativeControl = ((Elements.Control)task.Result).NativeControl;
+            //if (addToRoot)
+            //{
+            //    var renderedComponent = task.Result;
+            //    AC.Control nativeControl = null;
 
-                if (Avalonia.Application.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime classic)
-                {
-                    classic.MainWindow.Content = nativeControl;
-                }
-                else if (Avalonia.Application.Current.ApplicationLifetime is ISingleViewApplicationLifetime single)
-                {
-                    single.MainView = nativeControl;
-                }
-                else if (Avalonia.Application.Current is ITestApplication testApplication)
-                {
-                    testApplication.Window.Content = nativeControl;
-                }
-                else
-                {
-                    throw new NotSupportedException($"Unsupported application lifetime '{Avalonia.Application.Current.ApplicationLifetime.GetType().FullName}'");
-                }
-            }
+            //    if (renderedComponent is Elements.Control)
+            //    {
+            //        nativeControl = ((Elements.Control)task.Result).NativeControl;
+            //    }
+            //    else if(renderedComponent is ComponentBase componentBase)
+            //    {
+            //        nativeControl = ((Elements.Control)task.Result).NativeControl;
+            //    }
+                
+
+            //    if (Avalonia.Application.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime classic)
+            //    {
+            //        classic.MainWindow.Content = nativeControl;
+            //    }
+            //    else if (Avalonia.Application.Current.ApplicationLifetime is ISingleViewApplicationLifetime single)
+            //    {
+            //        single.MainView = nativeControl;
+            //    }
+            //    else if (Avalonia.Application.Current is ITestApplication testApplication)
+            //    {
+            //        testApplication.Window.Content = nativeControl;
+            //    }
+            //    else
+            //    {
+            //        throw new NotSupportedException($"Unsupported application lifetime '{Avalonia.Application.Current.ApplicationLifetime.GetType().FullName}'");
+            //    }
+            //}
         }
     }
-
-    public virtual Type WrapperComponentType { get; }
 
     /// <summary>
     /// This method is executed before the rendering. It can be used to set resources, for example.

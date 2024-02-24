@@ -1,16 +1,17 @@
 ﻿@inherits ElementTestBase
 
 @code {
-    [Test]
-    public async Task AddLabelWithTextProperty()
+    [AvaloniaTest]
+    public async Task AddLabelWithChildContentProperty()
     {
         AC.Label l;
-        var label = await Render<AC.Label>(@<Label Text="123" />);
+        var someText = "123";
+        var label = await Render<AC.Label>(@<Label ChildContent="b => b.AddContent(0, someText)" />);
 
         Assert.That(label.Content, Is.EqualTo("123"));
     }
 
-    [Test]
+    [AvaloniaTest]
     public async Task AddLabelWithTextContent()
     {
         var label = await Render<AC.Label>(@<Label>345</Label>);
@@ -18,7 +19,7 @@
         Assert.That(label.Content, Is.EqualTo("345"));
     }
 
-    [Test]
+    [AvaloniaTest]
     public async Task AddLabelWithDynamicTextContent()
     {
         var someText = "123";
@@ -32,7 +33,7 @@
         Assert.That(label.Content, Is.EqualTo("Dynamic - 234 - label with child content"));
     }
 
-    // [Test]
+    // [AvaloniaTest]
     // public async Task AddLabelWithSpans()
     // {
     //     var label = await Render<AC.Label>(
@@ -57,7 +58,7 @@
     //     Assert.That(spans[3].FontAttributes, Is.EqualTo(MC.FontAttributes.Bold));
     // }
 
-    // [Test]
+    // [AvaloniaTest]
     // public async Task AddSpanDynamically()
     // {
     //     var insertSpan = false;

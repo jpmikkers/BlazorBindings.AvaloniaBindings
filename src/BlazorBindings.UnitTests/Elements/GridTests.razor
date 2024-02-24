@@ -2,7 +2,7 @@
 @inherits ElementTestBase
 
 @code {
-    [Test]
+    [AvaloniaTest]
     public async Task AddItemsViaGridCell()
     {
         var grid = await Render<AC.Grid>(
@@ -43,7 +43,7 @@
         Assert.That(GetGridProps(label11), Is.EqualTo((1, 1, 1, 1)));
     }
 
-    [Test]
+    [AvaloniaTest]
     public async Task AddItemsViaAttachedProperties()
     {
         var grid = await Render<AC.Grid>(
@@ -73,7 +73,7 @@
         Assert.That(GetGridProps(label11), Is.EqualTo((1, 1, 1, 1)));
     }
 
-    [Test]
+    [AvaloniaTest]
     public async Task SetColumnDefinitions()
     {
         var grid = await Render<AC.Grid>(@<Grid ColumnDefinitions="@(new ColumnDefinitions("10, Auto, 20, *"))" /> );
@@ -84,7 +84,7 @@
         Assert.That(grid.ColumnDefinitions[3].Width.GridUnitType, Is.EqualTo(GridUnitType.Star));
     }
 
-    [Test]
+    [AvaloniaTest]
     public async Task SetRowDefinitions()
     {
         var grid = await Render<AC.Grid>(@<Grid RowDefinitions="@(new RowDefinitions("10, Auto, 20, *"))" />);
@@ -96,7 +96,7 @@
     }
 
 
-    [Test]
+    [AvaloniaTest]
     public async Task AddAndRemoveGridCells()
     {
         var insertItems = true;

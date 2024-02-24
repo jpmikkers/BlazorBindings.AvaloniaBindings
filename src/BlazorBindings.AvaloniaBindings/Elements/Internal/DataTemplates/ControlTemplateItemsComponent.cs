@@ -22,9 +22,9 @@ internal class ControlTemplateItemsComponent<TControl, TTemplate> : NativeContro
 
         if (SetControlTemplateAction is not null)
         {
-            RenderTreeBuilderHelper.AddContentProperty<TControl>(builder, sequence++, Template, (x, value) =>
+            if (typeof(ITemplate<AC.Panel>).IsAssignableFrom(typeof(TTemplate)))
             {
-                if (typeof(ITemplate<AC.Panel>).IsAssignableFrom(typeof(TTemplate)))
+                RenderTreeBuilderHelper.AddContentProperty<TControl>(builder, sequence++, Template, (x, value) =>
                 {
                     var controlTemplate = new ItemsPanelTemplate()
                     {
@@ -32,18 +32,32 @@ internal class ControlTemplateItemsComponent<TControl, TTemplate> : NativeContro
                     };
 
                     SetControlTemplateAction(_parent, (TTemplate)(object)controlTemplate);
-                }
-                else
+                });
+            }
+            else if (typeof(TTemplate).IsAssignableTo(typeof(IControlTemplate)))
+            {
+                RenderTreeBuilderHelper.AddContentProperty<TControl>(builder, sequence++, Template, (x, value) =>
                 {
-                    throw new NotSupportedException($"{typeof(TTemplate).Name} is not yet supported");
-                }
-                
-            });
+                    var controlTemplate = new ControlTemplate
+                    {
+                        Content = (Func<IServiceProvider, object>)((serviceProvider) => new TemplateResult<AC.Control>((AC.Control)value, null))
+                    };
+
+                    SetControlTemplateAction(_parent, (TTemplate)(object)controlTemplate);
+
+                });
+            }
+
+            else
+            {
+                throw new NotSupportedException($"{typeof(TTemplate).Name} is not yet supported");
+            }
+
         }
     }
 
     [Parameter] public Action<TControl, TTemplate> SetControlTemplateAction { get; set; }
-    
+
     [Parameter] public RenderFragment Template { get; set; }
 
     private TControl _parent;

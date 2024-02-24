@@ -1,7 +1,7 @@
 @inherits ElementTestBase
 
 @code {
-[Test]
+[AvaloniaTest]
 public async Task BindedValueIsUpdatedWhenTextChanged()
 {
     string text = null;
@@ -12,7 +12,7 @@ public async Task BindedValueIsUpdatedWhenTextChanged()
     Assert.That(text, Is.EqualTo("test123"));
 }
 
-[Test]
+[AvaloniaTest]
 public async Task TextIsUpdatedWhenBindedValueChanged()
 {
     string text = null;

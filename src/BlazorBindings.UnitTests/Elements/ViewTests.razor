@@ -4,7 +4,7 @@
 @inherits ElementTestBase
 
 @code {
-[Test]
+[AvaloniaTest]
 public async Task OnTapInvokesCallback()
 {
     bool tapped = false;
@@ -15,7 +15,7 @@ public async Task OnTapInvokesCallback()
     Assert.That(tapped, Is.True);
 }
 
-[Test]
+[AvaloniaTest]
 public async Task OnDoubleTapInvokesCallback()
 {
     bool tapped = false;
@@ -26,7 +26,7 @@ public async Task OnDoubleTapInvokesCallback()
     Assert.That(tapped, Is.True);
 }
 
-// [Test]
+// [AvaloniaTest]
 // public async Task OnSwipeInvokesCallback()
 // {
 //     SwipeDirection? swipeDirection = null;
@@ -45,7 +45,7 @@ public async Task OnDoubleTapInvokesCallback()
 //     Assert.That(swipeDirection, Is.EqualTo(SwipeDirection.Down));
 // }
 
-// [Test]
+// [AvaloniaTest]
 // public async Task OnPinchUpdateInvokesCallback()
 // {
 //     GestureStatus? status = null;
@@ -58,7 +58,7 @@ public async Task OnDoubleTapInvokesCallback()
 //     Assert.That(status, Is.EqualTo(GestureStatus.Completed));
 // }
 
-// [Test]
+// [AvaloniaTest]
 // public async Task OnPanUpdateInvokesCallback()
 // {
 //     (double, double) totalXY = (0, 0);
@@ -70,12 +70,14 @@ public async Task OnDoubleTapInvokesCallback()
 
 private void SingleTap(AC.ContentControl view)
 {
-    view.RaiseEvent(new RoutedEventArgs(Gestures.TappedEvent));
+    var e = new PointerEventArgs(null, null,null, null, default, 0, default, default);
+    view.RaiseEvent(new TappedEventArgs(Gestures.TappedEvent, e));
 }
 
 private void DoubleTap(AC.ContentControl view)
 {
-    view.RaiseEvent(new RoutedEventArgs(Gestures.DoubleTappedEvent));
+    var e = new PointerEventArgs(null, null, null, null, default, 0, default, default);
+    view.RaiseEvent(new TappedEventArgs(Gestures.DoubleTappedEvent, e));
 }
 
 // private void Swipe(AC.ContentControl view, SwipeDirection direction)

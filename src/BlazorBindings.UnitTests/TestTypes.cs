@@ -77,14 +77,8 @@ public class TestApplication : BlazorBindingsApplication, IAvaloniaBlazorApplica
     //    {
     //        public IResourceDictionary GetSystemResources() => new ResourceDictionary();
     //    }
-    public IServiceProvider ServiceProvider { get; private set; }
-    public AvaloniaNavigation Navigation { get; }
+    
     public Window Window { get; set; }
-
-    public void Initialize(IServiceProvider serviceProvider)
-    {
-        ServiceProvider = serviceProvider;
-    }
 
     public static TestApplication Create()
     {
@@ -102,8 +96,10 @@ public class TestApplication : BlazorBindingsApplication, IAvaloniaBlazorApplica
 
         //return (TestApplication)appBuilder.Instance;
 
-        var application = new TestApplication();
-        application.Initialize(TestServiceProvider.Get());
+        var builder = TestApplication.BuildAvaloniaApp();
+        builder.SetupWithoutStarting();
+        var application = (TestApplication)builder.Instance;
+        //application.Initialize(TestServiceProvider.Get());
 
         return application;
     }

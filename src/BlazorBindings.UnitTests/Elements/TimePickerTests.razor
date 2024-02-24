@@ -1,7 +1,7 @@
 ﻿@inherits ElementTestBase
 
 @code {
-[Test]
+[AvaloniaTest]
 public async Task BindedTimeIsUpdatedWhenSelected()
 {
     TimeSpan? bindedTime = default;
@@ -9,10 +9,10 @@ public async Task BindedTimeIsUpdatedWhenSelected()
 
     timePicker.SelectedTime = new TimeSpan(12, 36, 42);
 
-    Assert.That(bindedTime, Is.EqualTo(new TimeOnly(12, 36, 42)));
+    Assert.That(bindedTime.ToString(), Is.EqualTo(new TimeOnly(12, 36, 42).ToLongTimeString()));
 }
 
-[Test]
+[AvaloniaTest]
 public async Task SelectedTimeIsUpdatedWhenBindedValueChanged()
 {
     TimeSpan? bindedTime = default;

@@ -5,7 +5,7 @@
 @inherits ElementTestBase
 
 @code {
-    [Test]
+    [AvaloniaTest]
     public async Task CreateCollectionViewWithItemTemplate()
     {
         var items = new (int Index, string Name)[] { (1, "First"), (2, "Seconds"), (3, ("Third")) };
@@ -26,7 +26,7 @@
         Assert.That(collectionView.ItemsSource is INotifyCollectionChanged);
     }
 
-    [Test]
+    [AvaloniaTest]
     public async Task ObservableItemsViewIsAssignedDirectly()
     {
         var items = new ObservableCollection<int>(new[] { 1, 2, 3, 4 });
@@ -42,7 +42,7 @@
         Assert.That(collectionView.ItemsSource, Is.SameAs(items));
     }
 
-    [Test]
+    [AvaloniaTest]
     public async Task ImmutableItemsViewIsAssignedDirectly()
     {
         var items = ImmutableList.Create(1, 2, 3, 4);
