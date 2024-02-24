@@ -4,24 +4,24 @@
 [AvaloniaTest]
 public async Task BindedDateIsUpdatedWhenSelected()
 {
-    DateOnly bindedDate = default;
-    var datePicker = await Render<AC.DatePicker>(@<DatePicker @bind-Date="bindedDate" />);
+    DateTimeOffset? bindedDate = default;
+    var datePicker = await Render<AC.DatePicker>(@<DatePicker @bind-SelectedDate="bindedDate" />);
 
-    datePicker.SelectedDate = new DateTime(2023, 01, 12);
+    datePicker.SelectedDate = new DateTimeOffset(2023, 01, 12, 0, 0, 0, default);
 
-    Assert.That(bindedDate, Is.EqualTo(new DateOnly(2023, 01, 12)));
+    Assert.That(bindedDate, Is.EqualTo(new DateTimeOffset(2023, 01, 12, 0, 0, 0, default)));
 }
 
 [AvaloniaTest]
 public async Task SelectedDateIsUpdatedWhenBindedValueChanged()
 {
-    DateOnly bindedDate = default;
-    var datePicker = await Render<AC.DatePicker>(@<DatePicker @bind-Date="bindedDate" />);
+    DateTimeOffset? bindedDate = default;
+    var datePicker = await Render<AC.DatePicker>(@<DatePicker @bind-SelectedDate="bindedDate" />);
 
-    bindedDate = new DateOnly(2023, 01, 12);
+    bindedDate = new DateTimeOffset(2023, 01, 12, 0, 0, 0, default);
     StateHasChanged();
 
-    Assert.That(datePicker.SelectedDate, Is.EqualTo(new DateTime(2023, 01, 12)));
+    Assert.That(datePicker.SelectedDate, Is.EqualTo(new DateTimeOffset(2023, 01, 12, 0, 0, 0, default)));
 }
 
 [AvaloniaTest]

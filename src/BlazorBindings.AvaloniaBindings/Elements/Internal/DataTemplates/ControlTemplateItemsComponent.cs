@@ -16,55 +16,64 @@ namespace BlazorBindings.AvaloniaBindings.Elements.DataTemplates;
 internal class ControlTemplateItemsComponent<TControl, TTemplate> : NativeControlComponentBase, IContainerElementHandler, INonPhysicalChild
     where TControl : TemplatedControl
 {
-    protected override void RenderAdditionalElementContent(RenderTreeBuilder builder, ref int sequence)
+    protected override RenderFragment GetChildContent()
     {
-        base.RenderAdditionalElementContent(builder, ref sequence);
-
-        if (SetControlTemplateAction is not null)
+        return builder =>
         {
-            if (typeof(ITemplate<AC.Panel>).IsAssignableFrom(typeof(TTemplate)))
+            foreach (var itemRoot in _itemRoots)
             {
-                RenderTreeBuilderHelper.AddContentProperty<TControl>(builder, sequence++, Template, (x, value) =>
+                builder.OpenComponent<InitializedContentView>(1);
+
+                builder.AddAttribute(2, nameof(InitializedContentView.NativeControl), itemRoot);
+                builder.AddAttribute(3, "ChildContent", (RenderFragment)(builder =>
                 {
-                    var controlTemplate = new ItemsPanelTemplate()
-                    {
-                        Content = (Func<IServiceProvider, object>)((serviceProvider) => new TemplateResult<AC.Control>((AC.Control)value, null))
-                    };
+                    Template.Invoke(builder);
+                }));
 
-                    SetControlTemplateAction(_parent, (TTemplate)(object)controlTemplate);
-                });
+                builder.CloseComponent();
             }
-            else if (typeof(TTemplate).IsAssignableTo(typeof(IControlTemplate)))
-            {
-                RenderTreeBuilderHelper.AddContentProperty<TControl>(builder, sequence++, Template, (x, value) =>
-                {
-                    var controlTemplate = new ControlTemplate
-                    {
-                        Content = (Func<IServiceProvider, object>)((serviceProvider) => new TemplateResult<AC.Control>((AC.Control)value, null))
-                    };
-
-                    SetControlTemplateAction(_parent, (TTemplate)(object)controlTemplate);
-
-                });
-            }
-
-            else
-            {
-                throw new NotSupportedException($"{typeof(TTemplate).Name} is not yet supported");
-            }
-
-        }
+        };
     }
 
     [Parameter] public Action<TControl, TTemplate> SetControlTemplateAction { get; set; }
 
     [Parameter] public RenderFragment Template { get; set; }
 
-    private TControl _parent;
+
+    private readonly List<AC.ContentControl> _itemRoots = [];
+
+    private AC.ContentControl AddTemplateRoot()
+    {
+        var templateRoot = new AC.ContentControl();
+        _itemRoots.Add(templateRoot);
+        StateHasChanged();
+
+        return templateRoot;
+    }
 
     void INonPhysicalChild.SetParent(object parentElement)
     {
-        _parent = parentElement as TControl;
+        var parent = parentElement as TControl;
+
+        if (SetControlTemplateAction != null)
+        {
+            if (typeof(ITemplate<AC.Panel>).IsAssignableFrom(typeof(TTemplate)))
+            {
+                var controlTemplate = new ItemsPanelTemplate()
+                {
+                    Content = (Func<IServiceProvider, object>)((serviceProvider) => new TemplateResult<AC.Control>((AC.Control)AddTemplateRoot().Content, null))
+                };
+                SetControlTemplateAction(parent, (TTemplate)(object)controlTemplate);
+            }
+            else if (typeof(TTemplate).IsAssignableTo(typeof(IControlTemplate)))
+            {
+                var controlTemplate = new ControlTemplate
+                {
+                    Content = (Func<IServiceProvider, object>)((serviceProvider) => new TemplateResult<AC.Control>((AC.Control)AddTemplateRoot().Content, null))
+                };
+                SetControlTemplateAction(parent, (TTemplate)(object)controlTemplate);
+            }
+        }
     }
 
 
