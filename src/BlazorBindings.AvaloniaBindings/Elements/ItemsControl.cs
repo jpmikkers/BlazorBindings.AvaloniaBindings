@@ -46,6 +46,10 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     ItemTemplate = (RenderFragment<T>)value;
                     return true;
 
+                case nameof(ItemKeySelector):
+                    ItemKeySelector = (Func<T, object>)value;
+                    return true;
+
                 default:
                     return base.HandleAdditionalParameter(name, value);
             }
