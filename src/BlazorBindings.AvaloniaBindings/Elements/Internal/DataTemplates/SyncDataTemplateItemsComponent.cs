@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
+using Avalonia.Controls.Templates;
+
 namespace BlazorBindings.AvaloniaBindings.Elements.DataTemplates;
 
 /// <summary>
@@ -25,7 +27,7 @@ internal class SyncDataTemplateItemsComponent<TControl, TItem> : NativeControlCo
     [Parameter] public Action<TControl, AvaloniaDataTemplate> SetDataTemplateAction { get; set; }
     [Parameter] public RenderFragment<TItem> Template { get; set; }
 
-    private readonly List<TItem> _initialItems = new();
+    private readonly List<TItem> _initialItems = [];
 
     private SyncDataTemplateItemComponent<TItem> _lastAddedItem;
 
@@ -47,9 +49,8 @@ internal class SyncDataTemplateItemsComponent<TControl, TItem> : NativeControlCo
         //var dataTemplate = new DataTemplateSelector(AddTemplateRoot);
         //var dataTemplate = new Avalonia.Controls.Templates.FuncTemplate<TItem, Avalonia.Controls.Panel>(
         //    (item, ns) => (global::Avalonia.Controls.Panel)AddTemplateRoot(item));
-        var dataTemplate = new Avalonia.Markup.Xaml.Templates.DataTemplate()
-        {
-        };
+        var dataTemplate = new AC.Templates.FuncDataTemplate(typeof(TItem),
+            (item, namescope) => (AC.Control)AddTemplateRoot((TItem)item));
         //SetDataTemplateAction(parent, dataTemplate);
         SetDataTemplateAction(parent, dataTemplate);
     }

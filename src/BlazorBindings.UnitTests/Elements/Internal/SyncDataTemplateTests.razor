@@ -38,7 +38,8 @@ private async Task<AC.Templates.IDataTemplate> RenderTemplate<T>(RenderFragment<
     return listView.ItemTemplate;
 }
 
-private T CreateTemplateRoot<T>(Avalonia.Controls.Templates.IDataTemplate template, object item) where T:Avalonia.StyledElement
+private T CreateTemplateRoot<T>(Avalonia.Controls.Templates.IDataTemplate template, object item)
+    where T:Avalonia.StyledElement
 {
     // var content = (Avalonia.AvaloniaObject)template.CreateContent(item, null);
     var content = (Avalonia.StyledElement)template.Build(item);

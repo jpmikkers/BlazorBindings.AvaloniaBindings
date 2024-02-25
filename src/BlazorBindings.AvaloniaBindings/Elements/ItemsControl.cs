@@ -8,6 +8,7 @@
 using Microsoft.AspNetCore.Components.Rendering;
 using System.Collections.Immutable;
 using System.Collections.Specialized;
+using System.Reflection.Metadata.Ecma335;
 
 #pragma warning disable CA2252
 
@@ -20,6 +21,11 @@ namespace BlazorBindings.AvaloniaBindings.Elements
     {
         [Parameter] public IEnumerable<T> ItemsSource { get; set; }
         [Parameter] public Func<T, object> ItemKeySelector { get; set; }
+
+        /// <summary>
+        /// Gets or sets the data template used to display the items in the control.
+        /// </summary>
+        [Parameter] public RenderFragment<T> ItemTemplate { get; set; }
 
         private bool AssignItemsSourceDirectly => ItemsSource is INotifyCollectionChanged || ItemsSource is IImmutableList<T>;
 
@@ -35,6 +41,9 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                         if (AssignItemsSourceDirectly)
                             NativeControl.ItemsSource = ItemsSource;
                     }
+                    return true;
+                case nameof(ItemTemplate):
+                    ItemTemplate = (RenderFragment<T>)value;
                     return true;
 
                 default:

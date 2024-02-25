@@ -37,10 +37,6 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// Gets or sets the panel used to display the items.
         /// </summary>
         [Parameter] public RenderFragment ItemsPanel { get; set; }
-        /// <summary>
-        /// Gets or sets the data template used to display the items in the control.
-        /// </summary>
-        [Parameter] public RenderFragment<T> ItemTemplate { get; set; }
         [Parameter] public EventCallback<AC.ContainerPreparedEventArgs> OnContainerPrepared { get; set; }
         [Parameter] public EventCallback<AC.ContainerIndexChangedEventArgs> OnContainerIndexChanged { get; set; }
         [Parameter] public EventCallback<AC.ContainerClearingEventArgs> OnContainerClearing { get; set; }
@@ -72,9 +68,6 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     break;
                 case nameof(ItemsPanel):
                     ItemsPanel = (RenderFragment)value;
-                    break;
-                case nameof(ItemTemplate):
-                    ItemTemplate = (RenderFragment<T>)value;
                     break;
                 case nameof(OnContainerPrepared):
                     if (!Equals(OnContainerPrepared, value))
@@ -120,8 +113,6 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                 nativeControl => nativeControl.Items);
             RenderTreeBuilderHelper.AddControlTemplateProperty<AC.ItemsControl, AC.ITemplate<AC.Panel>>(builder, sequence++, ItemsPanel,
                 (nativeControl, nativeTemplate) => nativeControl.ItemsPanel = nativeTemplate);
-            RenderTreeBuilderHelper.AddDataTemplateProperty<AC.ItemsControl, T>(builder, sequence++, ItemTemplate,
-                (nativeControl, nativeTemplate) => nativeControl.ItemTemplate = nativeTemplate);
         }
 
         static partial void RegisterAdditionalHandlers();

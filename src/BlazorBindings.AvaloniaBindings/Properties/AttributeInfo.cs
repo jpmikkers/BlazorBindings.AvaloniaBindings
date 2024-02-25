@@ -111,6 +111,7 @@ using Avalonia.Controls.Primitives;
     {
         //nameof(ItemsControl.ItemsPanel),
         nameof(ItemsControl.ItemsSource),
+        nameof(ItemsControl.ItemTemplate)
     },
     GenericProperties = new string[]
     {
