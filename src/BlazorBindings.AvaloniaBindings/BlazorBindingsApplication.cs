@@ -34,39 +34,39 @@ public class BlazorBindingsApplication : Application, IAvaloniaBlazorApplication
 
     public override void OnFrameworkInitializationCompleted()
     {
-        //if (WrapperComponentType != null)
-        //{
-        //    var navigation = _serviceProvider.GetService<INavigation>();
-        //    (navigation as BlazorNavigation)?.SetWrapperComponentType(WrapperComponentType);
-        //}
+        if (WrapperComponentType != null)
+        {
+            var navigation = _serviceProvider.GetService<INavigation>();
+            (navigation as BlazorNavigation)?.SetWrapperComponentType(WrapperComponentType);
+        }
 
-        //RenderComponent(false);
+        RenderComponent(false);
 
-        //var navigationView = new NavigationView();
-        //_avaloniaNavigation = new AvaloniaNavigation(navigationView);
-        //Task pushTask;
+        var navigationView = new NavigationView();
+        _avaloniaNavigation = new AvaloniaNavigation(navigationView);
+        Task pushTask;
 
-        //if (Avalonia.Application.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime classic)
-        //{
-        //    pushTask = _avaloniaNavigation.PushAsync((Control)classic.MainWindow.Content, false);
-        //    classic.MainWindow.Content = navigationView;
-        //}
-        //else if (Avalonia.Application.Current.ApplicationLifetime is ISingleViewApplicationLifetime single)
-        //{
-        //    pushTask = _avaloniaNavigation.PushAsync((Control)single.MainView, false);
-        //    single.MainView = navigationView;
-        //}
-        //else if (Avalonia.Application.Current is ITestApplication testApplication)
-        //{
-        //    pushTask = _avaloniaNavigation.PushAsync((Control)testApplication.Window.Content, false);
-        //    testApplication.Window.Content = navigationView;
-        //}
-        //else
-        //{
-        //    throw new NotSupportedException($"Unsupported application lifetime '{Avalonia.Application.Current.ApplicationLifetime.GetType().FullName}'");
-        //}
+        if (Avalonia.Application.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime classic)
+        {
+            pushTask = _avaloniaNavigation.PushAsync((Control)classic.MainWindow.Content, false);
+            classic.MainWindow.Content = navigationView;
+        }
+        else if (Avalonia.Application.Current.ApplicationLifetime is ISingleViewApplicationLifetime single)
+        {
+            pushTask = _avaloniaNavigation.PushAsync((Control)single.MainView, false);
+            single.MainView = navigationView;
+        }
+        else if (Avalonia.Application.Current is ITestApplication testApplication)
+        {
+            pushTask = _avaloniaNavigation.PushAsync((Control)testApplication.Window.Content, false);
+            testApplication.Window.Content = navigationView;
+        }
+        else
+        {
+            throw new NotSupportedException($"Unsupported application lifetime '{Avalonia.Application.Current.ApplicationLifetime.GetType().FullName}'");
+        }
 
-        //AwaitVoid(pushTask);
+        AwaitVoid(pushTask);
 
         base.OnFrameworkInitializationCompleted();
     }

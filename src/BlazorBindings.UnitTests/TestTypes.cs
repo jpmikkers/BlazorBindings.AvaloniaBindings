@@ -103,6 +103,11 @@ public class TestApplication : BlazorBindingsApplication, IAvaloniaBlazorApplica
 
         return application;
     }
+
+    public override void OnFrameworkInitializationCompleted()
+    {
+        // Don't call base.OnFrameworkInitializationCompleted() because there it tries to render the main page
+    }
 }
 
 public static class TestServiceProvider

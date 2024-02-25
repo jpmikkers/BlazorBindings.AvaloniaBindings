@@ -14,11 +14,6 @@ public class AvaloniaBlazorBindingsRenderer : NativeComponentRenderer
     {
     }
 
-    internal AvaloniaBlazorBindingsRenderer(AvaloniaBlazorBindingsServiceProvider serviceProvider, ILoggerFactory loggerFactory)
-        : base(serviceProvider, loggerFactory)
-    {
-    }
-
     public override Dispatcher Dispatcher { get; } = new AvaloniaDispatcher();
 
     public Task<IComponent> AddComponent(Type componentType, AvaloniaApplication parent, Dictionary<string, object> parameters = null)

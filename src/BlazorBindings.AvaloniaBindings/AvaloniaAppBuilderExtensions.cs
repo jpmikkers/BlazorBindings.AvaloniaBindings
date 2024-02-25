@@ -4,8 +4,8 @@
 using Microsoft.Extensions.Logging;
 using AvaloniaAppBuilder = global::Avalonia.AppBuilder;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using BlazorBindings.AvaloniaBindings.Navigation;
-using Microsoft.Extensions.DependencyInjection;
+using BlazorBindings.AvaloniaBindings.UriNavigation;
+using Microsoft.AspNetCore.Components.Routing;
 
 namespace BlazorBindings.AvaloniaBindings;
 
@@ -39,12 +39,11 @@ public static class AvaloniaAppBuilderExtensions
 
     public static void RegisterBlazorServices(IServiceCollection services)
     {
-        //.TryAddSingleton<Navigation>(svcs => new Navigation(svcs.GetRequiredService<AvaloniaBlazorBindingsServiceProvider>()))
-        //.TryAddSingleton<INavigation>(services => services.GetRequiredService<Navigation>())
-        //services.TryAddSingleton(new AvaloniaBlazorBindingsServiceProvider(serviceProviderGetter));
-        services.TryAddSingleton<IServiceProvider>(svcs => svcs.GetRequiredService<AvaloniaBlazorBindingsServiceProvider>());
-        services.TryAddSingleton(svcs => new AvaloniaBlazorBindingsRenderer(svcs.GetRequiredService<AvaloniaBlazorBindingsServiceProvider>(), svcs.GetRequiredService<ILoggerFactory>()));
-        services.TryAddSingleton<INavigation>(svcs => new BlazorNavigation(svcs.GetRequiredService<AvaloniaBlazorBindingsServiceProvider>()));
+        services.TryAddSingleton<NavigationManager, BlazorNavigationManager>();
+        services.TryAddSingleton<INavigationInterception, BlazorNavigationInterception>();
+        services.TryAddSingleton<IScrollToLocationHash, BlazorScrollToLocationHash>();
+        services.TryAddSingleton(svcs => new AvaloniaBlazorBindingsRenderer(svcs, svcs.GetRequiredService<ILoggerFactory>()));
+        services.TryAddSingleton<INavigation>(svcs => new BlazorNavigation(svcs));
         //services.TryAddSingleton(svcs => ((IAvaloniaBlazorApplication)Avalonia.Application.Current).Navigation);
 
         services.AddLogging();
