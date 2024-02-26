@@ -17,7 +17,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.Canvas.SetBottom((Avalonia.AvaloniaObject)element, (double)value);
+                        Avalonia.Controls.Canvas.SetBottom((Avalonia.AvaloniaObject)element, (double)Convert.ChangeType(value, typeof(double)));
                     }
                 });
             AttachedPropertyRegistry.RegisterAttachedPropertyHandler("Canvas.Left",
@@ -29,7 +29,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.Canvas.SetLeft((Avalonia.AvaloniaObject)element, (double)value);
+                        Avalonia.Controls.Canvas.SetLeft((Avalonia.AvaloniaObject)element, (double)Convert.ChangeType(value, typeof(double)));
                     }
                 });
             AttachedPropertyRegistry.RegisterAttachedPropertyHandler("Canvas.Right",
@@ -41,7 +41,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.Canvas.SetRight((Avalonia.AvaloniaObject)element, (double)value);
+                        Avalonia.Controls.Canvas.SetRight((Avalonia.AvaloniaObject)element, (double)Convert.ChangeType(value, typeof(double)));
                     }
                 });
             AttachedPropertyRegistry.RegisterAttachedPropertyHandler("Canvas.Top",
@@ -53,7 +53,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.Canvas.SetTop((Avalonia.AvaloniaObject)element, (double)value);
+                        Avalonia.Controls.Canvas.SetTop((Avalonia.AvaloniaObject)element, (double)Convert.ChangeType(value, typeof(double)));
                     }
                 });
         }

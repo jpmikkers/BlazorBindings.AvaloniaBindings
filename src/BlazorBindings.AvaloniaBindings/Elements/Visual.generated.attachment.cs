@@ -17,7 +17,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Visual.SetFlowDirection((Avalonia.Visual)element, (A.Media.FlowDirection)value);
+                        Avalonia.Visual.SetFlowDirection((Avalonia.Visual)element, (A.Media.FlowDirection)Convert.ChangeType(value, typeof(A.Media.FlowDirection)));
                     }
                 });
         }

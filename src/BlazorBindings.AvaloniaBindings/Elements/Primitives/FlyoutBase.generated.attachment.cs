@@ -18,7 +18,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.Primitives.FlyoutBase.SetAttachedFlyout((Avalonia.Controls.Control)element, (ACP.FlyoutBase)value);
+                        Avalonia.Controls.Primitives.FlyoutBase.SetAttachedFlyout((Avalonia.Controls.Control)element, (ACP.FlyoutBase)Convert.ChangeType(value, typeof(ACP.FlyoutBase)));
                     }
                 });
         }

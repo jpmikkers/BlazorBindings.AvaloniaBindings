@@ -17,7 +17,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.Grid.SetColumn((Avalonia.Controls.Control)element, (int)value);
+                        Avalonia.Controls.Grid.SetColumn((Avalonia.Controls.Control)element, (int)Convert.ChangeType(value, typeof(int)));
                     }
                 });
             AttachedPropertyRegistry.RegisterAttachedPropertyHandler("Grid.ColumnSpan",
@@ -29,7 +29,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.Grid.SetColumnSpan((Avalonia.Controls.Control)element, (int)value);
+                        Avalonia.Controls.Grid.SetColumnSpan((Avalonia.Controls.Control)element, (int)Convert.ChangeType(value, typeof(int)));
                     }
                 });
             AttachedPropertyRegistry.RegisterAttachedPropertyHandler("Grid.IsSharedSizeScope",
@@ -41,7 +41,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.Grid.SetIsSharedSizeScope((Avalonia.Controls.Control)element, (bool)value);
+                        Avalonia.Controls.Grid.SetIsSharedSizeScope((Avalonia.Controls.Control)element, (bool)Convert.ChangeType(value, typeof(bool)));
                     }
                 });
             AttachedPropertyRegistry.RegisterAttachedPropertyHandler("Grid.Row",
@@ -53,7 +53,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.Grid.SetRow((Avalonia.Controls.Control)element, (int)value);
+                        Avalonia.Controls.Grid.SetRow((Avalonia.Controls.Control)element, (int)Convert.ChangeType(value, typeof(int)));
                     }
                 });
             AttachedPropertyRegistry.RegisterAttachedPropertyHandler("Grid.RowSpan",
@@ -65,7 +65,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.Grid.SetRowSpan((Avalonia.Controls.Control)element, (int)value);
+                        Avalonia.Controls.Grid.SetRowSpan((Avalonia.Controls.Control)element, (int)Convert.ChangeType(value, typeof(int)));
                     }
                 });
         }

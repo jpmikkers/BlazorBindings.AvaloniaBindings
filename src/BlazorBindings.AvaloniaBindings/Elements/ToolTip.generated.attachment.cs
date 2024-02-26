@@ -17,7 +17,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.ToolTip.SetHorizontalOffset((Avalonia.Controls.Control)element, (double)value);
+                        Avalonia.Controls.ToolTip.SetHorizontalOffset((Avalonia.Controls.Control)element, (double)Convert.ChangeType(value, typeof(double)));
                     }
                 });
             AttachedPropertyRegistry.RegisterAttachedPropertyHandler("ToolTip.IsOpen",
@@ -29,7 +29,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.ToolTip.SetIsOpen((Avalonia.Controls.Control)element, (bool)value);
+                        Avalonia.Controls.ToolTip.SetIsOpen((Avalonia.Controls.Control)element, (bool)Convert.ChangeType(value, typeof(bool)));
                     }
                 });
             AttachedPropertyRegistry.RegisterAttachedPropertyHandler("ToolTip.Placement",
@@ -41,7 +41,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.ToolTip.SetPlacement((Avalonia.Controls.Control)element, (AC.PlacementMode)value);
+                        Avalonia.Controls.ToolTip.SetPlacement((Avalonia.Controls.Control)element, (AC.PlacementMode)Convert.ChangeType(value, typeof(AC.PlacementMode)));
                     }
                 });
             AttachedPropertyRegistry.RegisterAttachedPropertyHandler("ToolTip.ShowDelay",
@@ -53,7 +53,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.ToolTip.SetShowDelay((Avalonia.Controls.Control)element, (int)value);
+                        Avalonia.Controls.ToolTip.SetShowDelay((Avalonia.Controls.Control)element, (int)Convert.ChangeType(value, typeof(int)));
                     }
                 });
             AttachedPropertyRegistry.RegisterAttachedPropertyHandler("ToolTip.ChildContent",
@@ -65,7 +65,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.ToolTip.SetTip((Avalonia.Controls.Control)element, (object)value);
+                        Avalonia.Controls.ToolTip.SetTip((Avalonia.Controls.Control)element, (object)Convert.ChangeType(value, typeof(object)));
                     }
                 });
             AttachedPropertyRegistry.RegisterAttachedPropertyHandler("ToolTip.VerticalOffset",
@@ -77,7 +77,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.ToolTip.SetVerticalOffset((Avalonia.Controls.Control)element, (double)value);
+                        Avalonia.Controls.ToolTip.SetVerticalOffset((Avalonia.Controls.Control)element, (double)Convert.ChangeType(value, typeof(double)));
                     }
                 });
         }

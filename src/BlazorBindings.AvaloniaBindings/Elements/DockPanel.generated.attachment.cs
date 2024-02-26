@@ -17,7 +17,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.DockPanel.SetDock((Avalonia.Controls.Control)element, (AC.Dock)value);
+                        Avalonia.Controls.DockPanel.SetDock((Avalonia.Controls.Control)element, (AC.Dock)Convert.ChangeType(value, typeof(AC.Dock)));
                     }
                 });
         }

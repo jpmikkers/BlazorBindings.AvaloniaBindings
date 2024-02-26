@@ -17,7 +17,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.NativeMenu.SetMenu((Avalonia.AvaloniaObject)element, (AC.NativeMenu)value);
+                        Avalonia.Controls.NativeMenu.SetMenu((Avalonia.AvaloniaObject)element, (AC.NativeMenu)Convert.ChangeType(value, typeof(AC.NativeMenu)));
                     }
                 });
         }

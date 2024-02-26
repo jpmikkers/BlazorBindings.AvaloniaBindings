@@ -18,7 +18,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.Primitives.TemplatedControl.SetIsTemplateFocusTarget((Avalonia.Controls.Control)element, (bool)value);
+                        Avalonia.Controls.Primitives.TemplatedControl.SetIsTemplateFocusTarget((Avalonia.Controls.Control)element, (bool)Convert.ChangeType(value, typeof(bool)));
                     }
                 });
         }

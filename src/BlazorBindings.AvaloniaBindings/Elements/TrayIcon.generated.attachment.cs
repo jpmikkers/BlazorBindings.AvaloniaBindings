@@ -17,7 +17,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.TrayIcon.SetIcons((Avalonia.Application)element, (AC.TrayIcons)value);
+                        Avalonia.Controls.TrayIcon.SetIcons((Avalonia.Application)element, (AC.TrayIcons)Convert.ChangeType(value, typeof(AC.TrayIcons)));
                     }
                 });
         }

@@ -17,7 +17,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.TopLevel.SetSystemBarColor((Avalonia.Controls.Control)element, (global::Avalonia.Media.SolidColorBrush)value);
+                        Avalonia.Controls.TopLevel.SetSystemBarColor((Avalonia.Controls.Control)element, (global::Avalonia.Media.SolidColorBrush)Convert.ChangeType(value, typeof(global::Avalonia.Media.SolidColorBrush)));
                     }
                 });
         }
