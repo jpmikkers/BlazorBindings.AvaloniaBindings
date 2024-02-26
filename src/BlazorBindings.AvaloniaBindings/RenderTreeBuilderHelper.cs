@@ -5,6 +5,7 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Controls.Templates;
 using BlazorBindings.AvaloniaBindings.Elements.DataTemplates;
 using BlazorBindings.AvaloniaBindings.Elements.Internal;
+using BlazorBindings.AvaloniaBindings.Elements.Internal.DataTemplates;
 using Microsoft.AspNetCore.Components.Rendering;
 using System.Collections;
 
@@ -14,19 +15,19 @@ namespace BlazorBindings.AvaloniaBindings;
 [RequiresPreviewFeatures]
 public static class RenderTreeBuilderHelper
 {
-    public static void AddContentProperty<TControl>(
+    public static void AddContentProperty<TNativeControl>(
         RenderTreeBuilder builder,
         int sequence,
         RenderFragment content,
-        Action<TControl, object> setPropertyAction)
+        Action<TNativeControl, object> setPropertyAction)
     {
         if (content != null)
         {
             builder.OpenRegion(sequence);
 
-            builder.OpenComponent<ContentPropertyComponent<TControl>>(0);
-            builder.AddAttribute(1, nameof(ContentPropertyComponent<TControl>.ChildContent), content);
-            builder.AddAttribute(2, nameof(ContentPropertyComponent<TControl>.SetPropertyAction), setPropertyAction);
+            builder.OpenComponent<ContentPropertyComponent<TNativeControl>>(0);
+            builder.AddAttribute(1, nameof(ContentPropertyComponent<TNativeControl>.ChildContent), content);
+            builder.AddAttribute(2, nameof(ContentPropertyComponent<TNativeControl>.SetPropertyAction), setPropertyAction);
             builder.CloseComponent();
 
             builder.CloseRegion();

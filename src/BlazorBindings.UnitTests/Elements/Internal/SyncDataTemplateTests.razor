@@ -1,6 +1,4 @@
-﻿@* @using Microsoft.Maui.Controls.Internals; *@
-
-@inherits ElementTestBase
+﻿@inherits ElementTestBase
 
 @code {
 [AvaloniaTest]
@@ -41,7 +39,6 @@ private async Task<AC.Templates.IDataTemplate> RenderTemplate<T>(RenderFragment<
 private T CreateTemplateRoot<T>(Avalonia.Controls.Templates.IDataTemplate template, object item)
     where T:Avalonia.StyledElement
 {
-    // var content = (Avalonia.AvaloniaObject)template.CreateContent(item, null);
     var content = (Avalonia.StyledElement)template.Build(item);
     content.DataContext = item;
     return (T)content;
