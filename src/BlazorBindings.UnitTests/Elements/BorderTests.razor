@@ -3,42 +3,26 @@
 @inherits ElementTestBase
 
 @code {
-// [Test]
-// public async Task BorderWithStrokeShape()
-// {
-//     var border = await Render<MC.Border>(
-//     @<Border Background="Colors.Olive">
-//         <StrokeShape>
-//             <RoundRectangle CornerRadius="7" />
-//         </StrokeShape>
-//     </Border>);
 
-//     Assert.That(border.BackgroundColor, Is.EqualTo(Colors.Olive));
-//     Assert.That(border.StrokeShape, Is.TypeOf<MC.Shapes.RoundRectangle>());
-//     Assert.That(((MC.Shapes.RoundRectangle)border.StrokeShape).CornerRadius, Is.EqualTo((CornerRadius)7));
-// }
-
-[AvaloniaTest]
-public async Task BorderWithCornerRadius()
-{
-    var border = await Render<AC.Border>(
+    [AvaloniaTest]
+    public async Task BorderWithCornerRadius()
+    {
+        var border = await Render<AC.Border>(
         @<Border CornerRadius="new(1,2,3,4)" />);
 
-        // Assert.That(border.StrokeShape, Is.TypeOf<MC.Shapes.RoundRectangle>());
-        // Assert.That(((MC.Shapes.RoundRectangle)border.StrokeShape).CornerRadius, Is.EqualTo(new CornerRadius(1, 2, 3, 4)));
         Assert.That(border.CornerRadius, Is.EqualTo(new CornerRadius(1, 2, 3, 4)));
     }
 
-[AvaloniaTest]
-public async Task BorderWithChildContent()
-{
-    var border = await Render<AC.Border>(
+    [AvaloniaTest]
+    public async Task BorderWithChildContent()
+    {
+        var border = await Render<AC.Border>(
     @<Border>
         <Label>BorderTest</Label>
     </Border>);
 
-    var childLabel = border.Child as AC.Label;
-    Assert.That(childLabel, Is.Not.Null);
-    Assert.That(childLabel.Content, Is.EqualTo("BorderTest"));
-}
+        var childLabel = border.Child as AC.Label;
+        Assert.That(childLabel, Is.Not.Null);
+        Assert.That(childLabel.Content, Is.EqualTo("BorderTest"));
+    }
 }
