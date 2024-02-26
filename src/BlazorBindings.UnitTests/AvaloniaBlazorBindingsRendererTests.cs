@@ -25,6 +25,7 @@ public class AvaloniaBlazorBindingsRendererTests
             Height = 100
         };
         _application.Window = _window;
+        _window.Show();
     }
 
     [TearDown]

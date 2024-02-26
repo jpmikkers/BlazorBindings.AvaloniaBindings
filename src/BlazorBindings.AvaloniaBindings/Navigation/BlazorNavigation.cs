@@ -71,7 +71,7 @@ public partial class BlazorNavigation : INavigation
 
     public async Task PopToRootAsync(bool animated = true)
     {
-        await AvaloniaNavigation.PopToRootAsync(animated);
+        await NavigationAction(() => AvaloniaNavigation.PopToRootAsync(animated));
     }
 
     /// <summary>

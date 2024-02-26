@@ -37,12 +37,12 @@ internal class NavigationHandler : IContainerElementHandler
         _taskCompletionSource.TrySetResult();
         _firstAdd = false;
 
-        child.DetachedFromLogicalTree += ParentChanged;
+        child.DetachedFromVisualTree += DetachedFromVisualTreeHandler;
     }
 
     public async Task RemoveChildAsync(AvaloniaPage child)
     {
-        child.DetachedFromLogicalTree -= ParentChanged;
+        child.DetachedFromVisualTree -= DetachedFromVisualTreeHandler;
         if (_target == NavigationTarget.Modal)
         {
             if (_navigation.ModalStack.LastOrDefault() == child)
@@ -57,18 +57,13 @@ internal class NavigationHandler : IContainerElementHandler
         }
     }
 
-    private void ParentChanged(object sender, EventArgs e)
+    private void DetachedFromVisualTreeHandler(object sender, EventArgs e)
     {
         var page = sender as AvaloniaPage;
+        page.DetachedFromVisualTree -= DetachedFromVisualTreeHandler;
 
-        if (page == _currentPage &&
-            page.Parent == null)
-        {
-            // Notify that the page is closed so that rootComponent could be removed from Blazor tree.
-            PageClosed?.Invoke();
-        }
-
-        page.DetachedFromLogicalTree -= ParentChanged;
+        // Notify that the page is closed so that rootComponent could be removed from Blazor tree.
+        PageClosed?.Invoke();
     }
 
     public async void RemoveChild(object child, int physicalSiblingIndex)

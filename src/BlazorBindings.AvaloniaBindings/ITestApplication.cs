@@ -2,5 +2,5 @@
 
 internal interface ITestApplication
 {
-    AC.Window Window { get; }
+    AC.Window Window { get; set; }
 }

@@ -11,7 +11,6 @@ public class BlazorBindingsApplicationTests
 {
     private TestApplication _application;
     private Window _window;
-    private TestBlazorBindingsRenderer _renderer;
 
     [SetUp]
     public void Setup()
@@ -43,7 +42,6 @@ public class BlazorBindingsApplicationTests
     {
         _application = (TestApplication)Application.Current;
         _application.ComponentType = typeof(T);
-        _renderer = (TestBlazorBindingsRenderer)TestBlazorBindingsRenderer.Get(_application);
 
         Avalonia.Threading.Dispatcher.UIThread.VerifyAccess();
         _window = new Window
@@ -64,8 +62,6 @@ public class BlazorBindingsApplicationTests
         _application = (TestApplication)Application.Current;
         _application.ComponentType = typeof(TMain);
         _application.WrapperComponentType = typeof(TWrapper);
-
-        _renderer = (TestBlazorBindingsRenderer)TestBlazorBindingsRenderer.Get(_application);
 
         Avalonia.Threading.Dispatcher.UIThread.VerifyAccess();
         _window = new Window

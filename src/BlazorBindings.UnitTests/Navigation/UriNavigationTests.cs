@@ -2,79 +2,79 @@
 // Licensed under the MIT license.
 
 using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Threading;
 using BlazorBindings.AvaloniaBindings;
 using BlazorBindings.AvaloniaBindings.Navigation;
 using BlazorBindings.UnitTests.Components;
+using NUnit.Framework;
 
 namespace BlazorBindings.UnitTests.Navigation;
 
 public class UriNavigationTests
 {
-    private readonly AvaloniaBindings.BlazorNavigation _navigationService;
-    private readonly AvaloniaNavigation _nativeNavigation;
+    private BlazorNavigation _navigationService;
+    private AvaloniaNavigation _nativeNavigation;
 
-    public UriNavigationTests()
+    [SetUp]
+    public async Task SetupAsync()
     {
-        //var shell = new MC.Shell { Items = { new MC.ContentPage { Title = "Root" } } };
-        //var sp = TestServiceProvider.Create();
-        //MC.Application.Current = new TestApplication(sp) { MainPage = shell };
+        var app = (TestApplication)Avalonia.Application.Current;
+        var serviceProvider = app.ServiceProvider;
 
-        var blazorNavigation = new NavigationView { /*Title = "Root"*/ };
-        var nativeNavigation = new AvaloniaNavigation(blazorNavigation);
+        _navigationService = (BlazorNavigation)serviceProvider.GetRequiredService<INavigation>();
+        _nativeNavigation = app.Navigation;
 
-        var appBuilder = AppBuilder.Configure<TestApplication>()
-            .UsePlatformDetect()
-            .UseSkia()
-            .UseAvaloniaBlazorBindings(services =>
-            {
-            });
-
-        var serviceProvider = ((TestApplication)appBuilder.Instance).ServiceProvider;
-
-        _navigationService = serviceProvider.GetRequiredService<BlazorNavigation>();
-        _nativeNavigation = nativeNavigation;
+        await _nativeNavigation.PushAsync(new AC.ContentControl(), false);
     }
 
-    [TestCase("/test/path/TestTitle123/subpath")]
-    [TestCase("/test/path/TestTitle123")]
+    //[AvaloniaTest]
+    [AvaloniaTestCase("/test/path/TestTitle123/subpath")]
+    [AvaloniaTestCase("/test/path/TestTitle123")]
     public async Task NavigateToPageWithUrlParameters(string uri)
     {
+        // it doesn't work if using TestCase
+        await SetupAsync();
+
         await _navigationService.NavigateToAsync(uri);
 
-        var mauiPage = _nativeNavigation.NavigationStack.Last();
-        Assert.That(mauiPage.Tag, Is.EqualTo("TestTitle123"));
-        PageWithUrl.ValidateContent(mauiPage);
+        var nativePage = _nativeNavigation.NavigationStack.Last();
+        Assert.That(nativePage.Tag, Is.EqualTo("TestTitle123"));
+        PageWithUrl.ValidateContent(nativePage);
     }
 
-    [Test]
+    [AvaloniaTest]
     public async Task NavigateToPageWithIntParameter()
     {
         await _navigationService.NavigateToAsync("/test/int-route/42/subpath");
 
-        var mauiPage = _nativeNavigation.NavigationStack.Last();
-        PageWithUrl.ValidateContent(mauiPage, i: 42);
+        var nativePage = _nativeNavigation.NavigationStack.Last();
+        PageWithUrl.ValidateContent(nativePage, i: 42);
     }
 
-    [TestCase("/test/nullable-long-route/1234", 1234L)]
-    [TestCase("/test/nullable-long-route/", null)]
+    [AvaloniaTestCase("/test/nullable-long-route/1234", 1234L)]
+    [AvaloniaTestCase("/test/nullable-long-route/", null)]
     public async Task NavigateToPageWithNullableLongParameter(string uri, long? expectedValue)
     {
+        // it doesn't work if using TestCase
+        await SetupAsync();
+
         await _navigationService.NavigateToAsync(uri);
 
-        var mauiPage = _nativeNavigation.NavigationStack.Last();
-        PageWithUrl.ValidateContent(mauiPage, l: expectedValue);
+        var nativePage = _nativeNavigation.NavigationStack.Last();
+        PageWithUrl.ValidateContent(nativePage, l: expectedValue);
     }
 
-    [Test]
+    [AvaloniaTest]
     public async Task NavigateToPageWithDateTimeParameterWithoutRouteConstraint()
     {
         await _navigationService.NavigateToAsync("/test/datetime/03-29-2023/without-constraint");
 
-        var mauiPage = _nativeNavigation.NavigationStack.Last();
-        PageWithUrl.ValidateContent(mauiPage, dt: new DateTime(2023, 03, 29));
+        var nativePage = _nativeNavigation.NavigationStack.Last();
+        PageWithUrl.ValidateContent(nativePage, dt: new DateTime(2023, 03, 29));
     }
 
-    [Test]
+    [AvaloniaTest]
     public async Task NavigateToPageWithAdditionalParameter()
     {
         var lines = new[] { "Hello there!", "General Kenobi!" };
@@ -83,40 +83,46 @@ public class UriNavigationTests
             ["AdditionalText"] = lines
         });
 
-        var mauiPage = _nativeNavigation.NavigationStack.Last();
-        PageWithUrl.ValidateContent(mauiPage, additionalLines: lines);
+        Tick();
+
+        var nativePage = _nativeNavigation.NavigationStack.Last();
+        PageWithUrl.ValidateContent(nativePage, additionalLines: lines);
     }
 
-    [Test]
+    [AvaloniaTest]
     public void ShouldFailIfRouteConstraintDoesNotMatch()
     {
         Assert.That(() => _navigationService.NavigateToAsync("/test/int-route/not-an-int/subpath"),
             Throws.InvalidOperationException.With.Message.Contains("not registered"));
     }
 
-    [Test]
+    [AvaloniaTest]
     public void ShouldFailIfRouteNotFound()
     {
         Assert.That(() => _navigationService.NavigateToAsync("/non/existing/route"),
             Throws.InvalidOperationException.With.Message.Contains("not registered"));
     }
 
-    [Test]
+    [AvaloniaTest]
     public async Task ComponentShouldBeDisposedOnPopAsync()
     {
         await _navigationService.NavigateToAsync($"/test/path/DisposeTest");
-        var mauiPage = _nativeNavigation.NavigationStack.Last();
-        var component = (PageWithUrl)mauiPage.GetValue(TestProperties.ComponentProperty);
+        var nativePage = _nativeNavigation.NavigationStack.Last();
+        var component = (PageWithUrl)nativePage.GetValue(TestProperties.ComponentProperty);
 
         var isDisposed = false;
         component.OnDispose += () => isDisposed = true;
 
+        Tick();
+
         await _nativeNavigation.PopAsync(false);
+
+        Tick();
 
         Assert.That(isDisposed);
     }
 
-    [Test]
+    [AvaloniaTest]
     public async Task NavigatedComponentShouldBeAbleToReplacePage()
     {
         await _navigationService.NavigateToAsync("/switchable-pages");
@@ -140,7 +146,7 @@ public class UriNavigationTests
         Assert.That(navigatedPage.Tag, Is.EqualTo("Page1"));
     }
 
-    [Test]
+    [AvaloniaTest]
     public async Task PushPageWithRootWrapper()
     {
         _navigationService.SetWrapperComponentType(typeof(WrapperWithCascadingValue));
@@ -149,5 +155,10 @@ public class UriNavigationTests
         var navigatedPage = _nativeNavigation.NavigationStack.Last();
 
         PageContentWithCascadingParameter.ValidateContent(navigatedPage, WrapperWithCascadingValue.Value);
+    }
+
+    private void Tick()
+    {
+        Avalonia.Threading.Dispatcher.UIThread.RunJobs(DispatcherPriority.SystemIdle);
     }
 }

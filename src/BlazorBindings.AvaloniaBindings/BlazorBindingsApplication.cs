@@ -9,6 +9,7 @@ namespace BlazorBindings.AvaloniaBindings;
 public class BlazorBindingsApplication : Application, IAvaloniaBlazorApplication
 {
     private IServiceProvider _serviceProvider = null;
+    private NavigationView _navigationView;
     private AvaloniaNavigation _avaloniaNavigation = null;
 
     public BlazorBindingsApplication()
@@ -29,10 +30,20 @@ public class BlazorBindingsApplication : Application, IAvaloniaBlazorApplication
 
         Configure();
 
+        _navigationView = new NavigationView();
+        _avaloniaNavigation = new AvaloniaNavigation(_navigationView);
+
         //var renderer = serviceProvider.GetRequiredService<AvaloniaBlazorBindingsRenderer>();
     }
 
     public override void OnFrameworkInitializationCompleted()
+    {
+        InitializeNavigation();
+
+        base.OnFrameworkInitializationCompleted();
+    }
+
+    internal void InitializeNavigation()
     {
         if (WrapperComponentType != null)
         {
@@ -42,44 +53,73 @@ public class BlazorBindingsApplication : Application, IAvaloniaBlazorApplication
 
         RenderComponent(false);
 
-        var navigationView = new NavigationView();
-        _avaloniaNavigation = new AvaloniaNavigation(navigationView);
-        Task pushTask;
+
+        Task? pushTask = null;
 
         if (Avalonia.Application.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime classic)
         {
-            pushTask = _avaloniaNavigation.PushAsync((Control)classic.MainWindow.Content, false);
-            classic.MainWindow.Content = navigationView;
+            if (classic.MainWindow is null)
+            {
+                classic.MainWindow = new Window();
+            }
+
+            if(classic.MainWindow.Content is not null)
+            {
+                pushTask = _avaloniaNavigation.PushAsync((Control)classic.MainWindow.Content, false);
+            }
+
+            classic.MainWindow.Content = _navigationView;
         }
         else if (Avalonia.Application.Current.ApplicationLifetime is ISingleViewApplicationLifetime single)
         {
-            pushTask = _avaloniaNavigation.PushAsync((Control)single.MainView, false);
-            single.MainView = navigationView;
+            if (single.MainView is null)
+            {
+                single.MainView = new ContentControl();
+            }
+
+            if (single.MainView is not null)
+            {
+                pushTask = _avaloniaNavigation.PushAsync((Control)single.MainView, false);
+            }
+
+            single.MainView = _navigationView;
         }
         else if (Avalonia.Application.Current is ITestApplication testApplication)
         {
-            pushTask = _avaloniaNavigation.PushAsync((Control)testApplication.Window.Content, false);
-            testApplication.Window.Content = navigationView;
+            if (testApplication.Window is null)
+            {
+                testApplication.Window = new Window();
+                testApplication.Window.Show();
+            }
+
+            if (testApplication.Window.Content is not null)
+            {
+                pushTask = _avaloniaNavigation.PushAsync((Control)testApplication.Window.Content, false);
+            }
+
+            testApplication.Window.Content = _navigationView;
         }
         else
         {
             throw new NotSupportedException($"Unsupported application lifetime '{Avalonia.Application.Current.ApplicationLifetime.GetType().FullName}'");
         }
 
-        AwaitVoid(pushTask);
-
-        base.OnFrameworkInitializationCompleted();
+        if (pushTask is not null)
+        {
+            AwaitVoid(pushTask);
+        }
     }
 
     static async void AwaitVoid(Task task) => await task;
 
     public void RenderComponent(bool addToRoot)
     {
-        var renderer = ServiceProvider.GetRequiredService<AvaloniaBlazorBindingsRenderer>();
         var (componentType, parameters) = GetComponentToRender();
 
         if (componentType is not null)
         {
+            var renderer = ServiceProvider.GetRequiredService<AvaloniaBlazorBindingsRenderer>();
+
             var task = renderer.AddComponent(componentType, this, parameters);
             AwaitVoid(task);
 
@@ -96,7 +136,7 @@ public class BlazorBindingsApplication : Application, IAvaloniaBlazorApplication
             //    {
             //        nativeControl = ((Elements.Control)task.Result).NativeControl;
             //    }
-                
+
 
             //    if (Avalonia.Application.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime classic)
             //    {

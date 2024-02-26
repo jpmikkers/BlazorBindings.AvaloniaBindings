@@ -19,7 +19,8 @@
 
     protected async Task<T> Render<T>(RenderFragment renderFragment)
     {
-        _application = (TestApplication)Avalonia.Application.Current;
+        _application = (TestApplication)Avalonia.Application.Current ??
+            throw new InvalidOperationException("Application not initialized - did you use [AvaloniaTest]?");
         //_application.ComponentType = typeof(T);
         _renderer = (TestBlazorBindingsRenderer)TestBlazorBindingsRenderer.Get(_application);
 

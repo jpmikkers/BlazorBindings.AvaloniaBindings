@@ -13,6 +13,8 @@ public interface INavigation
     Task NavigateToAsync(string uri, Dictionary<string, object> parameters = null, bool animated = true);
 
     Task PopAsync(bool animated = true);
+    
+    Task PopToRootAsync(bool animated = true);
 
     Task PopModalAsync(bool animated = true);
 

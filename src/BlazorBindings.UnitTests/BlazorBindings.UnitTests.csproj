@@ -11,6 +11,7 @@
     <!--<PackageReference Include="bunit" />-->
     <PackageReference Include="Avalonia.Desktop" />
     <PackageReference Include="Avalonia.Headless.NUnit" />
+    <PackageReference Include="Avalonia.Themes.Fluent" />
     <PackageReference Include="coverlet.collector">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

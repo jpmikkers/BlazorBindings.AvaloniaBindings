@@ -5,13 +5,13 @@
 @page "/test/nullable-long-route/{L:long?}"
 @page "/test/datetime/{Dt}/without-constraint"
 
-<ContentControl @ref="_page" Tag="@("Title")">
+<ContentControl @ref="_page" Tag="@(Title)">
     <StackPanel>
-        <Label Text="@I.ToString()" />
-        <Label Text="@L?.ToString()" />
-        <Label Text="@Dt?.ToString()" />
+        <Label ChildContent="@(b => b.AddContent(0, I.ToString()))" />
+        <Label ChildContent="@(b => b.AddContent(0, L?.ToString()))" />
+        <Label ChildContent="@(b => b.AddContent(0, Dt?.ToString()))" />
 
-        <Label Text="@string.Concat(AdditionalText)" />
+        <Label ChildContent="@(b => b.AddContent(0, string.Concat(AdditionalText)))" />
 
         <NonPageContent />
     </StackPanel>
@@ -55,8 +55,8 @@
         var labelAdditional = (Avalonia.Controls.Label)layout.Children[3];
 
         Assert.That(labelI.Content, Is.EqualTo(i.ToString()));
-        Assert.That(labelL.Content, Is.EqualTo(l?.ToString()));
-        Assert.That(labelDt.Content, Is.EqualTo(dt?.ToString()));
+        Assert.That(labelL.Content, Is.EqualTo(l?.ToString() ?? ""));
+        Assert.That(labelDt.Content, Is.EqualTo(dt?.ToString() ?? ""));
 
         if (additionalLines != null)
             Assert.That(labelAdditional.Content, Is.EqualTo(string.Concat(additionalLines)));
