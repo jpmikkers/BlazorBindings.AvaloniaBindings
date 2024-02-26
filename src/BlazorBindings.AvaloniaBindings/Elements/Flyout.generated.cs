@@ -5,7 +5,7 @@
 //     the code is regenerated.
 // </auto-generated>
 
-
+using Microsoft.AspNetCore.Components.Rendering;
 
 #pragma warning disable CA2252
 
@@ -19,13 +19,13 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         }
 
         /// <summary>
-        /// Gets or sets the content to display in this flyout
-        /// </summary>
-        [Parameter] public object Content { get; set; }
-        /// <summary>
         /// Gets or sets the <see cref="T:Avalonia.Styling.ControlTheme" /> that is applied to the container element generated for the flyout presenter.
         /// </summary>
         [Parameter] public global::Avalonia.Styling.ControlTheme FlyoutPresenterTheme { get; set; }
+        /// <summary>
+        /// Gets or sets the content to display in this flyout
+        /// </summary>
+        [Parameter] public RenderFragment ChildContent { get; set; }
 
         public new AC.Flyout NativeControl => (AC.Flyout)((AvaloniaObject)this).NativeControl;
 
@@ -35,13 +35,6 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         {
             switch (name)
             {
-                case nameof(Content):
-                    if (!Equals(Content, value))
-                    {
-                        Content = (object)value;
-                        NativeControl.Content = Content;
-                    }
-                    break;
                 case nameof(FlyoutPresenterTheme):
                     if (!Equals(FlyoutPresenterTheme, value))
                     {
@@ -49,11 +42,21 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                         NativeControl.FlyoutPresenterTheme = FlyoutPresenterTheme;
                     }
                     break;
+                case nameof(ChildContent):
+                    ChildContent = (RenderFragment)value;
+                    break;
 
                 default:
                     base.HandleParameter(name, value);
                     break;
             }
+        }
+
+        protected override void RenderAdditionalElementContent(RenderTreeBuilder builder, ref int sequence)
+        {
+            base.RenderAdditionalElementContent(builder, ref sequence);
+            RenderTreeBuilderHelper.AddContentProperty<AC.Flyout>(builder, sequence++, ChildContent,
+                (nativeControl, data) => nativeControl.Content = (object)data);
         }
 
         static partial void RegisterAdditionalHandlers();

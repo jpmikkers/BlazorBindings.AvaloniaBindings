@@ -69,7 +69,11 @@ using Avalonia.Controls.Primitives;
 [assembly: GenerateComponent(typeof(DatePicker))]
 [assembly: GenerateComponent(typeof(DockPanel))]
 [assembly: GenerateComponent(typeof(Expander))]
-[assembly: GenerateComponent(typeof(Flyout))]
+[assembly: GenerateComponent(typeof(Flyout),
+    ContentProperties =
+    [
+        nameof(Flyout.Content)
+    ])]
 [assembly: GenerateComponent(typeof(FlyoutBase))]
 [assembly: GenerateComponent(typeof(GradientBrush))]
 [assembly: GenerateComponent(typeof(GradientStop))]
