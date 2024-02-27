@@ -1,9 +1,7 @@
-﻿@using BlazorBindings.AvaloniaBindings.Elements.Shapes
+﻿@inherits ElementTestBase
 
-@inherits ElementTestBase
-
-@code {
-
+@code
+{
     [AvaloniaTest]
     public async Task BorderWithCornerRadius()
     {
@@ -17,9 +15,9 @@
     public async Task BorderWithChildContent()
     {
         var border = await Render<AC.Border>(
-    @<Border>
-        <Label>BorderTest</Label>
-    </Border>);
+            @<Border>
+                <Label>BorderTest</Label>
+            </Border>);
 
         var childLabel = border.Child as AC.Label;
         Assert.That(childLabel, Is.Not.Null);

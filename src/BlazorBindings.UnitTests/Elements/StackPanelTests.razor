@@ -1,8 +1,8 @@
 ﻿@using BlazorBindings.UnitTests.Components
 @inherits ElementTestBase
 
-@code {
-
+@code
+{
     [AvaloniaTest]
     public async Task AddLayoutChildren()
     {
@@ -182,5 +182,4 @@
         items = layout.Children.Cast<AC.Label>().Select(l => l.Content).ToArray();
         Assert.That(items, Is.EqualTo(new[] { "1", "2", "3" }));
     }
-
 }

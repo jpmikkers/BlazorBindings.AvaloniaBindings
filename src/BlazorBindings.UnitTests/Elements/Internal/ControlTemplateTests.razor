@@ -1,44 +1,45 @@
 @inherits ElementTestBase
 
-@code {
-[AvaloniaTest]
-public async Task CreateControlFromTemplate()
+@code
 {
-    var template = await RenderTemplate(
+    [AvaloniaTest]
+    public async Task CreateControlFromTemplate()
+    {
+        var template = await RenderTemplate(
     @<StackPanel>
         <Label>1</Label>
         <Label>2</Label>
     </StackPanel>
         );
-    var content = template.CreateContent().GetTemplateContent<AC.StackPanel>();
-    var label1 = (AC.Label)content.Children[0];
-    var label2 = (AC.Label)content.Children[1];
+        var content = template.CreateContent().GetTemplateContent<AC.StackPanel>();
+        var label1 = (AC.Label)content.Children[0];
+        var label2 = (AC.Label)content.Children[1];
 
-    Assert.That(label1.Content, Is.EqualTo("1"));
-    Assert.That(label2.Content, Is.EqualTo("2"));
-}
+        Assert.That(label1.Content, Is.EqualTo("1"));
+        Assert.That(label2.Content, Is.EqualTo("2"));
+    }
 
-[AvaloniaTest]
-public async Task TemplateCreatesNewControlsEachTime()
-{
-    var template = await RenderTemplate(@<Label>-</Label>);
+    [AvaloniaTest]
+    public async Task TemplateCreatesNewControlsEachTime()
+    {
+        var template = await RenderTemplate(@<Label>-</Label>);
 
-    var label1 = template.CreateContent().GetTemplateContent<AC.Label>();
-    var label2 = template.CreateContent().GetTemplateContent<AC.Label>();
+        var label1 = template.CreateContent().GetTemplateContent<AC.Label>();
+        var label2 = template.CreateContent().GetTemplateContent<AC.Label>();
 
-    Assert.That(label1.Content, Is.EqualTo("-"));
-    Assert.That(label2.Content, Is.EqualTo("-"));
+        Assert.That(label1.Content, Is.EqualTo("-"));
+        Assert.That(label2.Content, Is.EqualTo("-"));
 
-    label1.Content = "1";
-    label2.Content = "2";
+        label1.Content = "1";
+        label2.Content = "2";
 
-    Assert.That(label1.Content, Is.EqualTo("1"));
-    Assert.That(label2.Content, Is.EqualTo("2"));
-}
+        Assert.That(label1.Content, Is.EqualTo("1"));
+        Assert.That(label2.Content, Is.EqualTo("2"));
+    }
 
-private async Task<AC.Templates.IControlTemplate> RenderTemplate(RenderFragment fragment)
-{
-    var contentView = await Render<AC.ContentControl>(@<ContentControl Template="fragment" />);
-    return contentView.Template;
-}
+    private async Task<AC.Templates.IControlTemplate> RenderTemplate(RenderFragment fragment)
+    {
+        var contentView = await Render<AC.ContentControl>(@<ContentControl Template="fragment" />);
+        return contentView.Template;
+    }
 }

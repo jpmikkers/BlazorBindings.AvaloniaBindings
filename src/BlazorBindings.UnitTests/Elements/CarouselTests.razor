@@ -1,17 +1,17 @@
 ﻿@inherits ElementTestBase
 
-@code {
-
+@code
+{
     [AvaloniaTest]
     public async Task ChangeItemSource()
     {
         var items = new[] { 1, 2, 3, 4, 5 };
 
         var parent = await Render<AC.StackPanel>(
-    @<StackPanel>
-        <Carousel ItemsSource="items" />
-    </StackPanel>
-    );
+            @<StackPanel>
+                <Carousel ItemsSource="items" />
+            </StackPanel>
+            );
 
         var carouselView = (AC.Carousel)parent.Children[0];
 

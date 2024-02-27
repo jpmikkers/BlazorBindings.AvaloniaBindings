@@ -9,17 +9,17 @@
     public async Task TargetElementsShouldHavePropertiesSetWhenAddedToParents()
     {
         var parent = await Render<TestContainerComponent.TestTargetElement>(
-    @<TestContainerComponent X="1" Y="2">
-        <TestContainerComponent X="3" Y="4">
-            <WrapperWithCascadingValue>
-                <TestContainerComponent X="5" Y="6" />
-            </WrapperWithCascadingValue>
-            <TestContainerComponent X="7" Y="8" />
-        </TestContainerComponent>
+            @<TestContainerComponent X="1" Y="2">
+                <TestContainerComponent X="3" Y="4">
+                    <WrapperWithCascadingValue>
+                        <TestContainerComponent X="5" Y="6" />
+                    </WrapperWithCascadingValue>
+                    <TestContainerComponent X="7" Y="8" />
+                </TestContainerComponent>
 
-        <TestContainerComponent X="9" Y="10" />
-    </TestContainerComponent>
-    );
+                <TestContainerComponent X="9" Y="10" />
+            </TestContainerComponent>
+            );
 
         Assert.That((parent.X, parent.Y), Is.EqualTo((1, 2)));
 

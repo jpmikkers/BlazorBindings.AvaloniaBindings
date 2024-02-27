@@ -1,4 +1,5 @@
 ﻿using BlazorBindings.Core;
+using BlazorBindings.UnitTests.TestUtils;
 using System.Collections.Immutable;
 
 namespace BlazorBindings.UnitTests.Components;
@@ -11,7 +12,10 @@ public class TestContainerComponent : NativeControlComponentBase, IElementHandle
     [Parameter] public int Y { get; set; }
     [Parameter] public RenderFragment ChildContent { get; set; }
 
-    protected override RenderFragment GetChildContent() => ChildContent;
+    protected override RenderFragment GetChildContent()
+    {
+        return ChildContent;
+    }
 
     public override async Task SetParametersAsync(ParameterView parameters)
     {
@@ -30,7 +34,9 @@ public class TestContainerComponent : NativeControlComponentBase, IElementHandle
     void IContainerElementHandler.RemoveChild(object child, int physicalSiblingIndex)
     {
         if (!Equals(_targetElement.Children[physicalSiblingIndex], child))
+        {
             throw new InvalidOperationException("Unexpected child to remove.");
+        }
 
         _targetElement.Children = _targetElement.Children.RemoveAt(physicalSiblingIndex);
     }
@@ -38,7 +44,9 @@ public class TestContainerComponent : NativeControlComponentBase, IElementHandle
     void IContainerElementHandler.ReplaceChild(int physicalSiblingIndex, object oldChild, object newChild)
     {
         if (!Equals(_targetElement.Children[physicalSiblingIndex], oldChild))
+        {
             throw new InvalidOperationException("Unexpected child to remove.");
+        }
 
         _targetElement.Children = _targetElement.Children.SetItem(physicalSiblingIndex, newChild.Cast<TestTargetElement>());
     }
@@ -59,13 +67,5 @@ public class TestContainerComponent : NativeControlComponentBase, IElementHandle
         public int Y { get; set; }
 
         public ImmutableList<TestTargetElement> Children { get; set; }
-    }
-}
-
-public static class TestExtensions
-{
-    public static T Cast<T>(this object obj)
-    {
-        return (T)obj;
     }
 }

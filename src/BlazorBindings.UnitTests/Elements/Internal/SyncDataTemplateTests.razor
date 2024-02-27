@@ -1,46 +1,47 @@
 ﻿@inherits ElementTestBase
 
-@code {
-[AvaloniaTest]
-public async Task CreateContentFromDataTemplate()
+@code
 {
-    var template = await RenderTemplate<int>(i =>
-    @<Label>@i - @(i == 1 ? "one" : "many")</Label>);
+    [AvaloniaTest]
+    public async Task CreateContentFromDataTemplate()
+    {
+        var template = await RenderTemplate<int>(i =>
+            @<Label>@i - @(i == 1 ? "one" : "many")</Label>);
 
-    var label1 = CreateTemplateRoot<AC.Label>(template, 1);
-    var label2 = CreateTemplateRoot<AC.Label>(template, 2);
+        var label1 = CreateTemplateRoot<AC.Label>(template, 1);
+        var label2 = CreateTemplateRoot<AC.Label>(template, 2);
 
-    Assert.That(label1.Content, Is.EqualTo("1 - one"));
+        Assert.That(label1.Content, Is.EqualTo("1 - one"));
         Assert.That(label2.Content, Is.EqualTo("2 - many"));
-}
+    }
 
-[AvaloniaTest]
-public async Task TemplateContentChangesBasedOnBindingContext()
-{
-    var template = await RenderTemplate<int>(i =>
-    @<Label>@i - @(i == 1 ? "one" : "many")</Label>);
+    [AvaloniaTest]
+    public async Task TemplateContentChangesBasedOnBindingContext()
+    {
+        var template = await RenderTemplate<int>(i =>
+            @<Label>@i - @(i == 1 ? "one" : "many")</Label>);
 
-    var label = CreateTemplateRoot<AC.Label>(template, 1);
+        var label = CreateTemplateRoot<AC.Label>(template, 1);
 
         Assert.That(label.Content, Is.EqualTo("1 - one"));
 
-    label.DataContext = 2;
-    StateHasChanged();
+        label.DataContext = 2;
+        StateHasChanged();
 
-    Assert.That(label.Content, Is.EqualTo("2 - many"));
-}
+        Assert.That(label.Content, Is.EqualTo("2 - many"));
+    }
 
-private async Task<AC.Templates.IDataTemplate> RenderTemplate<T>(RenderFragment<T> templateFragment)
-{
-    var listView = await Render<Avalonia.Controls.ListBox>(@<ListBox T="T" ItemTemplate="templateFragment" />);
-    return listView.ItemTemplate;
-}
+    private async Task<AC.Templates.IDataTemplate> RenderTemplate<T>(RenderFragment<T> templateFragment)
+    {
+        var listView = await Render<Avalonia.Controls.ListBox>(@<ListBox T="T" ItemTemplate="templateFragment" />);
+        return listView.ItemTemplate;
+    }
 
-private T CreateTemplateRoot<T>(Avalonia.Controls.Templates.IDataTemplate template, object item)
-    where T:Avalonia.StyledElement
-{
-    var content = (Avalonia.StyledElement)template.Build(item);
-    content.DataContext = item;
-    return (T)content;
-}
+    private T CreateTemplateRoot<T>(Avalonia.Controls.Templates.IDataTemplate template, object item)
+        where T : Avalonia.StyledElement
+    {
+        var content = (Avalonia.StyledElement)template.Build(item);
+        content.DataContext = item;
+        return (T)content;
+    }
 }

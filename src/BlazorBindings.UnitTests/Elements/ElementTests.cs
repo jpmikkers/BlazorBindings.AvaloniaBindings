@@ -1,7 +1,4 @@
-﻿// Copyright (c) Microsoft Corporation.
-// Licensed under the MIT license.
-
-using BlazorBindings.AvaloniaBindings.Elements;
+﻿using BlazorBindings.AvaloniaBindings.Elements;
 
 namespace BlazorBindings.UnitTests.Elements;
 

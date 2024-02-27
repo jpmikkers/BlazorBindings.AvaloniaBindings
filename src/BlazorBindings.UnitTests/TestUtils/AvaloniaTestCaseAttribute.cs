@@ -1,11 +1,8 @@
-﻿// Copyright (c) Microsoft Corporation.
-// Licensed under the MIT license.
-
-using Avalonia.Headless;
+﻿using Avalonia.Headless;
 using NUnit.Framework.Interfaces;
 using NUnit.Framework.Internal.Commands;
 
-namespace BlazorBindings.UnitTests.Navigation;
+namespace BlazorBindings.UnitTests.TestUtils;
 
 [AttributeUsage(AttributeTargets.Method, AllowMultiple = true, Inherited = false)]
 public sealed class AvaloniaTestCaseAttribute : TestCaseAttribute, IWrapSetUpTearDown
@@ -15,8 +12,8 @@ public sealed class AvaloniaTestCaseAttribute : TestCaseAttribute, IWrapSetUpTea
     /// This constructor is not CLS-Compliant
     /// </summary>
     /// <param name="arguments"></param>
-    public AvaloniaTestCaseAttribute(params object?[]? arguments)
-        :base(arguments)
+    public AvaloniaTestCaseAttribute(params object[] arguments)
+        : base(arguments)
     {
     }
 
@@ -24,7 +21,7 @@ public sealed class AvaloniaTestCaseAttribute : TestCaseAttribute, IWrapSetUpTea
     /// Construct a AvaloniaTestCaseAttribute with a single argument
     /// </summary>
     /// <param name="arg"></param>
-    public AvaloniaTestCaseAttribute(object? arg)
+    public AvaloniaTestCaseAttribute(object arg)
         : base(arg)
     {
     }
@@ -34,7 +31,7 @@ public sealed class AvaloniaTestCaseAttribute : TestCaseAttribute, IWrapSetUpTea
     /// </summary>
     /// <param name="arg1"></param>
     /// <param name="arg2"></param>
-    public AvaloniaTestCaseAttribute(object? arg1, object? arg2)
+    public AvaloniaTestCaseAttribute(object arg1, object arg2)
         : base(arg1, arg2)
     {
     }
@@ -45,7 +42,7 @@ public sealed class AvaloniaTestCaseAttribute : TestCaseAttribute, IWrapSetUpTea
     /// <param name="arg1"></param>
     /// <param name="arg2"></param>
     /// <param name="arg3"></param>
-    public AvaloniaTestCaseAttribute(object? arg1, object? arg2, object? arg3)
+    public AvaloniaTestCaseAttribute(object arg1, object arg2, object arg3)
         : base(arg1, arg2, arg3)
     {
     }

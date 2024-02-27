@@ -2,12 +2,13 @@
     <NonPageContent />
 </ContentControl>
 
-@code {
-public static void ValidateContent(Avalonia.StyledElement content)
+@code
 {
-    var contentPage = content as AC.ContentControl;
-    Assert.That(contentPage, Is.Not.Null);
-    // Assert.That(contentPage.Title, Is.EqualTo("Test"));
-    NonPageContent.ValidateContent((Avalonia.Visual)contentPage.Content);
-}
+    public static void ValidateContent(Avalonia.StyledElement content)
+    {
+        var contentPage = content as AC.ContentControl;
+        Assert.That(contentPage, Is.Not.Null);
+        Assert.That(contentPage.Tag, Is.EqualTo("Test"));
+        NonPageContent.ValidateContent((Avalonia.Visual)contentPage.Content);
+    }
 }

@@ -1,12 +1,8 @@
-﻿// Copyright (c) Microsoft Corporation.
-// Licensed under the MIT license.
-
-using Avalonia;
-using Avalonia.Headless;
-using Avalonia.Threading;
+﻿using Avalonia.Threading;
 using BlazorBindings.AvaloniaBindings;
 using BlazorBindings.AvaloniaBindings.Navigation;
 using BlazorBindings.UnitTests.Components;
+using BlazorBindings.UnitTests.TestUtils;
 
 namespace BlazorBindings.UnitTests.Navigation;
 

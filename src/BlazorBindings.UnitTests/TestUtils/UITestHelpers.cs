@@ -1,7 +1,7 @@
 ﻿using Avalonia.Controls;
 using Avalonia.Interactivity;
 
-namespace BlazorBindings.UnitTests;
+namespace BlazorBindings.UnitTests.TestUtils;
 
 public static class UITestHelpers
 {

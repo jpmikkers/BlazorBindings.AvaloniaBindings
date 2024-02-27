@@ -2,9 +2,10 @@
     <Label>It should fail.</Label>
 </ContentControl>
 
-@code {
-protected override void OnInitialized()
+@code
 {
-    throw new InvalidOperationException("Should fail here.");
-}
+    protected override void OnInitialized()
+    {
+        throw new InvalidOperationException("Should fail here.");
+    }
 }

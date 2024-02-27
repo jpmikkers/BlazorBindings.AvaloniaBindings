@@ -6,25 +6,26 @@
     </StackPanel>
 </ContentControl>
 
-@code {
-[Parameter] public string Par1 { get; set; }
-[Parameter] public int Par2 { get; set; }
-
-public static void ValidateContent(Avalonia.StyledElement content, string par1, int par2)
+@code
 {
-    var contentPage = content as AC.ContentControl;
-    Assert.That(contentPage, Is.Not.Null);
-    Assert.That(contentPage.Tag, Is.EqualTo("Test"));
+    [Parameter] public string Par1 { get; set; }
+    [Parameter] public int Par2 { get; set; }
 
-    var stack = contentPage.Content as AC.StackPanel;
-    Assert.That(stack, Is.Not.Null);
+    public static void ValidateContent(Avalonia.StyledElement content, string par1, int par2)
+    {
+        var contentPage = content as AC.ContentControl;
+        Assert.That(contentPage, Is.Not.Null);
+        Assert.That(contentPage.Tag, Is.EqualTo("Test"));
 
-    var label1 = (stack.Children[0] as AC.Label)?.Content;
-    Assert.That(label1, Is.EqualTo(par1));
+        var stack = contentPage.Content as AC.StackPanel;
+        Assert.That(stack, Is.Not.Null);
 
-    var label2 = (stack.Children[1] as AC.Label)?.Content;
-    Assert.That(label2, Is.EqualTo(par2.ToString()));
+        var label1 = (stack.Children[0] as AC.Label)?.Content;
+        Assert.That(label1, Is.EqualTo(par1));
 
-    NonPageContent.ValidateContent(stack.Children[2]);
-}
+        var label2 = (stack.Children[1] as AC.Label)?.Content;
+        Assert.That(label2, Is.EqualTo(par2.ToString()));
+
+        NonPageContent.ValidateContent(stack.Children[2]);
+    }
 }

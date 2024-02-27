@@ -7,20 +7,8 @@
 
 @inherits ElementTestBase
 
-@code {
-    private BlazorNavigation _navigationService;
-    private AvaloniaNavigation _nativeNavigation;
-
-    [SetUp]
-    public void Setup()
-    {
-        var app = (TestApplication)Avalonia.Application.Current;
-        var serviceProvider = app.ServiceProvider;
-
-        _navigationService = (BlazorNavigation)serviceProvider.GetRequiredService<INavigation>();
-        _nativeNavigation = app.Navigation;
-    }
-
+@code
+{
     [AvaloniaTest]
     public async Task CreateListItemWithItemTemplate()
     {
@@ -32,9 +20,7 @@
                 </ItemTemplate>
             </ListBox>;
 
-        await _navigationService.PushAsync(listBoxRenderFragment, false);
-
-        var listBox = (AC.ListBox)_nativeNavigation.CurrentPage;
+        var listBox = await Render<AC.ListBox>(listBoxRenderFragment);
 
         Tick();
 

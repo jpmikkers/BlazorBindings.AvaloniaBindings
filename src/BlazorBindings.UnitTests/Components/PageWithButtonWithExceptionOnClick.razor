@@ -2,10 +2,11 @@
     <Button OnClick="Fail" />
 </ContentControl>
 
-@code {
-async Task Fail()
+@code
 {
-    await Task.Delay(5);
-    throw new Exception("HandleExceptionTest");
-}
+    async Task Fail()
+    {
+        await Task.Delay(5);
+        throw new Exception("HandleExceptionTest");
+    }
 }

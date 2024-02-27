@@ -5,15 +5,9 @@
 
 @implements IHandleEvent
 
-@code {
-    public ElementTestBase()
-    {
-        // Avalonia.Application.Current = new TestApplication();
-        // _application = TestApplication.Create();
-    }
-
+@code
+{
     private TestApplication _application;
-    // private AC.Window _window;
     private TestBlazorBindingsRenderer _renderer;
     protected RenderFragmentComponent _renderedComponent;
 
@@ -23,22 +17,14 @@
             throw new InvalidOperationException("Application not initialized - did you use [AvaloniaTest]?");
         _renderer ??= (TestBlazorBindingsRenderer)TestBlazorBindingsRenderer.Get(_application);
 
-
         Avalonia.Threading.Dispatcher.UIThread.VerifyAccess();
-        // _window = new AC.Window
-        //     {
-        //         Width = 100,
-        //         Height = 100
-        //     };
-        // _application.Window = _window;
-
+        
         var container = new ApplicationHandler(_application);
         _renderedComponent = await _renderer.AddComponent<RenderFragmentComponent>(container, new Dictionary<string, object>
-            {
-                ["RenderFragment"] = renderFragment
-            });
+        {
+            ["RenderFragment"] = renderFragment
+        });
 
-        // return (T)container.Elements[0];
         return (T)_application.Window.Content;
     }
 

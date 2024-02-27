@@ -1,7 +1,5 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Headless.NUnit;
 using BlazorBindings.AvaloniaBindings;
 using BlazorBindings.UnitTests.Components;
 
@@ -11,12 +9,6 @@ public class BlazorBindingsApplicationTests
 {
     private TestApplication _application;
     private Window _window;
-
-    [SetUp]
-    public void Setup()
-    {
-        
-    }
 
     [AvaloniaTest]
     public void SetsTheMainPage_ContentPage()
@@ -58,7 +50,6 @@ public class BlazorBindingsApplicationTests
         where TMain : IComponent
         where TWrapper : IComponent
     {
-        //return new BlazorBindingsApplicationWithWrapper<TMain, TWrapper>(TestServiceProvider.Get());
         _application = (TestApplication)Application.Current;
         _application.ComponentType = typeof(TMain);
         _application.WrapperComponentType = typeof(TWrapper);
@@ -72,17 +63,5 @@ public class BlazorBindingsApplicationTests
         _application.Window = _window;
 
         return _application;
-    }
-
-    class BlazorBindingsApplicationWithWrapper<TMain, TWrapper> : BlazorBindingsApplication<TMain>
-        where TMain : IComponent
-        where TWrapper : IComponent
-    {
-        public BlazorBindingsApplicationWithWrapper(IServiceProvider serviceProvider) 
-        {
-            //Initialize(serviceProvider);
-        }
-
-        //public override Type WrapperComponentType => typeof(TWrapper);
     }
 }

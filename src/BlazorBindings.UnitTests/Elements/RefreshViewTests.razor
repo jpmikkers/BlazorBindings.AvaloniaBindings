@@ -4,14 +4,13 @@
 @inherits ElementTestBase
 
 @code
-{   
+{
     int refreshCount = 0;
     bool refreshInvokeStarted = false;
 
     [AvaloniaTest]
     public async Task InvokeOnRefreshingCallback()
     {
-        
         var refreshAction = async (AC.RefreshRequestedEventArgs e) =>
         {
             refreshInvokeStarted = true;
@@ -21,19 +20,19 @@
         Label labelRef = null;
 
         var refreshView = await Render<AC.RefreshContainer>(
-    @<RefreshContainer OnRefreshRequested="e => refreshAction(e)" PullDirection="Avalonia.Input.PullDirection.TopToBottom">
-        <ScrollViewer>
-            <StackPanel Orientation="Avalonia.Layout.Orientation.Vertical">
-                <Label @ref="labelRef">@refreshCount</Label>
-            </StackPanel>
-        </ScrollViewer>
-        
-    </RefreshContainer>);
+            @<RefreshContainer OnRefreshRequested="e => refreshAction(e)" PullDirection="Avalonia.Input.PullDirection.TopToBottom">
+                <ScrollViewer>
+                    <StackPanel Orientation="Avalonia.Layout.Orientation.Vertical">
+                        <Label @ref="labelRef">@refreshCount</Label>
+                    </StackPanel>
+                </ScrollViewer>
+
+            </RefreshContainer>);
 
         Tick();
 
         refreshView.RequestRefresh();
-        
+
         Tick();
 
         Assert.That(refreshInvokeStarted, Is.True);

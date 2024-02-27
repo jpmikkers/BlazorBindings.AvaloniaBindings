@@ -1,37 +1,38 @@
 ﻿@inherits ElementTestBase
 
-@code {
-[AvaloniaTest]
-public async Task BindedDateIsUpdatedWhenSelected()
+@code
 {
-    DateTimeOffset? bindedDate = default;
-    var datePicker = await Render<AC.DatePicker>(@<DatePicker @bind-SelectedDate="bindedDate" />);
+    [AvaloniaTest]
+    public async Task BindedDateIsUpdatedWhenSelected()
+    {
+        DateTimeOffset? bindedDate = default;
+        var datePicker = await Render<AC.DatePicker>(@<DatePicker @bind-SelectedDate="bindedDate" />);
 
-    datePicker.SelectedDate = new DateTimeOffset(2023, 01, 12, 0, 0, 0, default);
+        datePicker.SelectedDate = new DateTimeOffset(2023, 01, 12, 0, 0, 0, default);
 
-    Assert.That(bindedDate, Is.EqualTo(new DateTimeOffset(2023, 01, 12, 0, 0, 0, default)));
-}
+        Assert.That(bindedDate, Is.EqualTo(new DateTimeOffset(2023, 01, 12, 0, 0, 0, default)));
+    }
 
-[AvaloniaTest]
-public async Task SelectedDateIsUpdatedWhenBindedValueChanged()
-{
-    DateTimeOffset? bindedDate = default;
-    var datePicker = await Render<AC.DatePicker>(@<DatePicker @bind-SelectedDate="bindedDate" />);
+    [AvaloniaTest]
+    public async Task SelectedDateIsUpdatedWhenBindedValueChanged()
+    {
+        DateTimeOffset? bindedDate = default;
+        var datePicker = await Render<AC.DatePicker>(@<DatePicker @bind-SelectedDate="bindedDate" />);
 
-    bindedDate = new DateTimeOffset(2023, 01, 12, 0, 0, 0, default);
-    StateHasChanged();
+        bindedDate = new DateTimeOffset(2023, 01, 12, 0, 0, 0, default);
+        StateHasChanged();
 
-    Assert.That(datePicker.SelectedDate, Is.EqualTo(new DateTimeOffset(2023, 01, 12, 0, 0, 0, default)));
-}
+        Assert.That(datePicker.SelectedDate, Is.EqualTo(new DateTimeOffset(2023, 01, 12, 0, 0, 0, default)));
+    }
 
-[AvaloniaTest]
-public async Task SetMinMaxDate()
-{
-    var minYear = new DateTimeOffset(new DateTime(2023, 01, 01));
-    var maxYear = new DateTimeOffset(new DateTime(2024, 12, 31));
-    var datePicker = await Render<AC.DatePicker>(@<DatePicker MinYear="minYear" MaxYear="maxYear" />);
+    [AvaloniaTest]
+    public async Task SetMinMaxDate()
+    {
+        var minYear = new DateTimeOffset(new DateTime(2023, 01, 01));
+        var maxYear = new DateTimeOffset(new DateTime(2024, 12, 31));
+        var datePicker = await Render<AC.DatePicker>(@<DatePicker MinYear="minYear" MaxYear="maxYear" />);
 
-    Assert.That(datePicker.MinYear, Is.EqualTo(minYear));
-    Assert.That(datePicker.MaxYear, Is.EqualTo(maxYear));
-}
+        Assert.That(datePicker.MinYear, Is.EqualTo(minYear));
+        Assert.That(datePicker.MaxYear, Is.EqualTo(maxYear));
+    }
 }

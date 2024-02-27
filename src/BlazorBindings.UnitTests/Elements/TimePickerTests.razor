@@ -1,26 +1,27 @@
 ﻿@inherits ElementTestBase
 
-@code {
-[AvaloniaTest]
-public async Task BindedTimeIsUpdatedWhenSelected()
+@code
 {
-    TimeSpan? bindedTime = default;
-    var timePicker = await Render<AC.TimePicker>(@<TimePicker @bind-SelectedTime="bindedTime" />);
+    [AvaloniaTest]
+    public async Task BindedTimeIsUpdatedWhenSelected()
+    {
+        TimeSpan? bindedTime = default;
+        var timePicker = await Render<AC.TimePicker>(@<TimePicker @bind-SelectedTime="bindedTime" />);
 
-    timePicker.SelectedTime = new TimeSpan(12, 36, 42);
+        timePicker.SelectedTime = new TimeSpan(12, 36, 42);
 
-    Assert.That(bindedTime.ToString(), Is.EqualTo(new TimeOnly(12, 36, 42).ToLongTimeString()));
-}
+        Assert.That(bindedTime.ToString(), Is.EqualTo(new TimeOnly(12, 36, 42).ToLongTimeString()));
+    }
 
-[AvaloniaTest]
-public async Task SelectedTimeIsUpdatedWhenBindedValueChanged()
-{
-    TimeSpan? bindedTime = default;
-    var timePicker = await Render<AC.TimePicker>(@<TimePicker @bind-SelectedTime="bindedTime" />);
+    [AvaloniaTest]
+    public async Task SelectedTimeIsUpdatedWhenBindedValueChanged()
+    {
+        TimeSpan? bindedTime = default;
+        var timePicker = await Render<AC.TimePicker>(@<TimePicker @bind-SelectedTime="bindedTime" />);
 
-    bindedTime = new TimeSpan(11, 22, 33);
-    StateHasChanged();
+        bindedTime = new TimeSpan(11, 22, 33);
+        StateHasChanged();
 
-    Assert.That(timePicker.SelectedTime, Is.EqualTo(new TimeSpan(11, 22, 33)));
-}
+        Assert.That(timePicker.SelectedTime, Is.EqualTo(new TimeSpan(11, 22, 33)));
+    }
 }

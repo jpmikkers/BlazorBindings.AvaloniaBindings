@@ -1,24 +1,24 @@
 ﻿@using Avalonia.Controls
 @inherits ElementTestBase
 
-@code {
+@code
+{
     [AvaloniaTest]
     public async Task AddItemsViaGrid_Attachment()
     {
         var grid = await Render<AC.Grid>(
-    @<Grid>
-        <Label>
-            0-0 <Grid_Attachment Row="0" Column="0"/>
-        </Label>
+            @<Grid>
+                <Label>
+                    0-0 <Grid_Attachment Row="0" Column="0" />
+                </Label>
 
-        <Label>0-1 <Grid_Attachment Row="0" Column="1" ColumnSpan="2" /></Label>
+                <Label>0-1 <Grid_Attachment Row="0" Column="1" ColumnSpan="2" /></Label>
 
-        <Label>1-0 <Grid_Attachment Row="1" Column="0" RowSpan="2" /></Label>
+                <Label>1-0 <Grid_Attachment Row="1" Column="0" RowSpan="2" /></Label>
 
-        <Label>1-1 <Grid_Attachment Row="1" Column="1" /></Label>
-        
-    </Grid>
-    );
+                <Label>1-1 <Grid_Attachment Row="1" Column="1" /></Label>
+
+            </Grid>);
 
         var label00 = (AC.Label)grid.Children[0];
         var label01 = (AC.Label)grid.Children[1];
@@ -42,13 +42,12 @@
     public async Task AddItemsViaAttachedProperties()
     {
         var grid = await Render<AC.Grid>(
-    @<Grid>
-        <Label Grid.Row="0" Grid.Column="0">0-0</Label>
-        <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2">0-1</Label>
-        <Label Grid.Row="1" Grid.Column="0" Grid.RowSpan="2">1-0</Label>
-        <Label Grid.Row="1" Grid.Column="1">1-1</Label>
-    </Grid>
-    );
+            @<Grid>
+                <Label Grid.Row="0" Grid.Column="0">0-0</Label>
+                <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2">0-1</Label>
+                <Label Grid.Row="1" Grid.Column="0" Grid.RowSpan="2">1-0</Label>
+                <Label Grid.Row="1" Grid.Column="1">1-1</Label>
+            </Grid>);
 
         var label00 = (AC.Label)grid.Children[0];
         var label01 = (AC.Label)grid.Children[1];
@@ -97,30 +96,29 @@
         var insertItems = true;
 
         var grid = await Render<AC.Grid>(
-    @<Grid>
-            @if (insertItems)
-        {
-            <Label Grid.Row="0" Grid.Column="0">0-0a</Label>
-        }
-            <Label Grid.Row="0" Grid.Column="0">0-0b</Label>
+            @<Grid>
+                @if (insertItems)
+                {
+                    <Label Grid.Row="0" Grid.Column="0">0-0a</Label>
+                }
+                <Label Grid.Row="0" Grid.Column="0">0-0b</Label>
 
-        <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2">0-1a</Label>
+                <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2">0-1a</Label>
 
-            @if (insertItems)
-        {
-        <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2">0-1b</Label>
-        }
+                @if (insertItems)
+                {
+                    <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2">0-1b</Label>
+                }
 
-            <Label Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" >1-0a</Label>
-            <Label Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" >1-0b</Label>
+                <Label Grid.Row="1" Grid.Column="0" Grid.RowSpan="2">1-0a</Label>
+                <Label Grid.Row="1" Grid.Column="0" Grid.RowSpan="2">1-0b</Label>
 
-        @if (insertItems)
-    {
-            <Label Grid.Row="1" Grid.Column="1">1-1a</Label>
-            <Label Grid.Row="1" Grid.Column="1">1-1b</Label>
-    }
-    </Grid>
-    );
+                @if (insertItems)
+                {
+                    <Label Grid.Row="1" Grid.Column="1">1-1a</Label>
+                    <Label Grid.Row="1" Grid.Column="1">1-1b</Label>
+                }
+            </Grid>);
 
         var labels = grid.Children.Cast<AC.Label>().ToArray();
         var label00a = labels[0];

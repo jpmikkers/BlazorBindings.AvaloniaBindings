@@ -1,7 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Headless.NUnit;
 using BlazorBindings.UnitTests.Components;
+using BlazorBindings.UnitTests.TestUtils;
 using FluentAssertions;
 
 namespace BlazorBindings.UnitTests;
@@ -66,7 +66,7 @@ public class AvaloniaBlazorBindingsRendererTests
         var button = (AC.Button)((AC.ContentControl)(_window.Content)).Content;
         button.ClickTrigger();
 
-        await Task.Delay(20);
+        await Task.Delay(50);
         Assert.That(() => _renderer.Exceptions, Is.Not.Empty);
         Assert.That(_renderer.Exceptions[0].Message, Is.EqualTo("HandleExceptionTest"));
     }
