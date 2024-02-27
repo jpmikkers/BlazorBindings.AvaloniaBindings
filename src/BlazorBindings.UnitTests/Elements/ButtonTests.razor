@@ -4,17 +4,17 @@
 @inherits ElementTestBase
 
 @code {
-[AvaloniaTest]
-public async Task ButtonOnClickEventCallback()
-{
-    bool clicked = false;
-    void HandleButtonClick() => clicked = true;
-    var button = await Render<AC.Button>(@<Button OnClick="HandleButtonClick" />);
+    [AvaloniaTest]
+    public async Task ButtonOnClickEventCallback()
+    {
+        bool clicked = false;
+        void HandleButtonClick() => clicked = true;
+        var button = await Render<AC.Button>(@<Button OnClick="HandleButtonClick" />);
 
-    button.ClickTrigger();
+        button.ClickTrigger();
 
-    StateHasChanged();
+        StateHasChanged();
 
-    Assert.That(clicked, Is.True);
-}
+        Assert.That(clicked, Is.True);
+    }
 }

@@ -20,10 +20,6 @@ public class ElementTests
         => Assert.That(new ItemsControl<string>().NativeControl, Is.Not.Null);
 
     [Test]
-    public void NativeControlShouldReturnInstance_ContentPage()
+    public void NativeControlShouldReturnInstance_ContentControl()
         => Assert.That(new ContentControl().NativeControl, Is.Not.Null);
-
-    //[Test]
-    //public void NativeControlShouldReturnNullWhenHandlerNotInitialized_TapGestureRecognizer()
-    //    => Assert.That(new TapGestureRecognizer().NativeControl, Is.Not.Null);
 }

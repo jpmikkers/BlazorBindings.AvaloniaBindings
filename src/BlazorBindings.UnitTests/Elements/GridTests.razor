@@ -3,27 +3,22 @@
 
 @code {
     [AvaloniaTest]
-    public async Task AddItemsViaGridCell()
+    public async Task AddItemsViaGrid_Attachment()
     {
         var grid = await Render<AC.Grid>(
     @<Grid>
-        <GridCell Row="0" Column="0">
-            <Label>0-0</Label>
-        </GridCell>
+        <Label>
+            0-0 <Grid_Attachment Row="0" Column="0"/>
+        </Label>
 
-        <GridCell Row="0" Column="1" ColumnSpan="2">
-            <Label>0-1</Label>
-        </GridCell>
+        <Label>0-1 <Grid_Attachment Row="0" Column="1" ColumnSpan="2" /></Label>
 
-        <GridCell Row="1" Column="0" RowSpan="2">
-            <Label>1-0</Label>
-        </GridCell>
+        <Label>1-0 <Grid_Attachment Row="1" Column="0" RowSpan="2" /></Label>
 
-        <GridCell Row="1" Column="1">
-            <Label>1-1</Label>
-        </GridCell>
+        <Label>1-1 <Grid_Attachment Row="1" Column="1" /></Label>
+        
     </Grid>
-        );
+    );
 
         var label00 = (AC.Label)grid.Children[0];
         var label01 = (AC.Label)grid.Children[1];
@@ -103,35 +98,27 @@
 
         var grid = await Render<AC.Grid>(
     @<Grid>
-        <GridCell Row="0" Column="0">
             @if (insertItems)
-            {
-                <Label>0-0a</Label>
-            }
-            <Label>0-0b</Label>
-        </GridCell>
+        {
+            <Label Grid.Row="0" Grid.Column="0">0-0a</Label>
+        }
+            <Label Grid.Row="0" Grid.Column="0">0-0b</Label>
 
-        <GridCell Row="0" Column="1" ColumnSpan="2">
-            <Label>0-1a</Label>
+        <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2">0-1a</Label>
 
             @if (insertItems)
-            {
-                <Label>0-1b</Label>
-            }
-        </GridCell>
+        {
+        <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2">0-1b</Label>
+        }
 
-        <GridCell Row="1" Column="0" RowSpan="2">
-            <Label>1-0a</Label>
-            <Label>1-0b</Label>
-        </GridCell>
+            <Label Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" >1-0a</Label>
+            <Label Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" >1-0b</Label>
 
         @if (insertItems)
-        {
-            <GridCell Row="1" Column="1">
-                <Label>1-1a</Label>
-                <Label>1-1b</Label>
-            </GridCell>
-        }
+    {
+            <Label Grid.Row="1" Grid.Column="1">1-1a</Label>
+            <Label Grid.Row="1" Grid.Column="1">1-1b</Label>
+    }
     </Grid>
     );
 
