@@ -83,7 +83,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         }
     }
 
-    public static class ToolTipExtensions
+    public static partial class ToolTipExtensions
     {
         /// <summary>
         /// Defines the ToolTip.HorizontalOffset property.

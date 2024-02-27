@@ -23,7 +23,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         }
     }
 
-    public static class VisualExtensions
+    public static partial class VisualExtensions
     {
         /// <summary>
         /// Defines the <see cref="P:Avalonia.Visual.FlowDirection" /> property.

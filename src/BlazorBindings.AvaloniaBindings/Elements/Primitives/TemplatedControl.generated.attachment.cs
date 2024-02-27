@@ -24,7 +24,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         }
     }
 
-    public static class TemplatedControlExtensions
+    public static partial class TemplatedControlExtensions
     {
         /// <summary>
         /// Defines the IsTemplateFocusTarget attached property.

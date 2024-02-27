@@ -23,7 +23,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         }
     }
 
-    public static class TrayIconExtensions
+    public static partial class TrayIconExtensions
     {
         /// <summary>
         /// Defines the <see cref="T:Avalonia.Controls.TrayIcons" /> attached property.

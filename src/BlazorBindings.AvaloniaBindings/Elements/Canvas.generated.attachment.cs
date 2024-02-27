@@ -59,7 +59,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         }
     }
 
-    public static class CanvasExtensions
+    public static partial class CanvasExtensions
     {
         /// <summary>
         /// Defines the Bottom attached property.

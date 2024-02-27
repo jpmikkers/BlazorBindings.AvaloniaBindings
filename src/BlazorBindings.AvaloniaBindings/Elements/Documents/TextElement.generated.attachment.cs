@@ -84,7 +84,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         }
     }
 
-    public static class TextElementExtensions
+    public static partial class TextElementExtensions
     {
         /// <summary>
         /// Defines the <see cref="P:Avalonia.Controls.Documents.TextElement.FontFamily" /> property.

@@ -203,7 +203,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         }
     }
 
-    public static class RelativePanelExtensions
+    public static partial class RelativePanelExtensions
     {
         /// <summary>
         /// Identifies the <see cref="F:Avalonia.Controls.RelativePanel.AboveProperty" /> XAML attached property.

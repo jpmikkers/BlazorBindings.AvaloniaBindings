@@ -23,7 +23,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         }
     }
 
-    public static class NativeMenuExtensions
+    public static partial class NativeMenuExtensions
     {
         public static AvaloniaObject NativeMenuMenu(this AvaloniaObject element, AC.NativeMenu value)
         {

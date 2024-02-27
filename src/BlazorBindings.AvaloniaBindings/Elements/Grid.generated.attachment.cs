@@ -71,7 +71,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         }
     }
 
-    public static class GridExtensions
+    public static partial class GridExtensions
     {
         /// <summary>
         /// Column property. This is an attached property. Grid defines Column property, so that it can be set on any element treated as a cell. Column property specifies child's position with respect to columns.

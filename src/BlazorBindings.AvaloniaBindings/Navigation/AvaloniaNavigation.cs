@@ -1,5 +1,4 @@
-﻿using Avalonia.Animation;
-using Avalonia.Controls;
+﻿using Avalonia.Controls;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 

@@ -143,7 +143,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         }
     }
 
-    public static class ScrollViewerExtensions
+    public static partial class ScrollViewerExtensions
     {
         /// <summary>
         /// Defines the <see cref="P:Avalonia.Controls.ScrollViewer.AllowAutoHide" /> property.

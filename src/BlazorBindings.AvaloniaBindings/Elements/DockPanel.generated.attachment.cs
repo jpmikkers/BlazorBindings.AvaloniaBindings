@@ -23,7 +23,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         }
     }
 
-    public static class DockPanelExtensions
+    public static partial class DockPanelExtensions
     {
         /// <summary>
         /// Defines the Dock attached property.

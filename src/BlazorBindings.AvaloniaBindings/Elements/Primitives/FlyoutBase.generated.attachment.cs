@@ -24,7 +24,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         }
     }
 
-    public static class FlyoutBaseExtensions
+    public static partial class FlyoutBaseExtensions
     {
         /// <summary>
         /// Defines the AttachedFlyout property

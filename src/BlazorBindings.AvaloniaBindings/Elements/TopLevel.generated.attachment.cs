@@ -23,7 +23,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         }
     }
 
-    public static class TopLevelExtensions
+    public static partial class TopLevelExtensions
     {
         /// <summary>
         /// Defines the SystemBarColor attached property.

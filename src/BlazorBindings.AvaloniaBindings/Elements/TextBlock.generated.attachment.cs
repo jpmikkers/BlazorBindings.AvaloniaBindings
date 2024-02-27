@@ -95,7 +95,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         }
     }
 
-    public static class TextBlockExtensions
+    public static partial class TextBlockExtensions
     {
         /// <summary>
         /// DependencyProperty for <see cref="P:Avalonia.Controls.TextBlock.BaselineOffset" /> property.
