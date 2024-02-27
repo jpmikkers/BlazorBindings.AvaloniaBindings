@@ -2,11 +2,11 @@
 
 @using ControlGallery.Models
 
-@inject Navigation Navigation
+@inject INavigation Navigation
 
-<ContentPage Title="Navigation">
-    <ScrollView>
-        <VerticalStackLayout Padding="6" Spacing="6">
+<ContentControl Tag="Navigation">
+    <ScrollViewer>
+        <StackPanel Margin="6" Spacing="6">
             <Label>Passed item</Label>
             <Label>Name: @item.Name, Value: @item.Value</Label>
 
@@ -22,9 +22,9 @@
             <Button Text="Navigate via markup parameter with event" OnClick="NavigateViaRenderFragment" />
             <Button Text="Navigate via markup parameter with binding" OnClick="NavigateViaRenderFragmentWithBind" />
             <Button Text="Navigate to modal via markup parameter" OnClick="NavigateToModalViaRenderFragment" />
-        </VerticalStackLayout>
-    </ScrollView>
-</ContentPage>
+        </StackPanel>
+    </ScrollViewer>
+</ContentControl>
 
 @code {
 NavigationParameterModel item = new("Firefly", "Serenity");

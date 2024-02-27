@@ -1,35 +1,33 @@
 ﻿@page "/carouselviewplayground"
 
-<ContentPage Title="CarouselView">
-    <Grid RowDefinitions="*,Auto">
+<ContentControl Tag="CarouselView">
+    <Grid RowDefinitions="@(new("*,Auto"))">
 
-        <CarouselView Grid.Row="0"
-                      ItemsSource="items"
-                      Loop="false"
-                      IndicatorView="() => indicatorView"
-                      @bind-CurrentItem="currentItem"
-                      @bind-Position="currentPosition">
-
+        <Carousel Grid.Row="0"
+            ItemsSource="items"
+            @bind-SelectedItem="currentItem"
+            @bind-SelectedIndex="currentPosition"
+            >
             <ItemTemplate>
-                <VerticalStackLayout>
-                    <Label HorizontalOptions="LayoutOptions.Center">@context.Name</Label>
+                <StackPanel>
+                    <Label HorizontalAlignment="HorizontalAlignment.Center">@context.Name</Label>
                     <Image Source="context.Image" />
-                </VerticalStackLayout>
+                </StackPanel>
             </ItemTemplate>
-        </CarouselView>
+        </Carousel>
 
-        <VerticalStackLayout Grid.Row="1">
-            <IndicatorView @ref="indicatorView" HorizontalOptions="LayoutOptions.Center"
+        <StackPanel Grid.Row="1">
+            @* <IndicatorView @ref="indicatorView" HorizontalOptions="LayoutOptions.Center"
                            IndicatorColor="Colors.DarkGray"
-                           SelectedIndicatorColor="Colors.LightGray" />
+                           SelectedIndicatorColor="Colors.LightGray" /> *@
 
             <Label>Current item: @currentItem?.Name</Label>
             <Label>Current position: @currentPosition</Label>
             <Button Text="Set last position" OnClick="() => currentPosition = 3" />
             <Button Text="Set item to Bruce" OnClick="() => currentItem = items[2]" />
-        </VerticalStackLayout>
+        </StackPanel>
     </Grid>
-</ContentPage>
+</ContentControl>
 
 @code {
     Item[] items = 
@@ -40,9 +38,9 @@
         new("Gill", "https://static.wikia.nocookie.net/pixar/images/7/72/Gill.png/revision/latest/scale-to-width-down/350?cb=20210322233843")
     ];
 
-    IndicatorView indicatorView;
+    // IndicatorView indicatorView;
     Item currentItem;
     int currentPosition;
 
-    record Item(string Name, ImageSource Image);
+    record Item(string Name, string Image);
 }

@@ -1,14 +1,14 @@
-﻿<ContentPage Title="Checkboxes">
-    <VerticalStackLayout Margin="20">
+﻿<ContentControl Tag="Checkboxes">
+    <StackPanel Margin="20">
 
-        <HorizontalStackLayout>
+        <StackPanel Orientation="Orientation.Horizontal">
             <CheckBox @bind-IsChecked="_isChecked" />
-            <Label VerticalOptions="LayoutOptions.Center">Checkbox Title</Label>
-        </HorizontalStackLayout>
+            <Label VerticalAlignment="VerticalAlignment.Center">Checkbox Title</Label>
+        </StackPanel>
 
         <Label>Checkbox is @(_isChecked ? "checked" : "unchecked")!</Label>
-    </VerticalStackLayout>
-</ContentPage>
+    </StackPanel>
+</ContentControl>
 
 @code
 {

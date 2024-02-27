@@ -1,9 +1,9 @@
-﻿<ContentPage Title="DatePicker">
-    <VerticalStackLayout Margin="20">
-        <DatePicker @bind-Date="_date" />
+﻿<ContentControl Tag="DatePicker">
+    <StackPanel Margin="20">
+        <DatePicker @bind-SelectedDate="_date" />
         <Label>Selected date: @_date</Label>
-    </VerticalStackLayout>
-</ContentPage>
+    </StackPanel>
+</ContentControl>
 
 @code
 {

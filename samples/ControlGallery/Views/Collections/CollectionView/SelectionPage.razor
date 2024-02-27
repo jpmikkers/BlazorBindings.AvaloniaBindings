@@ -1,7 +1,7 @@
 ﻿@page "/collectionviewplayground/selection"
 
-<ContentPage Title="Selection">
-    <Grid RowDefinitions="Auto,Auto,*">
+<ContentControl Title="@("Selection")">
+    <Grid RowDefinitions="@(new("Auto,Auto,*"))">
         <Button Text="Select Random"
                 OnClick="SelectRandom"
                 Grid.Row="0" />
@@ -9,16 +9,16 @@
         <Label Text=@($"Selected Items: {(_selectedItems == null ? "" : string.Join(", ", _selectedItems))}")
                Grid.Row="1" />
 
-        <CollectionView ItemsSource="_intItems"
-                        SelectionMode="SelectionMode.Multiple"
-                        @bind-SelectedItems="_selectedItems"
-                        Grid.Row="2">
+        <ListBox ItemsSource="_intItems"
+            SelectionMode="AC.SelectionMode.Multiple"
+            @bind-SelectedItems="_selectedItems"
+            Grid.Row="2">
             <ItemTemplate>
                 <Item Value="@context" />
             </ItemTemplate>
-        </CollectionView>
+        </ListBox>
     </Grid>
-</ContentPage>
+</ContentControl>
 
 @code {
     Random _random = new Random();

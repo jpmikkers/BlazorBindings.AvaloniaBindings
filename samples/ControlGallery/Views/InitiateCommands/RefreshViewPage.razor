@@ -1,16 +1,16 @@
 ﻿@page "/controls/refreshviews"
 
-<ContentPage Title="RefreshView">
-    <RefreshView @bind-IsRefreshing="_isRefreshing" OnRefreshing="Refresh" HorizontalOptions="LayoutOptions.Center">
-        <ScrollView>
-            <VerticalStackLayout>
+<ContentControl Title="RefreshView">
+    <RefreshContainer OnRefreshRequested="Refresh" HorizontalAlignment="HorizontalAlignment.Center">
+        <ScrollViewer>
+            <StackPanel>
                 <Label>Last refresh time: @_refreshTime</Label>
                 <Label>Page was refreshed @_refreshCount times.</Label>
-                <Button OnClick="TriggerRefresh" Text="Trigger refresh" />
-            </VerticalStackLayout>
-        </ScrollView>
-    </RefreshView>
-</ContentPage>
+                <Button OnClick="TriggerRefresh">Trigger refresh</Button>
+            </StackPanel>
+        </ScrollViewer>
+    </RefreshContainer>
+</ContentControl>
 
 @code {
 DateTime _refreshTime;

@@ -1,20 +1,14 @@
-﻿@using BlazorBindings.Maui.Elements.Shapes
+﻿<ContentControl OnTapped="OnTap"
+             OnDoubleTapped="OnDoubleTap"
+             @* OnPanUpdate="OnPanUpdate" *@>
 
-<ContentView OnTap="OnTap"
-             OnDoubleTap="OnDoubleTap"
-             OnPanUpdate="OnPanUpdate">
-
-    <Border @ref="_element" BackgroundColor="Colors.LightCyan" Padding="20" Margin="4">
-        <StrokeShape>
-            <RoundRectangle CornerRadius="7" />
-        </StrokeShape>
-
+    <Border @ref="_element" Background="Colors.LightCyan" Padding="20" Margin="4" CornerRadius="7">
         <ChildContent>
             <Label TextColor="Colors.Black">@Item - @status</Label>
         </ChildContent>
     </Border>
 
-</ContentView>
+</ContentControl>
 
 @code {
 [Parameter] public int Item { get; set; }
@@ -27,27 +21,27 @@ double _lastX;
 void OnTap() => status = "Tapped";
 void OnDoubleTap() => status = "Double Tapped";
 
-async Task OnPanUpdate(PanUpdatedEventArgs args)
-{
-    if (args.StatusType == GestureStatus.Running)
-    {
-        _lastX = args.TotalX;
-        _element.NativeControl.TranslationX = args.TotalX;
-    }
-    else if (args.StatusType == GestureStatus.Completed)
-    {
-        if (Math.Abs(_lastX) > 50)
-        {
-            var screenWidth = DeviceDisplay.MainDisplayInfo.Width;
+// async Task OnPanUpdate(PanUpdatedEventArgs args)
+// {
+//     if (args.StatusType == GestureStatus.Running)
+//     {
+//         _lastX = args.TotalX;
+//         _element.NativeControl.TranslationX = args.TotalX;
+//     }
+//     else if (args.StatusType == GestureStatus.Completed)
+//     {
+//         if (Math.Abs(_lastX) > 50)
+//         {
+//             var screenWidth = DeviceDisplay.MainDisplayInfo.Width;
 
-            var translateTo = Math.Sign(_lastX) * screenWidth;
-            await _element.NativeControl.TranslateTo(translateTo, 0);
-            await OnRemoving.InvokeAsync(Item);
-        }
-        else
-        {
-            _element.NativeControl.TranslationX = args.TotalX;
-        }
-    }
-}
+//             var translateTo = Math.Sign(_lastX) * screenWidth;
+//             await _element.NativeControl.TranslateTo(translateTo, 0);
+//             await OnRemoving.InvokeAsync(Item);
+//         }
+//         else
+//         {
+//             _element.NativeControl.TranslationX = args.TotalX;
+//         }
+//     }
+// }
 }

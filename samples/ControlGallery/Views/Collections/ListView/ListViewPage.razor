@@ -1,24 +1,35 @@
 ﻿@using System.Collections.ObjectModel;
 
-<ContentPage Title="ListView">
-    <ToolbarItems>
+<ContentControl Tag="ListView">
+    @* <ToolbarItems>
         <ToolbarItem Text="Add" OnClick="AddItem" />
-    </ToolbarItems>
+    </ToolbarItems> *@
 
     <ChildContent>
 
-        <ListView ItemsSource="items" SelectionMode="ListViewSelectionMode.None">
+        <ListBox ItemsSource="items" SelectionMode="AC.SelectionMode.Single">
             <ItemTemplate>
-                <ImageCell Text="@context.Name" Detail="@context.Type" ImageSource="@context.ImageUrl">
+                <StackPanel>
+                    <TextBlock Text="@context.Name"></TextBlock>
+                    <TextBlock Text="@context.Type"></TextBlock>
+                    <Image Source="@context.ImageUrl">
+                        <ContextMenuSlot>
+                            <ContextMenu T="object">
+                                <MenuItem T="object" Header="Remove" OnClick="() => RemoveItem(context)" />
+                            </ContextMenu>
+                        </ContextMenuSlot>
+                    </Image>
+                </StackPanel>
+                @* <Image Text="@context.Name" Detail="@context.Type" ImageSource="@context.ImageUrl">
                     <ContextActions>
                         <MenuItem Text="Remove" IsDestructive="true" OnClick="() => RemoveItem(context)" />
                     </ContextActions>
-                </ImageCell>
+                </Image> *@
             </ItemTemplate>
-        </ListView>
+        </ListBox>
 
     </ChildContent>
-</ContentPage>
+</ContentControl>
 
 @code {
     ObservableCollection<Weapon> items = new(Weapons.Items);

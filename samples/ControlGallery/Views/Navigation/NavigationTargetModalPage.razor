@@ -1,17 +1,17 @@
 ﻿@using ControlGallery.Models
 
-@inject Navigation Navigation
+@inject INavigation Navigation
 
-<ContentPage Title="Navigation modal">
-    <ScrollView>
-        <VerticalStackLayout Padding="6" Spacing="6">
+<ContentControl Tag="@("Navigation modal")">
+    <ScrollViewer>
+        <StackPanel Margin="6" Spacing="6">
             <Label>Name: @Item.Name</Label>
             <Label>Value: @Item.Value</Label>
 
-            <Button Text="Close" OnClick="Close" />
-        </VerticalStackLayout>
-    </ScrollView>
-</ContentPage>
+            <Button OnClick="Close">Close</Button>
+        </StackPanel>
+    </ScrollViewer>
+</ContentControl>
 
 @code {
 [Parameter] public NavigationParameterModel Item { get; set; }

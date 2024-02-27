@@ -12,26 +12,26 @@
 @page "/bool/{Bool:bool}"
 @using ControlGallery.Models
 
-<ContentPage>
-    <StackLayout>
-        <Label Text="Successfully navigated using Uri navigation"></Label>
+<ContentControl>
+    <StackPanel>
+        <Label>Successfully navigated using Uri navigation</Label>
         @if (Name != null)
         {
-            <Label Text="@($"Name = {Name}")"></Label>
+            <Label>Name = @Name</Label>
         }
-        <Label Text="@($"Version = {Version}")"></Label>
-        <Label Text="@($"Release Date = {ReleaseDate}")"></Label>
-        <Label Text="@($"Long = {Long}")"></Label>
-        <Label Text="@($"Double = {Double}")"></Label>
-        <Label Text="@($"Float = {Float}")"></Label>
-        <Label Text="@($"Decimal = {Decimal}")"></Label>
-        <Label Text="@($"Guid = {Guid}")"></Label>
-        <Label Text="@($"Guid? = {NullableGuid}")"></Label>
-        <Label Text="@($"Bool = {Bool}")"></Label>
-        <Label Text="@($"Query1 = Name:{Query1?.Name}, Value:{Query1?.Value}")"></Label>
-        <Label Text="@($"Query2 = Name:{Query2?.Name}, Value:{Query2?.Value}")"></Label>
-    </StackLayout>
-</ContentPage>
+        <Label>Version = @Version</Label>
+        <Label>Release Date = @ReleaseDate</Label>
+        <Label>Long = @Long</Label>
+        <Label>Double = @Double</Label>
+        <Label>Float = @Float</Label>
+        <Label>Decimal = @Decimal</Label>
+        <Label>Guid = @Guid</Label>
+        <Label>Guid? = @NullableGuid</Label>
+        <Label>Bool = @Bool</Label>
+        <Label>Query1 = Name:@(Query1?.Name), Value:@(Query1?.Value)</Label>
+        <Label>Query2 = Name:@(Query2?.Name), Value:@(Query2?.Value)</Label>
+    </StackPanel>
+</ContentControl>
 
 @code {
     [Parameter] public string Name { get; set; }

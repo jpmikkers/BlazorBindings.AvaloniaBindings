@@ -1,23 +1,25 @@
-﻿<ContentPage Title="Shadows">
-    <VerticalStackLayout>
+﻿<ContentControl Tag="Shadows">
+    <StackPanel>
 
         <Slider Minimum="20" Maximum="100" @bind-Value="_radius" />
 
         <Label>Radius: @_radius</Label>
 
-        <Image Source=@("dotnet_bot.png")
-               WidthRequest="250"
-               HeightRequest="310">
-            <Shadow>
+        <Image 
+            Source=@("dotnet_bot.png")
+            Width="250"
+            Height="310"
+            >
+            @* <Shadow>
                 <Shadow Color="Colors.Black"
                         Offset="new (20, 20)"
                         Radius="(float)_radius"
                         Opacity="0.8f" />
-            </Shadow>
+            </Shadow> *@
         </Image>
 
-    </VerticalStackLayout>
-</ContentPage>
+    </StackPanel>
+</ContentControl>
 
 @code {
 double _radius = 50;

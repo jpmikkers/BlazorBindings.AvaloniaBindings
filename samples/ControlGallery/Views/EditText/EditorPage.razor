@@ -1,12 +1,12 @@
 ﻿@page "/edit-text/editors"
 
-<ContentPage Title="Editor">
-    <StackLayout Margin="20">
+<ContentControl Tag="Editor">
+    <StackPanel Margin="20">
         <Label>@Test</Label>
-        <Editor @bind-Text="_text" OnCompleted="OnCompleted" AutoSize="EditorAutoSizeOption.TextChanges" />
-        <Label Text=@($"Edits count: {_editsNumber}. Text entered: {_text}") />
-    </StackLayout>
-</ContentPage>
+        <TextBox @bind-Text="_text" OnTextInput="OnCompleted" />
+        <Label>Edits count: @_editsNumber. Text entered: @_text</Label>
+    </StackPanel>
+</ContentControl>
 
 @code
 {

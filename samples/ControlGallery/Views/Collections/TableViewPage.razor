@@ -1,6 +1,6 @@
-﻿<ContentPage Title="TableView">
-    <TableView>
-        <TableRoot>
+﻿<ContentControl Tag="TableView">
+    <DataGrid T="object">
+       @*  <TableRoot>
             <TableSection Title="Cells examples">
                 <TextCell Text="Click me" Detail="Tapping makes something happen." OnTapped="OnCellTapped" />
                 <EntryCell Label="Enter your name:" @bind-Text="entryText" />
@@ -25,9 +25,9 @@
                 </ViewCell>
             </TableSection>
 
-        </TableRoot>
-    </TableView>
-</ContentPage>
+        </TableRoot> *@
+    </DataGrid>
+</ContentControl>
 
 @code {
 int tapped = 0;

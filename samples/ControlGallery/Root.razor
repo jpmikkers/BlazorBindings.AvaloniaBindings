@@ -7,8 +7,8 @@
         </ChildContent>
 
         <ErrorContent>
-            <ContentPage Title="Error">
-                <VerticalStackLayout Margin="8" Spacing="8">
+            <ContentControl Tag="Error">
+                <StackPanel Margin="8" Spacing="8">
                     <Label Text="Oops!" HorizontalOptions="LayoutOptions.Center" FontSize="20" />
                     <Label Text="Unexpected error has occured:" />
                     <Label>@context.Message</Label>
@@ -18,8 +18,8 @@
                     {
                         <Button Text="Close" OnClick="Close" />
                     }
-                </VerticalStackLayout>
-            </ContentPage>
+                </StackPanel>
+            </ContentControl>
         </ErrorContent>
     </ErrorBoundary>
 </CascadingValue>
@@ -28,8 +28,10 @@
     [Parameter] public RenderFragment ChildContent { get; set; }
 
     ErrorBoundary _errorBoundary;
-    MC.INavigation Navigation => MC.Application.Current.MainPage.Navigation;
-    bool AnyOpenPages => Navigation.NavigationStack.Count > 1 || Navigation.ModalStack.Count > 0;
+    
+    AvaloniaNavigation Navigation => ((ControlGalleryApplication)Avalonia.Application.Current).Navigation;
+
+    private bool AnyOpenPages => Navigation.NavigationStack.Count > 1 || Navigation.ModalStack.Count > 0;
 
     void Recover()
     {

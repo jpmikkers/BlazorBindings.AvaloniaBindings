@@ -2,7 +2,7 @@
 
 public record ItemModel;
 public record TextItemModel(string Text) : ItemModel;
-public record ImageItemModel(ImageSource ImageSource) : ItemModel;
+public record ImageItemModel(string ImageSource) : ItemModel;
 
 public static class Items
 {

@@ -1,11 +1,12 @@
-﻿<RadioButton Value="Value" @bind-IsChecked="isChecked">
-    <ControlTemplate>
+﻿<RadioButton Value="Value" @bind-IsChecked="isChecked" @bind-GroupName="GroupName">
+    <Template>
         <Label TextColor="@(isChecked ? Colors.Green : Colors.Red)" Text="@Value" />
-    </ControlTemplate>
+    </Template>
 </RadioButton>
 
 @code {
 [Parameter] public string Value { get; set; }
+[Parameter] public string GroupName { get; set; }
 
 bool isChecked;
 }

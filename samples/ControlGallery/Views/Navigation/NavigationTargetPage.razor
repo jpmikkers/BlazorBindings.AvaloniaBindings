@@ -1,25 +1,25 @@
 ﻿@using ControlGallery.Models
 
-<ContentPage Title="Navigation target">
-    <ScrollView>
-        <VerticalStackLayout Padding="6" Spacing="6">
+<ContentControl Tag="@("Navigation target")">
+    <ScrollViewer>
+        <StackPanel Margin="6" Spacing="6">
 
             <Label>@Test</Label>
 
-            <Label Text="Target page" />
+            <Label>Target page</Label>
 
-            <Label Text="Name:" />
-            <Entry @bind-Text="name" />
+            <Label>Name:</Label>
+            <TextBlock @bind-Text="name" />
 
-            <Label Text="Value:" />
-            <Entry @bind-Text="value" />
+            <Label>Value:</Label>
+            <TextBlock @bind-Text="value" />
 
-            <Button Text="Save" OnClick="Save" />
+            <Button OnClick="Save">Save</Button>
 
-            <Button Text="Notify about event" OnClick="Notify" />
-        </VerticalStackLayout>
-    </ScrollView>
-</ContentPage>
+            <Button OnClick="Notify">Notify about event</Button>
+        </StackPanel>
+    </ScrollViewer>
+</ContentControl>
 
 @code {
     [CascadingParameter(Name = "test")] public int Test { get; set; }

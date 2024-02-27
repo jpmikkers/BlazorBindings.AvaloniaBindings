@@ -1,24 +1,23 @@
-﻿@using System.Collections.ObjectModel;
+﻿@* @using System.Collections.ObjectModel;
 @using ControlGallery.Views.Collections.CollectionView.DynamicItems;
-@using ControlGallery.Views.Shared
-@using UraniumUI.Icons.FontAwesome;
 
-<ContentPage Title="Dynamic">
+<ContentControl Tag="Dynamic">
     <Grid RowDefinitions="Auto, *">
         <Grid Grid.Row="0" ColumnDefinitions="*,Auto,Auto" ColumnSpacing="6" Margin="6">
 
-            <Entry Grid.Column="0" @bind-Text="enteredText"
-                   Placeholder="Type something"
-                   OnCompleted="AddText" />
+            <TextBox Grid.Column="0" @bind-Text="enteredText"
+                   Watermark="Type something"
+                   OnTextInput="AddText"
+                   />
 
-            <FAIcon Grid.Column="1" Glyph="@Solid.Camera" OnTap="CapturePhoto" Color="Colors.LightBlue" />
-            <FAIcon Grid.Column="2" Glyph="@Solid.Images" OnTap="SelectPhoto" Color="Colors.LightBlue" />
+            <Button Grid.Column="1" OnTapped="CapturePhoto" Background="Colors.LightBlue">Camera</Button>
+            <Button Grid.Column="2" OnTapped="SelectPhoto" Background="Colors.LightBlue">Images</Button>
 
         </Grid>
 
-        <CollectionView Grid.Row="1" ItemsSource="items">
+        <ListBox Grid.Row="1" ItemsSource="items">
 
-            <ItemTemplateSelector>
+            <ItemTemplate>
                 @if (context is TextItemModel text)
                 {
                     <TextItem Item="text" />
@@ -27,11 +26,11 @@
                 {
                     <ImageItem Item="image" />
                 }
-            </ItemTemplateSelector>
+            </ItemTemplate>
 
-        </CollectionView>
+        </ListBox>
     </Grid>
-</ContentPage>
+</ContentControl>
 
 @code {
     [Inject] private IMediaPicker MediaPicker { get; set; }
@@ -61,3 +60,4 @@
         enteredText = "";
     }
 }
+ *@

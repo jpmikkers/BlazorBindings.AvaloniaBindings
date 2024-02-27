@@ -1,35 +1,35 @@
 ﻿@page "/controls/radiobuttons"
 
-<ContentPage Title="RadioButtons">
-    <ScrollView>
-        <VerticalStackLayout Spacing="20" Padding="10">
-            <Label Text=@($"RadioButtons with int values. Selected value: {selectedIntValue}") />
+<ContentPage Tag="RadioButtons">
+    <ScrollViewer>
+        <StackPanel Spacing="20" Margin="10">
+            <Label>RadioButtons with int values. Selected value: @selectedIntValue</Label>
 
-            <RadioButtonGroup @bind-SelectedValue="selectedIntValue">
-                <RadioButton Value="24" />
-                <RadioButton Value="25" />
-                <RadioButton Value="26" />
-            </RadioButtonGroup>
+            @* <RadioButtonGroup @bind-SelectedValue="selectedIntValue"> *@
+            <RadioButton Value="24" GroupName="A" />
+            <RadioButton Value="25" GroupName="A" />
+            <RadioButton Value="26" GroupName="A" />
+            @* </RadioButtonGroup> *@
 
-            <Label Text=@($"RadioButtons with pre-selected enum value and titles. Selected value: {selectedEnumValue}") />
+            <Label>RadioButtons with pre-selected enum value and titles. Selected value: @selectedEnumValue</Label>
 
-            <RadioButtonGroup @bind-SelectedValue="selectedEnumValue">
-                <RadioButton Value="ValueEnum.A" Text="First (A)" />
-                <RadioButton Value="ValueEnum.B" Text="Second (B)" />
-                <RadioButton Value="ValueEnum.C" Text="Third (C)" />
-            </RadioButtonGroup>
+            @* <RadioButtonGroup @bind-SelectedValue="selectedEnumValue"> *@
+            <RadioButton Value="ValueEnum.A" GroupName="B">First (A)</RadioButton>
+            <RadioButton Value="ValueEnum.B" GroupName="B">Second (B)</RadioButton>
+            <RadioButton Value="ValueEnum.C" GroupName="B">Third (C)</RadioButton>
+            @* </RadioButtonGroup> *@
 
-            <Button Text="Change selection" OnClick="ChangeSelection" />
+            <Button OnClick="ChangeSelection">Change selection</Button>
 
             <Label>RadioButtons with custom ControlTemplate. Selected value: @selectedStringValue</Label>
-            <RadioButtonGroup @bind-SelectedValue="selectedStringValue">
-                <RadioButtonTemplated Value=@("String 1") />
-                <RadioButtonTemplated Value=@("String 2") />
-                <RadioButtonTemplated Value=@("String 3") />
-            </RadioButtonGroup>
+            @* <RadioButtonGroup @bind-SelectedValue="selectedStringValue"> *@
+                <RadioButtonTemplated Value=@("String 1") GroupName="C"/>
+                <RadioButtonTemplated Value=@("String 2") GroupName="C"/>
+                <RadioButtonTemplated Value=@("String 3") GroupName="C"/>
+            @* </RadioButtonGroup> *@
 
-        </VerticalStackLayout>
-    </ScrollView>
+        </StackPanel>
+    </ScrollViewer>
 </ContentPage>
 
 @code {

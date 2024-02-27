@@ -12,80 +12,136 @@
 @using ControlGallery.Views.SetValues
 @using ControlGallery.Views.Shell
 
-<Shell BackgroundColor="_backgroundColor"
-       ForegroundColor="_foregroundColor"
-       UnselectedColor="_unselectedColor"
-       TabBarTitleColor="_tabBarTitleColor">
+<TabControl T="object" Background="_backgroundColor"
+            Foreground="_foregroundColor">
 
     @*Present data*@
-    <BoxViewPage />
-    <LabelPage />
-    <Shapes />
+    <TabItem>
+        <BoxViewPage />
+    </TabItem>
+    <TabItem>
+        <LabelPage />
+    </TabItem>
+    <TabItem>
+    </TabItem>
+    <TabItem>
+        <Shapes />
+    </TabItem>
 
     @*Initiate commands*@
-    <ButtonPage />
-    <RefreshViewPage />
-    <SearchBarPage />
-    <SwipeViewPage />
+    <TabItem>
+        <ButtonPage />
+    </TabItem>
+    <TabItem>
+        <RefreshViewPage />
+    </TabItem>
+    <TabItem>
+        <SearchBarPage />
+    </TabItem>
+    <TabItem>
+        <SwipeViewPage />
+    </TabItem>
 
     @*Set values*@
-    <SliderPage />
-    <CheckboxPage />
-    <SwitchPage />
-    <RadioButtonPage />
-    <DatePickerPage />
-    <TimePickerPage />
+    <TabItem>
+        <SliderPage />
+    </TabItem>
+    <TabItem>
+        <CheckboxPage />
+    </TabItem>
+    <TabItem>
+        <SwitchPage />
+    </TabItem>
+    <TabItem>
+        <RadioButtonPage />
+    </TabItem>
+    <TabItem>
+        <DatePickerPage />
+    </TabItem>
+    <TabItem>
+        <TimePickerPage />
+    </TabItem>
 
     @*Edit text*@
-    <EntryPage />
-    <EditorPage />
+    <TabItem>
+        <EntryPage />
+    </TabItem>
+    <TabItem>
+        <EditorPage />
+    </TabItem>
 
     @*Display collections*@
-    <CarouselViewPage />
-    <ShellSection Title="CollectionView">
+    <TabItem>
+        <CarouselViewPage />
+    </TabItem>
+    <TabItem>
+
         <AddRemovePage />
+    </TabItem>
+    <TabItem>
         <GridLayoutPage />
+    </TabItem>
+    <TabItem>
         <SelectionPage />
+    </TabItem>
+    <TabItem>
         <InfiniteScrollPage />
+    </TabItem>
+    <TabItem>
         <DynamicItemsPage />
-    </ShellSection>
-    <PickerPage />
-    <TableViewPage />
-    <ListViewPage />
+    </TabItem>
+    <TabItem>
+        <PickerPage />
+    </TabItem>
+    <TabItem>
+        <TableViewPage />
+    </TabItem>
+    <TabItem>
+        <ListViewPage />
+    </TabItem>
 
     @*Layouts*@
-    <AbsoluteLayoutPage />
-    <GridPage />
-    <FlexLayoutPage />
+    <TabItem>
+        <AbsoluteLayoutPage />
+    </TabItem>
+    <TabItem>
+        <GridPage />
+    </TabItem>
+    <TabItem>
+        <FlexLayoutPage />
+    </TabItem>
 
     @*Shell*@
-    <ShellContent Title="Shell Properties">
-        <ContentTemplate>
-            <ShellPropertiesPage @bind-ShellBackgroundColor="_backgroundColor"
-                                 @bind-ShellForegroundColor="_foregroundColor"
-                                 @bind-ShellUnselectedColor="_unselectedColor"
-                                 @bind-ShellTabBarTitleColor="_tabBarTitleColor" />
-        </ContentTemplate>
-    </ShellContent>
 
-    <ShellItemsPage />
-
+    <TabItem>
+        <ShellItemsPage />
+    </TabItem>
     @*Navigation*@
-    <ShellSection Title="Navigation">
+    <TabItem>
+
         <NavigationPage />
+    </TabItem>
+    <TabItem>
         <UriNavigationPage />
-    </ShellSection>
+    </TabItem>
 
     @*Other*@
-    <ShadowsPage />
-    <GestureEvents />
-    <GestureRecognizersPage />
-    <ErrorBoundariesPage />
-</Shell>
+    <TabItem>
+        <ShadowsPage />
+    </TabItem>
+    <TabItem>
+        <GestureEvents />
+    </TabItem>
+    <TabItem>
+        <GestureRecognizersPage />
+    </TabItem>
+    <TabItem>
+        <ErrorBoundariesPage />
+    </TabItem>
+</TabControl>
 
-@code {
-    Color _backgroundColor;
-    Color _foregroundColor;
-    Color _unselectedColor;
-    Color _tabBarTitleColor;
+@code
+{
+    Brush _backgroundColor;
+    Brush _foregroundColor;
 }

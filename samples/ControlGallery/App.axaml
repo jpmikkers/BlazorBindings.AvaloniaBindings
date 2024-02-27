@@ -1,0 +1,32 @@
+<local:ControlGalleryApplication
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    x:Class="ControlGallery.ControlGalleryApplication"
+    xmlns:local="using:ControlGallery"
+	xmlns:nav="using:BlazorBindings.AvaloniaBindings.Navigation"
+    RequestedThemeVariant="Default">
+	<!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+
+	<local:ControlGalleryApplication.DataTemplates>
+
+	</local:ControlGalleryApplication.DataTemplates>
+
+	<local:ControlGalleryApplication.Styles>
+		<FluentTheme />
+		<StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
+
+		<Style Selector="Button">
+			<Setter Property="FontWeight" Value="Black" />
+		</Style>
+
+		<Style Selector="local|ControlGalleryApplication nav|ItemsControlWithItemContainer">
+			<Setter Property="ItemContainerTheme">
+				<ControlTheme TargetType="ContentPresenter">
+					<Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+					<Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+					<Setter Property="Background" Value="#3f0f"></Setter>
+				</ControlTheme>
+			</Setter>
+		</Style>
+	</local:ControlGalleryApplication.Styles>
+</local:ControlGalleryApplication>

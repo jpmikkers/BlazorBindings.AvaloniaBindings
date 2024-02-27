@@ -1,26 +1,26 @@
 ﻿@page "/shell-navigation"
 @using ControlGallery.Models
-@inject Navigation NavigationManager
+@inject INavigation NavigationManager
 
-<ContentPage Title="URI navigation">
-    <ScrollView>
-        <StackLayout>
-            <Button Text="Navigate with no parameters" OnClick="NavigateNoParameter"></Button>
-            <Button Text="Navigate with name string" OnClick="NavigateWithName"></Button>
-            <Button Text="Navigate with name string (with subpath)" OnClick="NavigateWithNameSubpath"></Button>
-            <Button Text="Navigate with name string and version int" OnClick="NavigateWithNameAndVersion"></Button>
-            <Button Text="Navigate with name, version, date" OnClick="NavigateWithNameVersionDate"></Button>
-            <Button Text="Navigate with Long" OnClick="NavigateWithLong"></Button>
-            <Button Text="Navigate with double" OnClick="NavigateWithDouble"></Button>
-            <Button Text="Navigate with float" OnClick="NavigateWithFloat"></Button>
-            <Button Text="Navigate with decimal" OnClick="NavigateWithDecimal"></Button>
-            <Button Text="Navigate with Guid" OnClick="NavigateWithGuid"></Button>
-            <Button Text="Navigate with Nullable<Guid>" OnClick="NavigateWithNullableGuid"></Button>
-            <Button Text="Navigate with Bool" OnClick="NavigateWithBool"></Button>
-            <Button Text="Navigate with query parameters" OnClick="NavigateWithAdditionalParameters"></Button>
-        </StackLayout>
-    </ScrollView>
-</ContentPage>
+<ContentControl Tag="@("URI navigation")">
+    <ScrollViewer>
+        <StackPanel>
+            <Button OnClick="NavigateNoParameter">Navigate with no parameters</Button>
+            <Button OnClick="NavigateWithName">Navigate with name string</Button>
+            <Button OnClick="NavigateWithNameSubpath">Navigate with name string (with subpath)</Button>
+            <Button OnClick="NavigateWithNameAndVersion">Navigate with name string and version int</Button>
+            <Button OnClick="NavigateWithNameVersionDate">Navigate with name, version, date</Button>
+            <Button OnClick="NavigateWithLong">Navigate with Long" </Button>
+            <Button OnClick="NavigateWithDouble">Navigate with double" </Button>
+            <Button OnClick="NavigateWithFloat">Navigate with float" </Button>
+            <Button OnClick="NavigateWithDecimal">Navigate with decimal" </Button>
+            <Button OnClick="NavigateWithGuid">Navigate with Guid" </Button>
+            <Button OnClick="NavigateWithNullableGuid">Navigate with Nullable&lt;Guid&gt;</Button>
+            <Button OnClick="NavigateWithBool">Navigate with Bool" </Button>
+            <Button OnClick="NavigateWithAdditionalParameters">Navigate with query parameters</Button>
+        </StackPanel>
+    </ScrollViewer>
+</ContentControl>
 
 @code
 {

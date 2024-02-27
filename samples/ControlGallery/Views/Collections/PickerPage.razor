@@ -3,61 +3,58 @@
 
 @page "/pickerplayground"
 
-<ContentPage Title="Pickers">
-    <ScrollView>
-        <StackLayout Padding="10">
+<ContentControl Tag="Pickers">
+    <ScrollViewer>
+        <StackPanel Padding="10">
             <Label Text="Picker Playground" FontSize="30">
             </Label>
 
-            <BoxView HeightRequest="2" Color="Colors.Gray" HorizontalOptions="LayoutOptions.Fill" />
+            <Border Height="2" Background="Brushes.Gray" HorizontalAlignment="HorizontalAlignment.Stretch" />
 
             <Label Padding="5" FontAttributes="FontAttributes.Bold" Text="Picker with models and all display properties" />
-            <Picker CharacterSpacing="3"
-                    FontAttributes="FontAttributes.Bold"
+            <ComboBox Attached="@((ComboBox c) => c.TextElementFontWeight(FontStyle.Oblique))"
                     FontFamily="MarkerFelt-Thin"
                     FontSize="20"
-                    HorizontalTextAlignment="TextAlignment.Center"
-                    TextColor="Colors.Red"
+                    HorizontalAlignment="HorizontalAlignment.Center"
+                    Foreground="Brushes.Red"
                     ItemsSource="Models"
-                    Title="Select a model"
-                    TitleColor="Colors.Blue"
-                    VerticalTextAlignment="TextAlignment.End"
-                    ItemDisplayBinding="i => i.Name"
+                    PlaceholderText="Select a model"
+                    
+                    VerticalContentAlignment="VerticalAlignment.End"
                     @bind-SelectedItem="SelectedModel">
-            </Picker>
-            <Label Padding="5" Text="@("Selected model: " + SelectedModel?.Name ?? "(none)")"></Label>
+            </ComboBox>
+            <Label Padding="5">Selected model: @(SelectedModel?.Name ?? "(none)")</Label>
 
-            <BoxView HeightRequest="2" Color="Colors.Gray" HorizontalOptions="LayoutOptions.Fill" />
+            <Border Height="2" Background="Brushes.Gray" HorizontalAlignment="HorizontalAlignment.Stretch" />
 
-            <Label FontAttributes="FontAttributes.Bold" Text="Picker with string" />
-            <Picker @bind-SelectedItem="SelectedString"
-                    Title="Select a string"
+            <Label Attached="(Label l) => l.TextElementFontWeight(FontWeight.Bold)">Picker with string</Label>
+            <ComboBox @bind-SelectedItem="SelectedString"
+                    PlaceholderText="Select a string"
                     ItemsSource="Strings" />
-            <Label Text="@("Selected string: " + SelectedString ?? "(none)")"></Label>
+            <Label>Selected string: @(SelectedString ?? "(none)")</Label>
 
-            <BoxView HeightRequest="2" Color="Colors.Gray" HorizontalOptions="LayoutOptions.Fill" />
+            <Border Height="2" Background="Brushes.Gray" HorizontalAlignment="LayoutOptions.Fill" />
 
-            <Label FontAttributes="FontAttributes.Bold" Text="Picker with models and default item selected" />
-            <Picker @bind-SelectedItem="SelectedModelDefault"
-                    Title="Select a model"
-                    ItemDisplayBinding="ItemDisplay"
+            <Label Attached="(Label l) => l.TextElementFontWeight(FontWeight.Bold)">Picker with models and default item selected</Label>
+            <ComboBox @bind-SelectedItem="SelectedModelDefault"
+                    PlaceholderText="Select a model"
+                    
                     ItemsSource="ModelsWithDefault" />
-            <Label Text="@("Selected model: " + SelectedModelDefault?.Name ?? "(none)")"></Label>
+            <Label>Selected model: @(SelectedModelDefault?.Name ?? "(none)")</Label>
 
-            <BoxView HeightRequest="2" Color="Colors.Gray" HorizontalOptions="LayoutOptions.Fill" />
+            <Border Height="2" Background="Brushes.Gray" HorizontalAlignment="HorizontalAlignment.Stretch" />
 
             <Label FontAttributes="FontAttributes.Bold" Text="Index Based Picker" />
-            <Picker ItemsSource="Models"
-                    Title="Select a model and the index will bind"
-                    ItemDisplayBinding="i => i.Name"
+            <ComboBox ItemsSource="Models"
+                    PlaceholderText="Select a model and the index will bind"
                     @bind-SelectedIndex="SelectedIndex">
-            </Picker>
+            </ComboBox>
             <Label Text="@("Selected model: " + Models.ElementAtOrDefault(SelectedIndex)?.Name ?? "(none)")"></Label>
 
-            <Button Padding="20" Text="Set pickers from code" OnClick="ButtonClicked"></Button>
-        </StackLayout>
-    </ScrollView>
-</ContentPage>
+            <Button Padding="20" OnClick="ButtonClicked">Set pickers from code</Button>
+        </StackPanel>
+    </ScrollViewer>
+</ContentControl>
 
 @code
 {

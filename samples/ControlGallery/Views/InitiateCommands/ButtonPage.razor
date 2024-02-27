@@ -1,18 +1,18 @@
-﻿<ContentPage Title="Buttons">
-    <VerticalStackLayout Margin="20">
+﻿<ContentControl Tag="Buttons">
+    <StackPanel Margin="20">
 
-        <HorizontalStackLayout>
-            <Button Text="Favorite?" OnClick="ToggleFavorite" />
+        <StackPanel>
+            <Button OnClick="ToggleFavorite">Favorite?</Button>
 
             <Image Source="@(isFavorite ? _favorite : _nonFavorite)" />
-        </HorizontalStackLayout>
+        </StackPanel>
 
-    </VerticalStackLayout>
-</ContentPage>
+    </StackPanel>
+</ContentControl>
 
 @code {
-ImageSource _favorite = ImageSource.FromFile("favorite.png");
-ImageSource _nonFavorite = ImageSource.FromFile("not_favorite.png");
+string _favorite = "favorite.png";
+string _nonFavorite = "not_favorite.png";
 
 bool isFavorite;
 

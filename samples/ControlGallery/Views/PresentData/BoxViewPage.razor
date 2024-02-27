@@ -1,24 +1,24 @@
-﻿<ContentPage Title="BoxViews">
-    <VerticalStackLayout Spacing="8">
+﻿<ContentControl Title="BoxViews">
+    <StackPanel Spacing="8">
         <Label>Square BoxView</Label>
-        <BoxView HeightRequest="30"
-                 WidthRequest="30"
-                 Color="Colors.OrangeRed"
+        <Border Height="30"
+                 Width="30"
+                 Background="Brushes.OrangeRed"
                  CornerRadius="8" />
 
         <Label>BoxView with height 1</Label>
-        <BoxView HeightRequest="1"
-                 Color="Colors.LightGray" />
+        <Border Height="1"
+                 Background="Brushes.LightGray" />
 
         <Label>BoxView with gradient background</Label>
-        <BoxView HeightRequest="30">
-            <Background>
+        <Border Height="30" Background="new LinearGradientBrush() { EndPoint=new(1,0), GradientStops = [new GradientStop(Colors.Red, 0), new GradientStop(Colors.Green, 1) ]}">
+            @* <Background>
                 <LinearGradientBrush EndPoint="new(1,0)">
                     <GradientStop Offset="0" Color="Colors.Red" />
                     <GradientStop Offset="1" Color="Colors.Green" />
                 </LinearGradientBrush>
-            </Background>
-        </BoxView>
+            </Background> *@
+        </Border>
 
-    </VerticalStackLayout>
-</ContentPage>
+    </StackPanel>
+</ContentControl>
