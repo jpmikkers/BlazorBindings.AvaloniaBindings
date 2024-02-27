@@ -23,7 +23,7 @@ internal class ApplicationHandler : IContainerElementHandler
             {
                 classic.MainWindow = new AC.Window()
                 {
-                    Content = child.Cast<AC.Control>()
+                    Content = child
                 };
             }
         }
@@ -33,7 +33,7 @@ internal class ApplicationHandler : IContainerElementHandler
         }
         else if (_application is ITestApplication testApplication)
         {
-            testApplication.Window.Content = child.Cast<AC.Control>();
+            testApplication.Window.Content = child;
         }
         else
         {

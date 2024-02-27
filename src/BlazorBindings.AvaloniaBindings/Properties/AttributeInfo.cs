@@ -183,6 +183,8 @@ using Avalonia.Controls.Primitives;
 [assembly: GenerateComponent(typeof(RelativePanel))]
 [assembly: GenerateComponent(typeof(RadialGradientBrush))]
 [assembly: GenerateComponent(typeof(RadioButton))]
+[assembly: GenerateComponent(typeof(RefreshContainer))]
+[assembly: GenerateComponent(typeof(RefreshVisualizer))]
 [assembly: GenerateComponent(typeof(RangeBase))]
 [assembly: GenerateComponent(typeof(ScrollBar))]
 [assembly: GenerateComponent(typeof(ScrollViewer))]

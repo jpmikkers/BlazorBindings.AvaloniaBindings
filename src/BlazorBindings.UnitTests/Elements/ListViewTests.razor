@@ -30,8 +30,7 @@
                 <ItemTemplate>
                     <TextBlock Text="@context.Item1.ToString()" Tag="@context.Item2" />
                 </ItemTemplate>
-            </ListBox>
-    ;
+            </ListBox>;
 
         await _navigationService.PushAsync(listBoxRenderFragment, false);
 
