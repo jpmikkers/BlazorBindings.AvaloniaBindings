@@ -1,15 +1,15 @@
 ﻿@using System.Collections.ObjectModel
 
-<ContentPage Title="Gesture Events">
-    <VerticalStackLayout>
+<ContentControl Tag="@("Gesture Events")">
+    <StackPanel>
         <Label>Try tapping, double tapping, or swiping items.</Label>
-        <Button Text="Add" OnClick="AddItem" />
+        <Button OnClick="AddItem">Add</Button>
         @foreach (var item in _items)
     {
         <GestureItem @key="item" Item="item" OnRemoving="RemoveItem" />
     }
-    </VerticalStackLayout>
-</ContentPage>
+    </StackPanel>
+</ContentControl>
 
 
 @code {

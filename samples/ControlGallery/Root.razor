@@ -7,16 +7,16 @@
         </ChildContent>
 
         <ErrorContent>
-            <ContentControl Tag="Error">
-                <StackPanel Margin="8" Spacing="8">
-                    <Label Text="Oops!" HorizontalOptions="LayoutOptions.Center" FontSize="20" />
-                    <Label Text="Unexpected error has occured:" />
+            <ContentControl Tag="@("Error")">
+                <StackPanel Margin="new(8)" Spacing="8">
+                    <Label HorizontalOptions="LayoutOptions.Center" FontSize="20">Oops!</Label>
+                    <Label>Unexpected error has occured:</Label>
                     <Label>@context.Message</Label>
 
-                    <Button Text="Return" OnClick="Recover" />
+                    <Button OnClick="Recover">Return</Button>
                     @if (AnyOpenPages)
                     {
-                        <Button Text="Close" OnClick="Close" />
+                        <Button OnClick="Close">Close</Button>
                     }
                 </StackPanel>
             </ContentControl>
@@ -40,6 +40,6 @@
 
     async Task Close()
     {
-        await Navigation.PopToRootAsync();
+        await Navigation.PopToRootAsync(false);
     }
 }

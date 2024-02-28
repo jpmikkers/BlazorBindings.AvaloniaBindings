@@ -3,11 +3,11 @@
 @page "/collectionviewplayground/add-remove"
 
 <ContentControl Tag="@("Add/Remove")">
-    <Grid RowDefinitions="@("Auto,*")">
+    <Grid RowDefinitions="@(new("Auto,*"))">
         <StackPanel Grid.Row="0">
-            <Button Text="Add" OnClick="Add" />
-            <Button Text="Remove selected" OnClick="Remove" />
-            <Button Text="Remove all" OnClick="RemoveAll" />
+            <Button OnClick="Add">Add</Button>
+            <Button OnClick="Remove">Remove selected</Button>
+            <Button OnClick="RemoveAll">Remove all</Button>
         </StackPanel>
 
         <ListBox ItemsSource="_intItems"

@@ -1,5 +1,5 @@
-﻿<ContentControl Tag="Sliders">
-    <StackPanel Margin="20">
+﻿<ContentControl Tag="@("Sliders")">
+    <StackPanel Margin="new(20)">
         <Slider Minimum="0" Maximum="20" @bind-Value="_sliderValue" />
         <Label>Slider is @_sliderValue</Label>
     </StackPanel>
@@ -7,5 +7,5 @@
 
 @code
 {
-    private double _sliderValue;
+    private double? _sliderValue;
 }

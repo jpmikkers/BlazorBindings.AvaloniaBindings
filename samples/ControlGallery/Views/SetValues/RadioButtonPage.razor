@@ -1,8 +1,8 @@
 ﻿@page "/controls/radiobuttons"
 
-<ContentPage Tag="RadioButtons">
+<ContentControl Tag="@("RadioButtons")">
     <ScrollViewer>
-        <StackPanel Spacing="20" Margin="10">
+        <StackPanel Spacing="20" Margin="new(10)">
             <Label>RadioButtons with int values. Selected value: @selectedIntValue</Label>
 
             @* <RadioButtonGroup @bind-SelectedValue="selectedIntValue"> *@
@@ -30,7 +30,7 @@
 
         </StackPanel>
     </ScrollViewer>
-</ContentPage>
+</ContentControl>
 
 @code {
     int? selectedIntValue;

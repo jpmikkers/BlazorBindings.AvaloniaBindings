@@ -1,6 +1,6 @@
 ﻿@using System.Collections.ObjectModel;
 
-<ContentControl Tag="ListView">
+<ContentControl Tag="@("ListView")">
     @* <ToolbarItems>
         <ToolbarItem Text="Add" OnClick="AddItem" />
     </ToolbarItems> *@
@@ -12,10 +12,10 @@
                 <StackPanel>
                     <TextBlock Text="@context.Name"></TextBlock>
                     <TextBlock Text="@context.Type"></TextBlock>
-                    <Image Source="@context.ImageUrl">
+                    <Image Source="ImageHelper.LoadFromResource(context.ImageUrl)">
                         <ContextMenuSlot>
                             <ContextMenu T="object">
-                                <MenuItem T="object" Header="Remove" OnClick="() => RemoveItem(context)" />
+                                <MenuItem T="object" Header="@("Remove")" OnClick="() => RemoveItem(context)" />
                             </ContextMenu>
                         </ContextMenuSlot>
                     </Image>

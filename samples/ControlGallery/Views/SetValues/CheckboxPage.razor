@@ -1,16 +1,16 @@
-﻿<ContentControl Tag="Checkboxes">
-    <StackPanel Margin="20">
+﻿<ContentControl Tag="@("Checkboxes")">
+    <StackPanel Margin="new(20)">
 
         <StackPanel Orientation="Orientation.Horizontal">
             <CheckBox @bind-IsChecked="_isChecked" />
             <Label VerticalAlignment="VerticalAlignment.Center">Checkbox Title</Label>
         </StackPanel>
 
-        <Label>Checkbox is @(_isChecked ? "checked" : "unchecked")!</Label>
+        <Label>Checkbox is @(_isChecked == true ? "checked" : "unchecked")!</Label>
     </StackPanel>
 </ContentControl>
 
 @code
 {
-    private bool _isChecked;
+    private bool? _isChecked;
 }

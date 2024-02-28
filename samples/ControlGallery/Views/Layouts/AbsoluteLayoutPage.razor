@@ -1,8 +1,8 @@
 ﻿@page "/layouts/absolute"
 
-<ContentControl Title="Absolute Layouts">
+<ContentControl Tag="@("Absolute Layouts")">
     <ScrollViewer>
-        <StackPanel Margin="8" Spacing="12">
+        <StackPanel Margin="new(8)" Spacing="12">
             <Label>Absolute Layout with absolute values</Label>
 
             <Canvas>
@@ -13,7 +13,7 @@
 
                 <Label
                     FontSize="24"
-                    CornerRadius="30"
+                    CornerRadius="new(30)"
                     >
                     Stylish Header
                 </Label>
@@ -23,15 +23,15 @@
 
             <Canvas Height="200">
                 <Border Color="Colors.Green"
-                         CornerRadius="10"
+                         CornerRadius="new(10)"
                          Attached="(Border b) => b.CanvasAll(_greenX, _greenY, 20, 20)" />
 
                 <Border Color="Colors.Blue"
-                         CornerRadius="8"
+                         CornerRadius="new(8)"
                          Attached="(Border b) => b.CanvasAll(_blueX, _blueY, 16, 16)"/>
             </Canvas>
 
-            <Slider Minimum="0" Maximum="1" ValueChanged="SliderValueChanged" />
+            <Slider Minimum="0" Maximum="1" ValueChanged="e => SliderValueChanged(e.Value)" />
 
         </StackPanel>
     </ScrollViewer>

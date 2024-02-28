@@ -1,5 +1,5 @@
-﻿<ContentControl Tag="TimePicker">
-    <StackPanel Margin="20">
+﻿<ContentControl Tag="@("TimePicker")">
+    <StackPanel Margin="new Avalonia.Thickness(20)">
         <TimePicker @bind-SelectedTime="_time" />
         <Label>Selected time: @_time</Label>
     </StackPanel>
@@ -7,5 +7,5 @@
 
 @code
 {
-    private TimeOnly _time = TimeOnly.FromDateTime(DateTime.Now);
+    private TimeSpan? _time = TimeSpan.FromTicks(DateTime.Now.Ticks);
 }

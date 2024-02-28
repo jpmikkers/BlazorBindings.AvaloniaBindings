@@ -1,13 +1,13 @@
 ﻿@page "/collectionviewplayground/selection"
 
-<ContentControl Title="@("Selection")">
+<ContentControl Tag="@("Selection")">
     <Grid RowDefinitions="@(new("Auto,Auto,*"))">
-        <Button Text="Select Random"
-                OnClick="SelectRandom"
-                Grid.Row="0" />
+        <Button OnClick="SelectRandom"
+                Grid.Row="0">
+            Select Random
+        </Button>
 
-        <Label Text=@($"Selected Items: {(_selectedItems == null ? "" : string.Join(", ", _selectedItems))}")
-               Grid.Row="1" />
+        <Label Grid.Row="1">Selected Items: @(_selectedItems == null ? "" : string.Join(", ", _selectedItems))</Label>
 
         <ListBox ItemsSource="_intItems"
             SelectionMode="AC.SelectionMode.Multiple"
@@ -23,7 +23,7 @@
 @code {
     Random _random = new Random();
     List<int> _intItems = Enumerable.Range(1, 100).ToList();
-    IList<object> _selectedItems;
+    System.Collections.IList _selectedItems;
 
     void SelectRandom()
     {

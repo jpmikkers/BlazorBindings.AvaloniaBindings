@@ -3,27 +3,28 @@
 
 @page "/pickerplayground"
 
-<ContentControl Tag="Pickers">
+<ContentControl Tag="@("Pickers")">
     <ScrollViewer>
-        <StackPanel Padding="10">
-            <Label Text="Picker Playground" FontSize="30">
+        <StackPanel Margin="new(10)">
+            <Label FontSize="30">
+                Picker Playground
             </Label>
 
             <Border Height="2" Background="Brushes.Gray" HorizontalAlignment="HorizontalAlignment.Stretch" />
 
-            <Label Padding="5" FontAttributes="FontAttributes.Bold" Text="Picker with models and all display properties" />
-            <ComboBox Attached="@((ComboBox c) => c.TextElementFontWeight(FontStyle.Oblique))"
-                    FontFamily="MarkerFelt-Thin"
+            <Label Padding="new(5)" FontWeight="FontWeight.Bold">Picker with models and all display properties</Label>
+            <ComboBox Attached="@((Control c) => c.TextElementFontWeight(FontWeight.Bold))"
+                    FontFamily="@("MarkerFelt-Thin")"
                     FontSize="20"
                     HorizontalAlignment="HorizontalAlignment.Center"
                     Foreground="Brushes.Red"
                     ItemsSource="Models"
                     PlaceholderText="Select a model"
                     
-                    VerticalContentAlignment="VerticalAlignment.End"
+                    VerticalContentAlignment="VerticalAlignment.Bottom"
                     @bind-SelectedItem="SelectedModel">
             </ComboBox>
-            <Label Padding="5">Selected model: @(SelectedModel?.Name ?? "(none)")</Label>
+            <Label Padding="new(5)">Selected model: @(SelectedModel?.Name ?? "(none)")</Label>
 
             <Border Height="2" Background="Brushes.Gray" HorizontalAlignment="HorizontalAlignment.Stretch" />
 
@@ -33,7 +34,7 @@
                     ItemsSource="Strings" />
             <Label>Selected string: @(SelectedString ?? "(none)")</Label>
 
-            <Border Height="2" Background="Brushes.Gray" HorizontalAlignment="LayoutOptions.Fill" />
+            <Border Height="2" Background="Brushes.Gray" HorizontalAlignment="HorizontalAlignment.Stretch" />
 
             <Label Attached="(Label l) => l.TextElementFontWeight(FontWeight.Bold)">Picker with models and default item selected</Label>
             <ComboBox @bind-SelectedItem="SelectedModelDefault"
@@ -51,7 +52,7 @@
             </ComboBox>
             <Label Text="@("Selected model: " + Models.ElementAtOrDefault(SelectedIndex)?.Name ?? "(none)")"></Label>
 
-            <Button Padding="20" OnClick="ButtonClicked">Set pickers from code</Button>
+            <Button Padding="new(20)" OnClick="ButtonClicked">Set pickers from code</Button>
         </StackPanel>
     </ScrollViewer>
 </ContentControl>

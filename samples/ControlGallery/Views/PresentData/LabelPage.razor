@@ -2,13 +2,13 @@
 
 <ContentControl Tag="@("Labels")">
     <ScrollViewer>
-        <StackPanel Margin="10" Spacing="20">
+        <StackPanel Margin="new(10)" Spacing="20">
 
-            <Label ChildContent="b => b.AddContent("Static label with Text property")" />
+            <Label ChildContent="@(b => b.AddContent(0, "Static label with Text property"))" />
 
             <Label>Static label with child content</Label>
 
-            <Label ChildContent=@(b => b.AddContent($"Dynamic - {RandomText} - label with Text property")) />
+            <Label ChildContent=@(b => b.AddContent(0, $"Dynamic - {RandomText} - label with Text property")) />
 
             <Label>Dynamic - @RandomText - label with child content</Label>
 

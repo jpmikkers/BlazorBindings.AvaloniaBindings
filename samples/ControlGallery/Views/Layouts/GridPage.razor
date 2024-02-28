@@ -7,7 +7,7 @@
             <Label>Grid with attached properties:</Label>
 
 
-            <Grid ColumnDefinitions="@("*,*,*")" RowDefinitions="@("*,*,*")" HorizontalAlignment="HorizontalAlignment.Center" Width="300">
+            <Grid ColumnDefinitions="@(new("*,*,*"))" RowDefinitions="@(new("*,*,*"))" HorizontalAlignment="HorizontalAlignment.Center" Width="300">
                 <Border Background="Brushes.DarkViolet" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2">
                     <Label HorizontalAlignment="HorizontalAlignment.Center">1</Label>
                 </Border>

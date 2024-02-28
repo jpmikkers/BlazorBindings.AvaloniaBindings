@@ -1,17 +1,19 @@
-﻿<ContentControl Title="BoxViews">
+﻿@using Avalonia
+
+<ContentControl Tag="@("BoxViews")">
     <StackPanel Spacing="8">
         <Label>Square BoxView</Label>
         <Border Height="30"
                  Width="30"
                  Background="Brushes.OrangeRed"
-                 CornerRadius="8" />
+                 CornerRadius="new(8)" />
 
         <Label>BoxView with height 1</Label>
         <Border Height="1"
                  Background="Brushes.LightGray" />
 
         <Label>BoxView with gradient background</Label>
-        <Border Height="30" Background="new LinearGradientBrush() { EndPoint=new(1,0), GradientStops = [new GradientStop(Colors.Red, 0), new GradientStop(Colors.Green, 1) ]}">
+        <Border Height="30" Background="new LinearGradientBrush() { EndPoint=new(1,0, RelativeUnit.Absolute), GradientStops = [new GradientStop(Colors.Red, 0), new GradientStop(Colors.Green, 1) ]}">
             @* <Background>
                 <LinearGradientBrush EndPoint="new(1,0)">
                     <GradientStop Offset="0" Color="Colors.Red" />

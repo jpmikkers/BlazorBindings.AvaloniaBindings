@@ -1,10 +1,10 @@
-﻿<ContentControl Tag="Buttons">
-    <StackPanel Margin="20">
+﻿<ContentControl Tag="@("Buttons")">
+    <StackPanel Margin="new(20)">
 
         <StackPanel>
             <Button OnClick="ToggleFavorite">Favorite?</Button>
 
-            <Image Source="@(isFavorite ? _favorite : _nonFavorite)" />
+            <Image Source="@ImageHelper.LoadFromResource(isFavorite ? _favorite : _nonFavorite)" />
         </StackPanel>
 
     </StackPanel>
