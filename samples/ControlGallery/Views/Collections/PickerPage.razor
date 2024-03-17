@@ -45,12 +45,12 @@
 
             <Border Height="2" Background="Brushes.Gray" HorizontalAlignment="HorizontalAlignment.Stretch" />
 
-            <Label FontAttributes="FontAttributes.Bold" Text="Index Based Picker" />
+            <Label FontWeight="FontWeight.Bold">Index Based Picker</Label>
             <ComboBox ItemsSource="Models"
                     PlaceholderText="Select a model and the index will bind"
                     @bind-SelectedIndex="SelectedIndex">
             </ComboBox>
-            <Label Text="@("Selected model: " + Models.ElementAtOrDefault(SelectedIndex)?.Name ?? "(none)")"></Label>
+            <Label>@("Selected model: " + Models.ElementAtOrDefault(SelectedIndex)?.Name ?? "(none)")</Label>
 
             <Button Padding="new(20)" OnClick="ButtonClicked">Set pickers from code</Button>
         </StackPanel>

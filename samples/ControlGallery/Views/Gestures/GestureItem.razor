@@ -1,10 +1,10 @@
 ﻿<ContentControl OnTapped="OnTap"
              OnDoubleTapped="OnDoubleTap"
-             @* OnPanUpdate="OnPanUpdate" *@>
+             >
 
     <Border @ref="_element" Background="Brushes.LightCyan" Padding="new(20)" Margin="new(4)" CornerRadius="new(7)">
         <ChildContent>
-            <Label TextColor="Colors.Black">@Item - @status</Label>
+            <Label Foreground="Brushes.Black">@Item - @status</Label>
         </ChildContent>
     </Border>
 

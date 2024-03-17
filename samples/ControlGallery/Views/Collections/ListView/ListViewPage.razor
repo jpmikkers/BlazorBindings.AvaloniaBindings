@@ -12,7 +12,7 @@
                 <StackPanel>
                     <TextBlock Text="@context.Name"></TextBlock>
                     <TextBlock Text="@context.Type"></TextBlock>
-                    <Image Source="ImageHelper.LoadFromResource(context.ImageUrl)">
+                    <Image Source="ImageHelper.LoadFromWebString(context.ImageUrl)">
                         <ContextMenuSlot>
                             <ContextMenu T="object">
                                 <MenuItem T="object" Header="@("Remove")" OnClick="() => RemoveItem(context)" />
