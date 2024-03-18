@@ -5,16 +5,14 @@
         <StackPanel Margin="new(8)" Spacing="12">
             <Label>Absolute Layout with absolute values</Label>
 
-            <Canvas>
-                <Border Background="Brushes.Silver" Attached="(Border b) => b.CanvasAll(new (0, 10, 200, 5))"/>
-                <Border Background="Brushes.Silver" Attached="(Border b) => b.CanvasAll(new (0, 20, 200, 5))"/>
-                <Border Background="Brushes.Silver" Attached="(Border b) => b.CanvasAll(new (10, 0, 5, 65))" />
-                <Border Background="Brushes.Silver" Attached="(Border b) => b.CanvasAll(new (20, 10, 5, 65))" />
+            <Canvas Background="Brushes.DarkOrchid">
+                <Border Width="10" Height="10" Background="Brushes.LightBlue" Attached="(Border b) => b.CanvasAll(new (0, 10, 200, 5))" />
+                <Border Width="10" Height="10" Background="Brushes.LightBlue" Attached="(Border b) => b.CanvasAll(new (0, 20, 200, 5))" />
+                <Border Width="10" Height="10" Background="Brushes.LightBlue" Attached="(Border b) => b.CanvasAll(new (10, 0, 5, 65))" />
+                <Border Width="10" Height="10" Background="Brushes.LightBlue" Attached="(Border b) => b.CanvasAll(new (20, 10, 5, 65))" />
 
-                <Label
-                    FontSize="24"
-                    CornerRadius="new(30)"
-                    >
+                <Label FontSize="24"
+                       CornerRadius="new(30)">
                     Stylish Header
                 </Label>
             </Canvas>
@@ -23,32 +21,36 @@
 
             <Canvas Height="200">
                 <Border Background="Brushes.Green"
-                         CornerRadius="new(10)"
-                         Attached="(Border b) => b.CanvasAll(_greenX, _greenY, 20, 20)" />
+                        Width="200"
+                        Height="100"
+                        CornerRadius="new(10)"
+                        Attached="(Border b) => b.CanvasAll(_greenX, _greenY, 20, 20)" />
 
                 <Border Background="Brushes.Blue"
-                         CornerRadius="new(8)"
-                         Attached="(Border b) => b.CanvasAll(_blueX, _blueY, 16, 16)"/>
+                        Width="200"
+                        Height="100"
+                        CornerRadius="new(8)"
+                        Attached="(Border b) => b.CanvasAll(_blueX, _blueY, 16, 16)" />
             </Canvas>
 
-            <Slider Minimum="0" Maximum="1" ValueChanged="e => SliderValueChanged(e.Value)" />
+            <Slider Minimum="0" Maximum="200" ValueChanged="e => SliderValueChanged(e.Value)" />
 
         </StackPanel>
     </ScrollViewer>
 </ContentControl>
 
 @code {
-double _greenX;
-double _greenY;
-double _blueX;
-double _blueY;
+    double _greenX;
+    double _greenY;
+    double _blueX;
+    double _blueY;
 
-void SliderValueChanged(double value)
-{
-    _blueX = value;
-    _greenX = value;
+    void SliderValueChanged(double value)
+    {
+        _blueX = value;
+        _greenX = value;
 
-    _greenY = (-Math.Cos(_blueX * 10) + 1) / 2;
-    _blueY = (-Math.Cos(_blueX * 20) + 1) / 2;
-}
+        _blueY = (-Math.Sin(_blueX / 25.0) + 1) * 10;
+        _greenY = (-Math.Cos(_greenX / 25.0) + 1) * 10;
+    }
 }

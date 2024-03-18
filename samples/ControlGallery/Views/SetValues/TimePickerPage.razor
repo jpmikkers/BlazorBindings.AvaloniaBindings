@@ -7,5 +7,5 @@
 
 @code
 {
-    private TimeSpan? _time = TimeSpan.FromTicks(DateTime.Now.Ticks);
+    private TimeSpan? _time = TimeSpan.FromTicks(DateTime.Now.Ticks - DateTime.Now.Date.Ticks);
 }
