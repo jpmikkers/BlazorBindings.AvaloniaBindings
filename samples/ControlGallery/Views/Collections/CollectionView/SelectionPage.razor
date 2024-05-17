@@ -1,4 +1,6 @@
 ﻿@page "/collectionviewplayground/selection"
+@using System.Collections.ObjectModel
+@using System.Collections
 
 <ContentControl Tag="@("Selection")">
     <Grid RowDefinitions="@(new("Auto,Auto,*"))">
@@ -7,7 +9,7 @@
             Select Random
         </Button>
 
-        <Label Grid.Row="1">Selected Items: @(_selectedItems == null ? "" : string.Join(", ", _selectedItems))</Label>
+        <Label Grid.Row="1">Selected Items: @(_selectedItems == null ? "" : string.Join(", ", _selectedItems.OfType<object>()))</Label>
 
         <ListBox ItemsSource="_intItems"
             SelectionMode="AC.SelectionMode.Multiple"
@@ -23,12 +25,10 @@
 @code {
     Random _random = new Random();
     List<int> _intItems = Enumerable.Range(1, 100).ToList();
-    System.Collections.IList _selectedItems;
+    IList _selectedItems = new ObservableCollection<int>();
 
     void SelectRandom()
     {
-        _selectedItems = _selectedItems ?? new List<object>();
-
         _selectedItems.Clear();
         _selectedItems.Add(_random.Next(1, 10));
     }
