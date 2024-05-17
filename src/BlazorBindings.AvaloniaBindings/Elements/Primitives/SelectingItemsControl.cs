@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BlazorBindings.AvaloniaBindings.Elements.Primitives;
+﻿namespace BlazorBindings.AvaloniaBindings.Elements.Primitives;
 
 public partial class SelectingItemsControl<T>
 {
@@ -20,7 +14,11 @@ public partial class SelectingItemsControl<T>
                 {
                     var value = NativeControl.SelectedItem;
                     SelectedItem = value;
-                    InvokeEventCallback(SelectedItemChanged, (T?)value);
+                    if (value is null)
+                    {
+                        value = default(T);
+                    }
+                    InvokeEventCallback(SelectedItemChanged, (T)value);
                 }
 
                 SelectedItemChanged = (EventCallback<T>)value;

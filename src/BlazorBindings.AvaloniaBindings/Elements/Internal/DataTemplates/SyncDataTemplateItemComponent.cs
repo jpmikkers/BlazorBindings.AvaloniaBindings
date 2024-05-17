@@ -78,7 +78,12 @@ internal class SyncDataTemplateItemComponent<T> : ComponentBase
 
         bindableRoot.DataContextChanged += (_, __) =>
         {
-            var newItem = (T)bindableRoot.DataContext;
+            T newItem = default;
+
+            if (bindableRoot.DataContext is not null)
+            {
+                newItem = (T)bindableRoot.DataContext;
+            }
             if (newItem != null && !Equals(newItem, _item))
             {
                 _item = newItem;
