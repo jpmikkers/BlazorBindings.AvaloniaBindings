@@ -1,4 +1,5 @@
 ﻿@using ControlGallery.Models
+@inject INavigation navigation;
 
 <ContentControl Tag="@("Navigation target")">
     <ScrollViewer>
@@ -9,10 +10,10 @@
             <Label>Target page</Label>
 
             <Label>Name:</Label>
-            <TextBlock @bind-Text="name" />
+            <TextBox @bind-Text="@name" />
 
             <Label>Value:</Label>
-            <TextBlock @bind-Text="value" />
+            <TextBox @bind-Text="@value" />
 
             <Button OnClick="Save">Save</Button>
 
@@ -40,6 +41,7 @@
     async Task Save()
     {
         await ItemChanged.InvokeAsync(new NavigationParameterModel(name, value));
+        await navigation.PopAsync();
     }
 
     async Task Notify()
