@@ -59,7 +59,8 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         protected override void RenderAdditionalPartialElementContent(RenderTreeBuilder builder, ref int sequence)
         {
             base.RenderAdditionalPartialElementContent(builder, ref sequence);
-            RenderTreeBuilderHelper.AddSyncDataTemplateProperty<AC.ItemsControl, T>(builder, sequence++, ItemTemplate,
+
+            RenderTreeBuilderHelper.AddDataTemplateProperty<AC.ItemsControl, T>(builder, sequence++, ItemTemplate,
                 (nativeElement, nativeDataTemplate) => nativeElement.ItemTemplate = nativeDataTemplate);
 
             sequence++;

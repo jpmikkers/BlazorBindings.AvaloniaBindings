@@ -23,6 +23,11 @@
                     
                     VerticalContentAlignment="VerticalAlignment.Bottom"
                     @bind-SelectedItem="SelectedModel">
+                    <ItemTemplate>
+                        <Label>
+                            @context.Name
+                        </Label>
+                    </ItemTemplate>
             </ComboBox>
             <Label Padding="new(5)">Selected model: @(SelectedModel?.Name ?? "(none)")</Label>
 
@@ -31,7 +36,13 @@
             <Label Attached="(Label l) => l.TextElementFontWeight(FontWeight.Bold)">Picker with string</Label>
             <ComboBox @bind-SelectedItem="SelectedString"
                     PlaceholderText="Select a string"
-                    ItemsSource="Strings" />
+                    ItemsSource="Strings">
+                <ItemTemplate>
+                    <Label>
+                        @context
+                    </Label>
+                </ItemTemplate>
+            </ComboBox>
             <Label>Selected string: @(SelectedString ?? "(none)")</Label>
 
             <Border Height="2" Background="Brushes.Gray" HorizontalAlignment="HorizontalAlignment.Stretch" />
@@ -40,7 +51,13 @@
             <ComboBox @bind-SelectedItem="SelectedModelDefault"
                     PlaceholderText="Select a model"
                     
-                    ItemsSource="ModelsWithDefault" />
+                    ItemsSource="ModelsWithDefault">
+                <ItemTemplate>
+                    <Label>
+                        @context.Name
+                    </Label>
+                </ItemTemplate>
+            </ComboBox>
             <Label>Selected model: @(SelectedModelDefault?.Name ?? "(none)")</Label>
 
             <Border Height="2" Background="Brushes.Gray" HorizontalAlignment="HorizontalAlignment.Stretch" />
@@ -49,6 +66,11 @@
             <ComboBox ItemsSource="Models"
                     PlaceholderText="Select a model and the index will bind"
                     @bind-SelectedIndex="SelectedIndex">
+                <ItemTemplate>
+                    <Label>
+                        @context.Name
+                    </Label>
+                </ItemTemplate>
             </ComboBox>
             <Label>@("Selected model: " + Models.ElementAtOrDefault(SelectedIndex)?.Name ?? "(none)")</Label>
 
