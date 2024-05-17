@@ -28,11 +28,16 @@
             <Button OnClick="PushToStack">Open page</Button>
             <Button OnClick="PushModal">Open modal</Button>
         }
+        else
+        {
+            <Button OnClick="Close">Close</Button>
+        }
     </StackPanel>
 </ContentControl>
 
 @code {
     [Parameter] public bool ShowNavigation { get; set; } = true;
+    [Parameter] public bool IsModal { get; set; } = false;
 
     [Inject] INavigation Navigation { get; set; }
 
@@ -55,6 +60,18 @@
 
     async Task PushModal()
     {
-        await Navigation.PushModalAsync(@<ErrorBoundariesPage ShowNavigation="false" />);
+        await Navigation.PushModalAsync(@<ErrorBoundariesPage ShowNavigation="false" IsModal="true" />);
+    }
+
+    async Task Close()
+    {
+        if (IsModal)
+        {
+            await Navigation.PopModalAsync(ShowNavigation);
+        }
+        else
+        {
+            await Navigation.PopAsync();
+        }
     }
 }
