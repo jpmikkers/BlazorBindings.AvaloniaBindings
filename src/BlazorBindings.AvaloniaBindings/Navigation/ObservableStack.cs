@@ -1,25 +1,26 @@
 ﻿using System.Collections;
+using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 
 namespace BlazorBindings.AvaloniaBindings.Navigation;
 
-public class ObservableStack<T> : Stack<T>, INotifyCollectionChanged, INotifyPropertyChanged, IList
+public class ObservableStack<T> : ObservableCollection<T>//, INotifyCollectionChanged, INotifyPropertyChanged, IList, IList<T>
 {
     public bool IsFixedSize => false;
     public bool IsReadOnly => false;
 
-    public object this[int index]
-    {
-        get
-        {
-            return this.ElementAt(index);
-        }
-        set
-        {
-            throw new NotSupportedException();
-        }
-    }
+    //public T this[int index] 
+    //{
+    //    get => base.ToArray()[index];// this.ElementAt(index); 
+    //    set => throw new NotSupportedException(); 
+    //}
+
+    //object IList.this[int index]
+    //{
+    //    get => this.ToArray()[index];//.ElementAt(index);
+    //    set => throw new NotSupportedException();
+    //}
 
     #region Constructors
 
@@ -27,97 +28,150 @@ public class ObservableStack<T> : Stack<T>, INotifyCollectionChanged, INotifyPro
 
     public ObservableStack(IEnumerable<T> collection) : base(collection) { }
 
-    public ObservableStack(int capacity) : base(capacity) { }
+    //public ObservableStack(int capacity) : base(capacity) { }
 
     #endregion
 
     #region Overrides
 
-    public virtual new T Pop()
+    public virtual T Pop()
     {
-        var item = base.Pop();
-        OnCollectionChanged(NotifyCollectionChangedAction.Remove, item);
-        
+        if (Count == 0)
+        {
+            throw new InvalidOperationException("Cannot pop empty collection");
+        }
+
+        var item = this.Last();
+        Remove(item);
+
+        //OnCollectionChanged(NotifyCollectionChangedAction.Remove, item);
+
         return item;
     }
 
-    public virtual new bool TryPop(out T item)
+    public virtual bool TryPop(out T item)
     {
-        var result = base.TryPop(out item);
-        OnCollectionChanged(NotifyCollectionChangedAction.Remove, item);
+        if (Count == 0)
+        {
+            item = default;
+            return false;
+        }
 
-        return result;
+        item = this.LastOrDefault();
+
+        Remove(item);
+
+        //OnCollectionChanged(NotifyCollectionChangedAction.Remove, item);
+
+        return true;
     }
 
-    public virtual new void Push(T item)
+    public virtual bool TryPeek(out T item)
     {
-        base.Push(item);
-        OnCollectionChanged(NotifyCollectionChangedAction.Add, item);
+        if (Count == 0)
+        {
+            item = default;
+            return false;
+        }
+
+        item = this.LastOrDefault();
+
+        //OnCollectionChanged(NotifyCollectionChangedAction.Remove, item);
+
+        return true;
     }
 
-    public virtual new void Clear()
+    public virtual void Push(T item)
+    {
+        //base.Push(item);
+        Add(item);
+
+        //OnCollectionChanged(NotifyCollectionChangedAction.Add, item);
+    }
+
+    public virtual void Clear()
     {
         base.Clear();
-        OnCollectionChanged(NotifyCollectionChangedAction.Reset, default);
+        //OnCollectionChanged(NotifyCollectionChangedAction.Reset, default);
     }
 
     #endregion
 
     #region CollectionChanged
 
-    public virtual event NotifyCollectionChangedEventHandler CollectionChanged;
+    //public virtual event NotifyCollectionChangedEventHandler CollectionChanged;
 
-    protected virtual void OnCollectionChanged(NotifyCollectionChangedAction action, T item)
-    {
-        CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(
-            action
-            , item
-            , item == null ? -1 : 0)
-        );
+    //protected virtual void OnCollectionChanged(NotifyCollectionChangedAction action, T item)
+    //{
+    //    CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(
+    //        action
+    //        , item
+    //        , item == null ? -1 : 0)
+    //    );
 
-        OnPropertyChanged(nameof(Count));
-    }
+    //    OnPropertyChanged(nameof(Count));
+    //}
 
     #endregion
 
     #region PropertyChanged
 
-    public virtual event PropertyChangedEventHandler PropertyChanged;
+    //public virtual event PropertyChangedEventHandler PropertyChanged;
 
-    protected virtual void OnPropertyChanged(string proertyName)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(proertyName));
-    }
+    //protected virtual void OnPropertyChanged(string proertyName)
+    //{
+    //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(proertyName));
+    //}
 
-    public int Add(object value)
-    {
-        throw new NotImplementedException();
-    }
+    //public int Add(object value)
+    //{
+    //    throw new NotImplementedException();
+    //}
 
-    public bool Contains(object value)
-    {
-        throw new NotImplementedException();
-    }
+    //public bool Contains(object value)
+    //{
+    //    throw new NotImplementedException();
+    //}
 
-    public int IndexOf(object value)
-    {
-        throw new NotImplementedException();
-    }
+    //public int IndexOf(object value)
+    //{
+    //    throw new NotImplementedException();
+    //}
 
-    public void Insert(int index, object value)
-    {
-        throw new NotImplementedException();
-    }
+    //public void Insert(int index, object value)
+    //{
+    //    throw new NotImplementedException();
+    //}
 
-    public void Remove(object value)
-    {
-        throw new NotImplementedException();
-    }
+    //public void Remove(object value)
+    //{
+    //    throw new NotImplementedException();
+    //}
 
-    public void RemoveAt(int index)
-    {
-        throw new NotImplementedException();
-    }
+    //public void RemoveAt(int index)
+    //{
+    //    throw new NotImplementedException();
+    //}
+
+    //public int IndexOf(T item)
+    //{
+    //    throw new NotImplementedException();
+    //}
+
+    //public void Insert(int index, T item)
+    //{
+    //    throw new NotImplementedException();
+    //}
+
+    //public void Add(T item)
+    //{
+    //    throw new NotImplementedException();
+    //}
+
+    //public bool Remove(T item)
+    //{
+    //    throw new NotImplementedException();
+    //}
 
     #endregion
 }

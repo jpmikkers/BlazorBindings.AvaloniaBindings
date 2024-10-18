@@ -8,17 +8,22 @@
   </PropertyGroup>
 	
   <ItemGroup>
+    <!--<PackageReference Include="bunit" />-->
+    <PackageReference Include="Avalonia.Desktop" />
+    <PackageReference Include="Avalonia.Headless.NUnit" />
+    <PackageReference Include="Avalonia.Themes.Fluent" />
     <PackageReference Include="coverlet.collector">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="FluentAssertions" />
     <PackageReference Include="nunit" />
     <PackageReference Include="NUnit3TestAdapter" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BlazorBindings.Maui\BlazorBindings.Maui.csproj" />
+    <ProjectReference Include="..\BlazorBindings.AvaloniaBindings\BlazorBindings.AvaloniaBindings.csproj" />
   </ItemGroup>
 	
 </Project>

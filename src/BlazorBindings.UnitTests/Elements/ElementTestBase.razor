@@ -1,28 +1,31 @@
-﻿@using BlazorBindings.Maui.Elements.Handlers;
+﻿@using BlazorBindings.AvaloniaBindings.Elements.Handlers
 @using Microsoft.AspNetCore.Components.Rendering;
 @using System.Reflection;
 @using System.Runtime.ExceptionServices;
 
 @implements IHandleEvent
 
-@code {
-    public ElementTestBase()
-    {
-        MC.Application.Current = new TestApplication();
-    }
-
-    private TestBlazorBindingsRenderer _renderer = (TestBlazorBindingsRenderer)TestBlazorBindingsRenderer.Create();
-    private RenderFragmentComponent _renderedComponent;
+@code
+{
+    private TestApplication _application;
+    private TestBlazorBindingsRenderer _renderer;
+    protected RenderFragmentComponent _renderedComponent;
 
     protected async Task<T> Render<T>(RenderFragment renderFragment)
     {
-        var container = new RootContainerHandler();
-        _renderedComponent = await _renderer.AddComponent<RenderFragmentComponent>(container, new Dictionary<string, object>
-            {
-                ["RenderFragment"] = renderFragment
-            });
+        _application ??= (TestApplication)Avalonia.Application.Current ??
+            throw new InvalidOperationException("Application not initialized - did you use [AvaloniaTest]?");
+        _renderer ??= (TestBlazorBindingsRenderer)TestBlazorBindingsRenderer.Get(_application);
 
-        return (T)container.Elements[0];
+        Avalonia.Threading.Dispatcher.UIThread.VerifyAccess();
+        
+        var container = new ApplicationHandler(_application);
+        _renderedComponent = await _renderer.AddComponent<RenderFragmentComponent>(container, new Dictionary<string, object>
+        {
+            ["RenderFragment"] = renderFragment
+        });
+
+        return (T)_application.Window.Content;
     }
 
     protected new void StateHasChanged()
@@ -33,6 +36,10 @@
 
     protected void ThrowOnException()
     {
+        _application ??= (TestApplication)Avalonia.Application.Current ??
+            throw new InvalidOperationException("Application not initialized - did you use [AvaloniaTest]?");
+        _renderer ??= (TestBlazorBindingsRenderer)TestBlazorBindingsRenderer.Get(_application);
+
         if (_renderer.Exceptions.Count > 0)
         {
             ExceptionDispatchInfo.Throw(_renderer.Exceptions[0]);
@@ -46,7 +53,7 @@
         return task ?? Task.CompletedTask;
     }
 
-    private class RenderFragmentComponent : ComponentBase
+    protected class RenderFragmentComponent : ComponentBase
     {
         [Parameter] public RenderFragment RenderFragment { get; set; }
 

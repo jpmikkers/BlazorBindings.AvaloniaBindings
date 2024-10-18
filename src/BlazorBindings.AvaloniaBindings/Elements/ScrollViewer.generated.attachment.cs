@@ -17,7 +17,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.ScrollViewer.SetAllowAutoHide((Avalonia.Controls.Control)element, (bool)value);
+                        Avalonia.Controls.ScrollViewer.SetAllowAutoHide((Avalonia.Controls.Control)element, (bool)Convert.ChangeType(value, typeof(bool)));
                     }
                 });
             AttachedPropertyRegistry.RegisterAttachedPropertyHandler("ScrollViewer.BringIntoViewOnFocusChange",
@@ -29,7 +29,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.ScrollViewer.SetBringIntoViewOnFocusChange((Avalonia.Controls.Control)element, (bool)value);
+                        Avalonia.Controls.ScrollViewer.SetBringIntoViewOnFocusChange((Avalonia.Controls.Control)element, (bool)Convert.ChangeType(value, typeof(bool)));
                     }
                 });
             AttachedPropertyRegistry.RegisterAttachedPropertyHandler("ScrollViewer.HorizontalScrollBarVisibility",
@@ -41,7 +41,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.ScrollViewer.SetHorizontalScrollBarVisibility((Avalonia.Controls.Control)element, (AC.Primitives.ScrollBarVisibility)value);
+                        Avalonia.Controls.ScrollViewer.SetHorizontalScrollBarVisibility((Avalonia.Controls.Control)element, (AC.Primitives.ScrollBarVisibility)Convert.ChangeType(value, typeof(AC.Primitives.ScrollBarVisibility)));
                     }
                 });
             AttachedPropertyRegistry.RegisterAttachedPropertyHandler("ScrollViewer.HorizontalSnapPointsAlignment",
@@ -53,7 +53,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.ScrollViewer.SetHorizontalSnapPointsAlignment((Avalonia.Controls.Control)element, (AC.Primitives.SnapPointsAlignment)value);
+                        Avalonia.Controls.ScrollViewer.SetHorizontalSnapPointsAlignment((Avalonia.Controls.Control)element, (AC.Primitives.SnapPointsAlignment)Convert.ChangeType(value, typeof(AC.Primitives.SnapPointsAlignment)));
                     }
                 });
             AttachedPropertyRegistry.RegisterAttachedPropertyHandler("ScrollViewer.HorizontalSnapPointsType",
@@ -65,7 +65,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.ScrollViewer.SetHorizontalSnapPointsType((Avalonia.Controls.Control)element, (AC.Primitives.SnapPointsType)value);
+                        Avalonia.Controls.ScrollViewer.SetHorizontalSnapPointsType((Avalonia.Controls.Control)element, (AC.Primitives.SnapPointsType)Convert.ChangeType(value, typeof(AC.Primitives.SnapPointsType)));
                     }
                 });
             AttachedPropertyRegistry.RegisterAttachedPropertyHandler("ScrollViewer.IsDeferredScrollingEnabled",
@@ -77,7 +77,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.ScrollViewer.SetIsDeferredScrollingEnabled((Avalonia.Controls.Control)element, (bool)value);
+                        Avalonia.Controls.ScrollViewer.SetIsDeferredScrollingEnabled((Avalonia.Controls.Control)element, (bool)Convert.ChangeType(value, typeof(bool)));
                     }
                 });
             AttachedPropertyRegistry.RegisterAttachedPropertyHandler("ScrollViewer.IsScrollChainingEnabled",
@@ -89,7 +89,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.ScrollViewer.SetIsScrollChainingEnabled((Avalonia.Controls.Control)element, (bool)value);
+                        Avalonia.Controls.ScrollViewer.SetIsScrollChainingEnabled((Avalonia.Controls.Control)element, (bool)Convert.ChangeType(value, typeof(bool)));
                     }
                 });
             AttachedPropertyRegistry.RegisterAttachedPropertyHandler("ScrollViewer.IsScrollInertiaEnabled",
@@ -101,7 +101,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.ScrollViewer.SetIsScrollInertiaEnabled((Avalonia.Controls.Control)element, (bool)value);
+                        Avalonia.Controls.ScrollViewer.SetIsScrollInertiaEnabled((Avalonia.Controls.Control)element, (bool)Convert.ChangeType(value, typeof(bool)));
                     }
                 });
             AttachedPropertyRegistry.RegisterAttachedPropertyHandler("ScrollViewer.VerticalScrollBarVisibility",
@@ -113,7 +113,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.ScrollViewer.SetVerticalScrollBarVisibility((Avalonia.Controls.Control)element, (AC.Primitives.ScrollBarVisibility)value);
+                        Avalonia.Controls.ScrollViewer.SetVerticalScrollBarVisibility((Avalonia.Controls.Control)element, (AC.Primitives.ScrollBarVisibility)Convert.ChangeType(value, typeof(AC.Primitives.ScrollBarVisibility)));
                     }
                 });
             AttachedPropertyRegistry.RegisterAttachedPropertyHandler("ScrollViewer.VerticalSnapPointsAlignment",
@@ -125,7 +125,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.ScrollViewer.SetVerticalSnapPointsAlignment((Avalonia.Controls.Control)element, (AC.Primitives.SnapPointsAlignment)value);
+                        Avalonia.Controls.ScrollViewer.SetVerticalSnapPointsAlignment((Avalonia.Controls.Control)element, (AC.Primitives.SnapPointsAlignment)Convert.ChangeType(value, typeof(AC.Primitives.SnapPointsAlignment)));
                     }
                 });
             AttachedPropertyRegistry.RegisterAttachedPropertyHandler("ScrollViewer.VerticalSnapPointsType",
@@ -137,13 +137,13 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.ScrollViewer.SetVerticalSnapPointsType((Avalonia.Controls.Control)element, (AC.Primitives.SnapPointsType)value);
+                        Avalonia.Controls.ScrollViewer.SetVerticalSnapPointsType((Avalonia.Controls.Control)element, (AC.Primitives.SnapPointsType)Convert.ChangeType(value, typeof(AC.Primitives.SnapPointsType)));
                     }
                 });
         }
     }
 
-    public static class ScrollViewerExtensions
+    public static partial class ScrollViewerExtensions
     {
         /// <summary>
         /// Defines the <see cref="P:Avalonia.Controls.ScrollViewer.AllowAutoHide" /> property.

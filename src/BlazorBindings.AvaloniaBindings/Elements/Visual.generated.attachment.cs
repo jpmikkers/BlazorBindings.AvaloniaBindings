@@ -17,13 +17,13 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Visual.SetFlowDirection((Avalonia.Visual)element, (A.Media.FlowDirection)value);
+                        Avalonia.Visual.SetFlowDirection((Avalonia.Visual)element, (A.Media.FlowDirection)Convert.ChangeType(value, typeof(A.Media.FlowDirection)));
                     }
                 });
         }
     }
 
-    public static class VisualExtensions
+    public static partial class VisualExtensions
     {
         /// <summary>
         /// Defines the <see cref="P:Avalonia.Visual.FlowDirection" /> property.

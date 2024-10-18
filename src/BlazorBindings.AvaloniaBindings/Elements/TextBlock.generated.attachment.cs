@@ -17,7 +17,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.TextBlock.SetBaselineOffset((Avalonia.Controls.Control)element, (double)value);
+                        Avalonia.Controls.TextBlock.SetBaselineOffset((Avalonia.Controls.Control)element, (double)Convert.ChangeType(value, typeof(double)));
                     }
                 });
             AttachedPropertyRegistry.RegisterAttachedPropertyHandler("TextBlock.LetterSpacing",
@@ -29,7 +29,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.TextBlock.SetLetterSpacing((Avalonia.Controls.Control)element, (double)value);
+                        Avalonia.Controls.TextBlock.SetLetterSpacing((Avalonia.Controls.Control)element, (double)Convert.ChangeType(value, typeof(double)));
                     }
                 });
             AttachedPropertyRegistry.RegisterAttachedPropertyHandler("TextBlock.LineHeight",
@@ -41,7 +41,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.TextBlock.SetLineHeight((Avalonia.Controls.Control)element, (double)value);
+                        Avalonia.Controls.TextBlock.SetLineHeight((Avalonia.Controls.Control)element, (double)Convert.ChangeType(value, typeof(double)));
                     }
                 });
             AttachedPropertyRegistry.RegisterAttachedPropertyHandler("TextBlock.MaxLines",
@@ -53,7 +53,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.TextBlock.SetMaxLines((Avalonia.Controls.Control)element, (int)value);
+                        Avalonia.Controls.TextBlock.SetMaxLines((Avalonia.Controls.Control)element, (int)Convert.ChangeType(value, typeof(int)));
                     }
                 });
             AttachedPropertyRegistry.RegisterAttachedPropertyHandler("TextBlock.TextAlignment",
@@ -65,7 +65,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.TextBlock.SetTextAlignment((Avalonia.Controls.Control)element, (global::Avalonia.Media.TextAlignment)value);
+                        Avalonia.Controls.TextBlock.SetTextAlignment((Avalonia.Controls.Control)element, (global::Avalonia.Media.TextAlignment)Convert.ChangeType(value, typeof(global::Avalonia.Media.TextAlignment)));
                     }
                 });
             AttachedPropertyRegistry.RegisterAttachedPropertyHandler("TextBlock.TextTrimming",
@@ -77,7 +77,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.TextBlock.SetTextTrimming((Avalonia.Controls.Control)element, (global::Avalonia.Media.TextTrimming)value);
+                        Avalonia.Controls.TextBlock.SetTextTrimming((Avalonia.Controls.Control)element, (global::Avalonia.Media.TextTrimming)Convert.ChangeType(value, typeof(global::Avalonia.Media.TextTrimming)));
                     }
                 });
             AttachedPropertyRegistry.RegisterAttachedPropertyHandler("TextBlock.TextWrapping",
@@ -89,13 +89,13 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.TextBlock.SetTextWrapping((Avalonia.Controls.Control)element, (global::Avalonia.Media.TextWrapping)value);
+                        Avalonia.Controls.TextBlock.SetTextWrapping((Avalonia.Controls.Control)element, (global::Avalonia.Media.TextWrapping)Convert.ChangeType(value, typeof(global::Avalonia.Media.TextWrapping)));
                     }
                 });
         }
     }
 
-    public static class TextBlockExtensions
+    public static partial class TextBlockExtensions
     {
         /// <summary>
         /// DependencyProperty for <see cref="P:Avalonia.Controls.TextBlock.BaselineOffset" /> property.

@@ -5,7 +5,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Internal;
 
 /// <summary>
 /// This component creates an observable collection, which is updated by blazor renderer.
-/// This allows to use it for cases, when MAUI expects an ObservableCollection to handle the updates,
+/// This allows to use it for cases, when Avalonia expects an ObservableCollection to handle the updates,
 /// but instead of forcing the user to use ObservableCollection on their side, we manage the updates by Blazor.
 /// Probably not the most performant way, is there any other option?
 /// </summary>

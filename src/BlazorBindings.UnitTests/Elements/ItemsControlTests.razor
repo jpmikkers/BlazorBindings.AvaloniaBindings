@@ -1,0 +1,61 @@
+﻿@using System.Collections.Specialized;
+@using System.Collections.ObjectModel;
+@using System.Collections.Immutable;
+
+@inherits ElementTestBase
+
+@code
+{
+    [AvaloniaTest]
+    public async Task CreateCollectionViewWithItemTemplate()
+    {
+        var items = new (int Index, string Name)[] { (1, "First"), (2, "Seconds"), (3, ("Third")) };
+        var collectionView = await Render<AC.ItemsControl>(
+            @<ItemsControl ItemsSource="items">
+                <ItemTemplate>
+                    <StackPanel>
+                        <Label>@context.Index</Label>
+                        <Label>@context.Name</Label>
+                    </StackPanel>
+                </ItemTemplate>
+            </ItemsControl>);
+
+        // It's nice that it doesn't crash at least, but is there any way to get templated items here?...
+        Assert.That(collectionView.ItemsSource, Is.EqualTo(items));
+
+        // For a regular collections we attempt to detect changes in the collection.
+        Assert.That(collectionView.ItemsSource is INotifyCollectionChanged);
+    }
+
+    [AvaloniaTest]
+    public async Task ObservableItemsViewIsAssignedDirectly()
+    {
+        var items = new ObservableCollection<int>(new[] { 1, 2, 3, 4 });
+
+        var collectionView = await Render<AC.ItemsControl>(
+            @<ItemsControl ItemsSource="items">
+                <ItemTemplate>
+                    <Label>@context</Label>
+                </ItemTemplate>
+            </ItemsControl>);
+
+        // Since collection is already observable, no need to diff additionally.
+        Assert.That(collectionView.ItemsSource, Is.SameAs(items));
+    }
+
+    [AvaloniaTest]
+    public async Task ImmutableItemsViewIsAssignedDirectly()
+    {
+        var items = ImmutableList.Create(1, 2, 3, 4);
+
+        var collectionView = await Render<AC.ItemsControl>(
+            @<ItemsControl ItemsSource="items">
+                <ItemTemplate>
+                    <Label>@context</Label>
+                </ItemTemplate>
+            </ItemsControl>);
+
+        // Since collection is immutable, there is no point in detecting changes there.
+        Assert.That(collectionView.ItemsSource, Is.SameAs(items));
+    }
+}

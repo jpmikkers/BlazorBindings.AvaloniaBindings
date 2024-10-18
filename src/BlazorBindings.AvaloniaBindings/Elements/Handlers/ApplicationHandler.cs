@@ -23,13 +23,21 @@ internal class ApplicationHandler : IContainerElementHandler
             {
                 classic.MainWindow = new AC.Window()
                 {
-                    Content = child.Cast<AC.Control>()
+                    Content = child
                 };
             }
         }
         else if (_application.ApplicationLifetime is ISingleViewApplicationLifetime single)
         {
             single.MainView = child.Cast<AC.Control>();
+        }
+        else if (_application is ITestApplication testApplication)
+        {
+            testApplication.Window.Content = child;
+        }
+        else
+        {
+            throw new NotSupportedException($"Application lifetime '{_application.ApplicationLifetime?.GetType().FullName}' is not supported");
         }
     }
 

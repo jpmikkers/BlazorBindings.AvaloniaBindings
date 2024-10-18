@@ -1,13 +1,14 @@
-﻿<ContentPage Title="Test">
+﻿<ContentControl Tag="@("Test")">
     <NonPageContent />
-</ContentPage>
+</ContentControl>
 
-@code {
-public static void ValidateContent(MC.Element content)
+@code
 {
-    var contentPage = content as MC.ContentPage;
-    Assert.That(contentPage, Is.Not.Null);
-    Assert.That(contentPage.Title, Is.EqualTo("Test"));
-    NonPageContent.ValidateContent(contentPage.Content);
-}
+    public static void ValidateContent(Avalonia.StyledElement content)
+    {
+        var contentPage = content as AC.ContentControl;
+        Assert.That(contentPage, Is.Not.Null);
+        Assert.That(contentPage.Tag, Is.EqualTo("Test"));
+        NonPageContent.ValidateContent((Avalonia.Visual)contentPage.Content);
+    }
 }

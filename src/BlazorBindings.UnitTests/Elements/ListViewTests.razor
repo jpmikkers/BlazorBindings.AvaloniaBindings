@@ -1,29 +1,46 @@
-﻿@inherits ElementTestBase
+﻿@using Avalonia.Controls
+@using Avalonia.Controls.Templates
+@using Avalonia.Threading
+@using Avalonia.VisualTree
+@using Avalonia.LogicalTree
+@using BlazorBindings.AvaloniaBindings.Navigation
 
-@code {
-    [Test]
+@inherits ElementTestBase
+
+@code
+{
+    [AvaloniaTest]
     public async Task CreateListItemWithItemTemplate()
     {
-        var items = new (int Index, string Name)[] { (1, "First"), (2, "Seconds"), (3, ("Third")) };
-        var listView = await Render<MC.ListView>(
-    @<ListView ItemsSource="items">
-        <ItemTemplate>
-            <TextCell Text="@context.Index.ToString()" Detail="@context.Name" />
-        </ItemTemplate>
-    </ListView>
-        );
+        var items = new Tuple<int, string>[] { new(1, "First"), new(2, "Seconds"), new(3, ("Third")) };
+        RenderFragment listBoxRenderFragment =
+            @<ListBox T="Tuple<int, string>" ItemsSource="items">
+                <ItemTemplate>
+                    <TextBlock Text="@context.Item1.ToString()" Tag="@context.Item2" />
+                </ItemTemplate>
+            </ListBox>;
 
-        var templatedItems = listView.TemplatedItems;
+        var listBox = await Render<AC.ListBox>(listBoxRenderFragment);
 
-        Assert.That(templatedItems, Has.Count.EqualTo(3));
-        for (int i = 0; i < templatedItems.Count; i++)
+        Tick();
+
+        var templatedControls = listBox.GetRealizedContainers()
+            .Select(x => x.GetLogicalChildren().First())
+            .ToList();
+
+        Assert.That(templatedControls, Has.Count.EqualTo(3));
+        for (int i = 0; i < templatedControls.Count; i++)
         {
             var expectedItem = items[i];
-            var cell = templatedItems[i] as MC.TextCell;
+            var cell = templatedControls[i] as AC.TextBlock;
 
-            Assert.That(cell, Is.TypeOf<MC.TextCell>());
-            Assert.That(cell.Text, Is.EqualTo(expectedItem.Index.ToString()));
-            Assert.That(cell.Detail, Is.EqualTo(expectedItem.Name));
+            Assert.That(cell.Text, Is.EqualTo(expectedItem.Item1.ToString()));
+            Assert.That(cell.Tag, Is.EqualTo(expectedItem.Item2));
         }
+    }
+
+    private void Tick()
+    {
+        Avalonia.Threading.Dispatcher.UIThread.RunJobs(DispatcherPriority.SystemIdle);
     }
 }

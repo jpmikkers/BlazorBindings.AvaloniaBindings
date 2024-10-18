@@ -2,6 +2,9 @@
 
 public interface INavigation
 {
+    public IReadOnlyList<RenderFragment> ModalStack { get; }
+    public IReadOnlyList<RenderFragment> NavigationStack { get; }
+
     /// <summary>
     /// Performs URI-based Shell navigation. This method is only available for Shell-based applications.
     /// </summary>
@@ -10,6 +13,8 @@ public interface INavigation
     Task NavigateToAsync(string uri, Dictionary<string, object> parameters = null, bool animated = true);
 
     Task PopAsync(bool animated = true);
+    
+    Task PopToRootAsync(bool animated = true);
 
     Task PopModalAsync(bool animated = true);
 

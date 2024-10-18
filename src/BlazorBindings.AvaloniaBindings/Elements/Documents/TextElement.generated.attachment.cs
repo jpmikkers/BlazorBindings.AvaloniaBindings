@@ -18,7 +18,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.Documents.TextElement.SetFontFamily((Avalonia.Controls.Control)element, (global::Avalonia.Media.FontFamily)value);
+                        Avalonia.Controls.Documents.TextElement.SetFontFamily((Avalonia.Controls.Control)element, (global::Avalonia.Media.FontFamily)Convert.ChangeType(value, typeof(global::Avalonia.Media.FontFamily)));
                     }
                 });
             AttachedPropertyRegistry.RegisterAttachedPropertyHandler("TextElement.FontSize",
@@ -30,7 +30,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.Documents.TextElement.SetFontSize((Avalonia.Controls.Control)element, (double)value);
+                        Avalonia.Controls.Documents.TextElement.SetFontSize((Avalonia.Controls.Control)element, (double)Convert.ChangeType(value, typeof(double)));
                     }
                 });
             AttachedPropertyRegistry.RegisterAttachedPropertyHandler("TextElement.FontStretch",
@@ -42,7 +42,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.Documents.TextElement.SetFontStretch((Avalonia.Controls.Control)element, (global::Avalonia.Media.FontStretch)value);
+                        Avalonia.Controls.Documents.TextElement.SetFontStretch((Avalonia.Controls.Control)element, (global::Avalonia.Media.FontStretch)Convert.ChangeType(value, typeof(global::Avalonia.Media.FontStretch)));
                     }
                 });
             AttachedPropertyRegistry.RegisterAttachedPropertyHandler("TextElement.FontStyle",
@@ -54,7 +54,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.Documents.TextElement.SetFontStyle((Avalonia.Controls.Control)element, (global::Avalonia.Media.FontStyle)value);
+                        Avalonia.Controls.Documents.TextElement.SetFontStyle((Avalonia.Controls.Control)element, (global::Avalonia.Media.FontStyle)Convert.ChangeType(value, typeof(global::Avalonia.Media.FontStyle)));
                     }
                 });
             AttachedPropertyRegistry.RegisterAttachedPropertyHandler("TextElement.FontWeight",
@@ -66,7 +66,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.Documents.TextElement.SetFontWeight((Avalonia.Controls.Control)element, (global::Avalonia.Media.FontWeight)value);
+                        Avalonia.Controls.Documents.TextElement.SetFontWeight((Avalonia.Controls.Control)element, (global::Avalonia.Media.FontWeight)Convert.ChangeType(value, typeof(global::Avalonia.Media.FontWeight)));
                     }
                 });
             AttachedPropertyRegistry.RegisterAttachedPropertyHandler("TextElement.Foreground",
@@ -78,13 +78,13 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.Documents.TextElement.SetForeground((Avalonia.Controls.Control)element, (global::Avalonia.Media.IBrush)value);
+                        Avalonia.Controls.Documents.TextElement.SetForeground((Avalonia.Controls.Control)element, (global::Avalonia.Media.IBrush)Convert.ChangeType(value, typeof(global::Avalonia.Media.IBrush)));
                     }
                 });
         }
     }
 
-    public static class TextElementExtensions
+    public static partial class TextElementExtensions
     {
         /// <summary>
         /// Defines the <see cref="P:Avalonia.Controls.Documents.TextElement.FontFamily" /> property.

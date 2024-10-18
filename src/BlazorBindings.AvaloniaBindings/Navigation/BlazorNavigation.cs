@@ -10,7 +10,7 @@ public partial class BlazorNavigation : INavigation
     private readonly NavigationManager _navigationManager;
     private Type _wrapperComponentType;
 
-    internal BlazorNavigation(AvaloniaBlazorBindingsServiceProvider serviceProvider)
+    internal BlazorNavigation(IServiceProvider serviceProvider)
     {
         _renderer = serviceProvider.GetRequiredService<AvaloniaBlazorBindingsRenderer>();
         _navigationManager = serviceProvider.GetRequiredService<NavigationManager>();
@@ -22,6 +22,10 @@ public partial class BlazorNavigation : INavigation
     }
 
     protected AvaloniaNavigation AvaloniaNavigation => Application.Current.Cast<IAvaloniaBlazorApplication>().Navigation; //((IClassicDesktopStyleApplicationLifetime)Application.Current.ApplicationLifetime).MainWindow.MainWindow.Navigation;
+
+    public IReadOnlyList<RenderFragment> ModalStack => ModalStack.ToList().AsReadOnly();
+
+    public IReadOnlyList<RenderFragment> NavigationStack => NavigationStack.ToList().AsReadOnly();
 
     /// <summary>
     /// Push page component <typeparamref name="T"/> to the Navigation Stack.
@@ -67,11 +71,11 @@ public partial class BlazorNavigation : INavigation
 
     public async Task PopToRootAsync(bool animated = true)
     {
-        await AvaloniaNavigation.PopToRootAsync(animated);
+        await NavigationAction(() => AvaloniaNavigation.PopToRootAsync(animated));
     }
 
     /// <summary>
-    /// Returns rendered MAUI element from component <typeparamref name="T"/>.
+    /// Returns rendered Avalonia element from component <typeparamref name="T"/>.
     /// This method is exposed for extensibility purposes, and shouldn't be used directly.
     /// </summary>
     /// <remarks>Experimental API, subject to change.</remarks>

@@ -18,13 +18,13 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.Primitives.TemplatedControl.SetIsTemplateFocusTarget((Avalonia.Controls.Control)element, (bool)value);
+                        Avalonia.Controls.Primitives.TemplatedControl.SetIsTemplateFocusTarget((Avalonia.Controls.Control)element, (bool)Convert.ChangeType(value, typeof(bool)));
                     }
                 });
         }
     }
 
-    public static class TemplatedControlExtensions
+    public static partial class TemplatedControlExtensions
     {
         /// <summary>
         /// Defines the IsTemplateFocusTarget attached property.

@@ -1,4 +1,4 @@
-﻿using BlazorBindings.Maui;
+﻿using BlazorBindings.AvaloniaBindings;
 using System.Globalization;
 
 namespace BlazorBindings.UnitTests;

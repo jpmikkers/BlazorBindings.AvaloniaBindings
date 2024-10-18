@@ -1,44 +1,67 @@
-﻿using BlazorBindings.Maui;
+﻿using Avalonia;
+using Avalonia.Controls;
+using BlazorBindings.AvaloniaBindings;
 using BlazorBindings.UnitTests.Components;
 
 namespace BlazorBindings.UnitTests;
 
 public class BlazorBindingsApplicationTests
 {
-    [Test]
+    private TestApplication _application;
+    private Window _window;
+
+    [AvaloniaTest]
     public void SetsTheMainPage_ContentPage()
     {
         var application = CreateApplication<PageContent>();
-        PageContent.ValidateContent(application.MainPage);
+        
+        application.RenderComponent(true);
+
+        PageContent.ValidateContent((Avalonia.StyledElement)_window.Content);
     }
 
-    [Test]
+    [AvaloniaTest]
     public void SetsTheMainPage_WithRootWrapper()
     {
         var application = CreateApplicationWithWrapper<PageContentWithCascadingParameter, WrapperWithCascadingValue>();
-        PageContentWithCascadingParameter.ValidateContent(application.MainPage, WrapperWithCascadingValue.Value);
+
+        application.RenderComponent(true);
+
+        PageContentWithCascadingParameter.ValidateContent((StyledElement)_window.Content, WrapperWithCascadingValue.Value);
     }
 
-    private static BlazorBindingsApplication<T> CreateApplication<T>() where T : IComponent
+    private BlazorBindingsApplication CreateApplication<T>() where T : IComponent
     {
-        return new BlazorBindingsApplication<T>(TestServiceProvider.Create());
-    }
+        _application = (TestApplication)Application.Current;
+        _application.ComponentType = typeof(T);
 
-    private static BlazorBindingsApplication<TMain> CreateApplicationWithWrapper<TMain, TWrapper>()
-        where TMain : IComponent
-        where TWrapper : IComponent
-    {
-        return new BlazorBindingsApplicationWithWrapper<TMain, TWrapper>(TestServiceProvider.Create());
-    }
-
-    class BlazorBindingsApplicationWithWrapper<TMain, TWrapper> : BlazorBindingsApplication<TMain>
-        where TMain : IComponent
-        where TWrapper : IComponent
-    {
-        public BlazorBindingsApplicationWithWrapper(IServiceProvider services) : base(services)
+        Avalonia.Threading.Dispatcher.UIThread.VerifyAccess();
+        _window = new Window
         {
-        }
+            Width = 100,
+            Height = 100
+        };
+        _application.Window = _window;
 
-        public override Type WrapperComponentType => typeof(TWrapper);
+        return _application;
+    }
+
+    private BlazorBindingsApplication CreateApplicationWithWrapper<TMain, TWrapper>()
+        where TMain : IComponent
+        where TWrapper : IComponent
+    {
+        _application = (TestApplication)Application.Current;
+        _application.ComponentType = typeof(TMain);
+        _application.WrapperComponentType = typeof(TWrapper);
+
+        Avalonia.Threading.Dispatcher.UIThread.VerifyAccess();
+        _window = new Window
+        {
+            Width = 100,
+            Height = 100
+        };
+        _application.Window = _window;
+
+        return _application;
     }
 }

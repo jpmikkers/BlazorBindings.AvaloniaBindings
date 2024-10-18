@@ -1,37 +1,38 @@
 ﻿@inherits ElementTestBase
 
-@code {
-[Test]
-public async Task BindedDateIsUpdatedWhenSelected()
+@code
 {
-    DateOnly bindedDate = default;
-    var datePicker = await Render<MC.DatePicker>(@<DatePicker @bind-Date="bindedDate" />);
+    [AvaloniaTest]
+    public async Task BindedDateIsUpdatedWhenSelected()
+    {
+        DateTimeOffset? bindedDate = default;
+        var datePicker = await Render<AC.DatePicker>(@<DatePicker @bind-SelectedDate="bindedDate" />);
 
-    datePicker.Date = new DateTime(2023, 01, 12);
+        datePicker.SelectedDate = new DateTimeOffset(2023, 01, 12, 0, 0, 0, default);
 
-    Assert.That(bindedDate, Is.EqualTo(new DateOnly(2023, 01, 12)));
-}
+        Assert.That(bindedDate, Is.EqualTo(new DateTimeOffset(2023, 01, 12, 0, 0, 0, default)));
+    }
 
-[Test]
-public async Task SelectedDateIsUpdatedWhenBindedValueChanged()
-{
-    DateOnly bindedDate = default;
-    var datePicker = await Render<MC.DatePicker>(@<DatePicker @bind-Date="bindedDate" />);
+    [AvaloniaTest]
+    public async Task SelectedDateIsUpdatedWhenBindedValueChanged()
+    {
+        DateTimeOffset? bindedDate = default;
+        var datePicker = await Render<AC.DatePicker>(@<DatePicker @bind-SelectedDate="bindedDate" />);
 
-    bindedDate = new DateOnly(2023, 01, 12);
-    StateHasChanged();
+        bindedDate = new DateTimeOffset(2023, 01, 12, 0, 0, 0, default);
+        StateHasChanged();
 
-    Assert.That(datePicker.Date, Is.EqualTo(new DateTime(2023, 01, 12)));
-}
+        Assert.That(datePicker.SelectedDate, Is.EqualTo(new DateTimeOffset(2023, 01, 12, 0, 0, 0, default)));
+    }
 
-[Test]
-public async Task SetMinMaxDate()
-{
-    var minDate = new DateOnly(2023, 01, 01);
-    var maxDate = new DateOnly(2023, 12, 31);
-    var datePicker = await Render<MC.DatePicker>(@<DatePicker MinimumDate="minDate" MaximumDate="maxDate" />);
+    [AvaloniaTest]
+    public async Task SetMinMaxDate()
+    {
+        var minYear = new DateTimeOffset(new DateTime(2023, 01, 01));
+        var maxYear = new DateTimeOffset(new DateTime(2024, 12, 31));
+        var datePicker = await Render<AC.DatePicker>(@<DatePicker MinYear="minYear" MaxYear="maxYear" />);
 
-    Assert.That(datePicker.MinimumDate, Is.EqualTo(minDate.ToDateTime(TimeOnly.MinValue)));
-    Assert.That(datePicker.MaximumDate, Is.EqualTo(maxDate.ToDateTime(TimeOnly.MinValue)));
-}
+        Assert.That(datePicker.MinYear, Is.EqualTo(minYear));
+        Assert.That(datePicker.MaxYear, Is.EqualTo(maxYear));
+    }
 }

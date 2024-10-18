@@ -467,7 +467,7 @@ namespace {componentNamespace}
     {
         handleAttachedPopertiesBuilder.Append($$"""
 
-                public static class {{typeToGenerate.Name}}Extensions
+                public static partial class {{typeToGenerate.Name}}Extensions
                 {
 
             """);

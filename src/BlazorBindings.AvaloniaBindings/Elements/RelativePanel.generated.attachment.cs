@@ -17,7 +17,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.RelativePanel.SetAbove((Avalonia.AvaloniaObject)element, (object)value);
+                        Avalonia.Controls.RelativePanel.SetAbove((Avalonia.AvaloniaObject)element, (object)Convert.ChangeType(value, typeof(object)));
                     }
                 });
             AttachedPropertyRegistry.RegisterAttachedPropertyHandler("RelativePanel.AlignBottomWithPanel",
@@ -29,7 +29,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.RelativePanel.SetAlignBottomWithPanel((Avalonia.AvaloniaObject)element, (bool)value);
+                        Avalonia.Controls.RelativePanel.SetAlignBottomWithPanel((Avalonia.AvaloniaObject)element, (bool)Convert.ChangeType(value, typeof(bool)));
                     }
                 });
             AttachedPropertyRegistry.RegisterAttachedPropertyHandler("RelativePanel.AlignBottomWith",
@@ -41,7 +41,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.RelativePanel.SetAlignBottomWith((Avalonia.AvaloniaObject)element, (object)value);
+                        Avalonia.Controls.RelativePanel.SetAlignBottomWith((Avalonia.AvaloniaObject)element, (object)Convert.ChangeType(value, typeof(object)));
                     }
                 });
             AttachedPropertyRegistry.RegisterAttachedPropertyHandler("RelativePanel.AlignHorizontalCenterWithPanel",
@@ -53,7 +53,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.RelativePanel.SetAlignHorizontalCenterWithPanel((Avalonia.AvaloniaObject)element, (bool)value);
+                        Avalonia.Controls.RelativePanel.SetAlignHorizontalCenterWithPanel((Avalonia.AvaloniaObject)element, (bool)Convert.ChangeType(value, typeof(bool)));
                     }
                 });
             AttachedPropertyRegistry.RegisterAttachedPropertyHandler("RelativePanel.AlignHorizontalCenterWith",
@@ -65,7 +65,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.RelativePanel.SetAlignHorizontalCenterWith((Avalonia.AvaloniaObject)element, (object)value);
+                        Avalonia.Controls.RelativePanel.SetAlignHorizontalCenterWith((Avalonia.AvaloniaObject)element, (object)Convert.ChangeType(value, typeof(object)));
                     }
                 });
             AttachedPropertyRegistry.RegisterAttachedPropertyHandler("RelativePanel.AlignLeftWithPanel",
@@ -77,7 +77,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.RelativePanel.SetAlignLeftWithPanel((Avalonia.AvaloniaObject)element, (bool)value);
+                        Avalonia.Controls.RelativePanel.SetAlignLeftWithPanel((Avalonia.AvaloniaObject)element, (bool)Convert.ChangeType(value, typeof(bool)));
                     }
                 });
             AttachedPropertyRegistry.RegisterAttachedPropertyHandler("RelativePanel.AlignLeftWith",
@@ -89,7 +89,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.RelativePanel.SetAlignLeftWith((Avalonia.AvaloniaObject)element, (object)value);
+                        Avalonia.Controls.RelativePanel.SetAlignLeftWith((Avalonia.AvaloniaObject)element, (object)Convert.ChangeType(value, typeof(object)));
                     }
                 });
             AttachedPropertyRegistry.RegisterAttachedPropertyHandler("RelativePanel.AlignRightWithPanel",
@@ -101,7 +101,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.RelativePanel.SetAlignRightWithPanel((Avalonia.AvaloniaObject)element, (bool)value);
+                        Avalonia.Controls.RelativePanel.SetAlignRightWithPanel((Avalonia.AvaloniaObject)element, (bool)Convert.ChangeType(value, typeof(bool)));
                     }
                 });
             AttachedPropertyRegistry.RegisterAttachedPropertyHandler("RelativePanel.AlignRightWith",
@@ -113,7 +113,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.RelativePanel.SetAlignRightWith((Avalonia.AvaloniaObject)element, (object)value);
+                        Avalonia.Controls.RelativePanel.SetAlignRightWith((Avalonia.AvaloniaObject)element, (object)Convert.ChangeType(value, typeof(object)));
                     }
                 });
             AttachedPropertyRegistry.RegisterAttachedPropertyHandler("RelativePanel.AlignTopWithPanel",
@@ -125,7 +125,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.RelativePanel.SetAlignTopWithPanel((Avalonia.AvaloniaObject)element, (bool)value);
+                        Avalonia.Controls.RelativePanel.SetAlignTopWithPanel((Avalonia.AvaloniaObject)element, (bool)Convert.ChangeType(value, typeof(bool)));
                     }
                 });
             AttachedPropertyRegistry.RegisterAttachedPropertyHandler("RelativePanel.AlignTopWith",
@@ -137,7 +137,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.RelativePanel.SetAlignTopWith((Avalonia.AvaloniaObject)element, (object)value);
+                        Avalonia.Controls.RelativePanel.SetAlignTopWith((Avalonia.AvaloniaObject)element, (object)Convert.ChangeType(value, typeof(object)));
                     }
                 });
             AttachedPropertyRegistry.RegisterAttachedPropertyHandler("RelativePanel.AlignVerticalCenterWithPanel",
@@ -149,7 +149,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.RelativePanel.SetAlignVerticalCenterWithPanel((Avalonia.AvaloniaObject)element, (bool)value);
+                        Avalonia.Controls.RelativePanel.SetAlignVerticalCenterWithPanel((Avalonia.AvaloniaObject)element, (bool)Convert.ChangeType(value, typeof(bool)));
                     }
                 });
             AttachedPropertyRegistry.RegisterAttachedPropertyHandler("RelativePanel.AlignVerticalCenterWith",
@@ -161,7 +161,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.RelativePanel.SetAlignVerticalCenterWith((Avalonia.AvaloniaObject)element, (object)value);
+                        Avalonia.Controls.RelativePanel.SetAlignVerticalCenterWith((Avalonia.AvaloniaObject)element, (object)Convert.ChangeType(value, typeof(object)));
                     }
                 });
             AttachedPropertyRegistry.RegisterAttachedPropertyHandler("RelativePanel.Below",
@@ -173,7 +173,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.RelativePanel.SetBelow((Avalonia.AvaloniaObject)element, (object)value);
+                        Avalonia.Controls.RelativePanel.SetBelow((Avalonia.AvaloniaObject)element, (object)Convert.ChangeType(value, typeof(object)));
                     }
                 });
             AttachedPropertyRegistry.RegisterAttachedPropertyHandler("RelativePanel.LeftOf",
@@ -185,7 +185,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.RelativePanel.SetLeftOf((Avalonia.AvaloniaObject)element, (object)value);
+                        Avalonia.Controls.RelativePanel.SetLeftOf((Avalonia.AvaloniaObject)element, (object)Convert.ChangeType(value, typeof(object)));
                     }
                 });
             AttachedPropertyRegistry.RegisterAttachedPropertyHandler("RelativePanel.RightOf",
@@ -197,13 +197,13 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     }
                     else
                     {
-                        Avalonia.Controls.RelativePanel.SetRightOf((Avalonia.AvaloniaObject)element, (object)value);
+                        Avalonia.Controls.RelativePanel.SetRightOf((Avalonia.AvaloniaObject)element, (object)Convert.ChangeType(value, typeof(object)));
                     }
                 });
         }
     }
 
-    public static class RelativePanelExtensions
+    public static partial class RelativePanelExtensions
     {
         /// <summary>
         /// Identifies the <see cref="F:Avalonia.Controls.RelativePanel.AboveProperty" /> XAML attached property.

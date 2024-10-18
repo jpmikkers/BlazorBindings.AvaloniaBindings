@@ -69,7 +69,11 @@ using Avalonia.Controls.Primitives;
 [assembly: GenerateComponent(typeof(DatePicker))]
 [assembly: GenerateComponent(typeof(DockPanel))]
 [assembly: GenerateComponent(typeof(Expander))]
-[assembly: GenerateComponent(typeof(Flyout))]
+[assembly: GenerateComponent(typeof(Flyout),
+    ContentProperties =
+    [
+        nameof(Flyout.Content)
+    ])]
 [assembly: GenerateComponent(typeof(FlyoutBase))]
 [assembly: GenerateComponent(typeof(GradientBrush))]
 [assembly: GenerateComponent(typeof(GradientStop))]
@@ -111,6 +115,7 @@ using Avalonia.Controls.Primitives;
     {
         //nameof(ItemsControl.ItemsPanel),
         nameof(ItemsControl.ItemsSource),
+        nameof(ItemsControl.ItemTemplate)
     },
     GenericProperties = new string[]
     {
@@ -178,6 +183,8 @@ using Avalonia.Controls.Primitives;
 [assembly: GenerateComponent(typeof(RelativePanel))]
 [assembly: GenerateComponent(typeof(RadialGradientBrush))]
 [assembly: GenerateComponent(typeof(RadioButton))]
+[assembly: GenerateComponent(typeof(RefreshContainer))]
+[assembly: GenerateComponent(typeof(RefreshVisualizer))]
 [assembly: GenerateComponent(typeof(RangeBase))]
 [assembly: GenerateComponent(typeof(ScrollBar))]
 [assembly: GenerateComponent(typeof(ScrollViewer))]

@@ -1,0 +1,25 @@
+﻿@inherits ElementTestBase
+
+@code
+{
+    [AvaloniaTest]
+    public async Task ChangeItemSource()
+    {
+        var items = new[] { 1, 2, 3, 4, 5 };
+
+        var parent = await Render<AC.StackPanel>(
+            @<StackPanel>
+                <Carousel ItemsSource="items" />
+            </StackPanel>
+            );
+
+        var carouselView = (AC.Carousel)parent.Children[0];
+
+        Assert.That(carouselView.ItemsSource, Is.EqualTo(items));
+
+        items = new[] { 2, 3, 4, 5, 6, 7 };
+        StateHasChanged();
+
+        Assert.That(carouselView.ItemsSource, Is.EqualTo(items));
+    }
+}

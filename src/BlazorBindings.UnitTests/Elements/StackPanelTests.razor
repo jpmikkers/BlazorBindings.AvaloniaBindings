@@ -1,0 +1,185 @@
+﻿@using BlazorBindings.UnitTests.Components
+@inherits ElementTestBase
+
+@code
+{
+    [AvaloniaTest]
+    public async Task AddLayoutChildren()
+    {
+        var layout = await Render<AC.StackPanel>(
+            @<StackPanel>
+                <Label>First</Label>
+                <Button>Second</Button>
+
+                <StackPanel>
+                    <Label>Third</Label>
+                </StackPanel>
+            </StackPanel>
+            );
+
+        var label = (AC.Label)layout.Children[0];
+        var button = (AC.Button)layout.Children[1];
+        var innerLayout = (AC.StackPanel)layout.Children[2];
+        var innerLabel = (AC.Label)innerLayout.Children[0];
+
+        Assert.That(label.Content, Is.EqualTo("First"));
+        Assert.That(button.Content, Is.EqualTo("Second"));
+        Assert.That(innerLabel.Content, Is.EqualTo("Third"));
+    }
+
+    [AvaloniaTest]
+    public async Task InsertAndRemoveItems()
+    {
+        var insertItems = false;
+
+        var layout = await Render<AC.StackPanel>(
+            @<StackPanel>
+                @if (insertItems)
+                {
+                    <Label>1</Label>
+                }
+                <Label>2</Label>
+                @if (insertItems)
+                {
+                    <Label>3</Label>
+                }
+                <Label>4</Label>
+
+                @if (insertItems)
+                {
+                    <Label>5</Label>
+                }
+                else
+                {
+                    <Label>6</Label>
+                }
+
+                @if (insertItems)
+                {
+                    <Label>7</Label>
+                }
+            </StackPanel>
+            );
+
+        var items = layout.Children.Cast<AC.Label>().Select(l => l.Content).ToArray();
+        Assert.That(items, Is.EqualTo(new[] { "2", "4", "6" }));
+
+        insertItems = true;
+        StateHasChanged();
+
+        items = layout.Children.Cast<AC.Label>().Select(l => l.Content).ToArray();
+        Assert.That(items, Is.EqualTo(new[] { "1", "2", "3", "4", "5", "7" }));
+
+        insertItems = false;
+        StateHasChanged();
+
+        items = layout.Children.Cast<AC.Label>().Select(l => l.Content).ToArray();
+        Assert.That(items, Is.EqualTo(new[] { "2", "4", "6" }));
+    }
+
+
+    [AvaloniaTest]
+    public async Task InsertAndRemoveItems_WithNestedComponents()
+    {
+        var insertItems = false;
+
+        var layout = await Render<AC.StackPanel>(
+            @<StackPanel>
+                <Label>0</Label>
+                @if (insertItems)
+                {
+                    <Label>1</Label>
+                }
+
+                <WrapperWithCascadingValue>
+                    @if (insertItems)
+                    {
+                        <Label>2</Label>
+                    }
+                    <Label>3</Label>
+                </WrapperWithCascadingValue>
+
+                <Label>4</Label>
+                @if (insertItems)
+                {
+                    <Label>5</Label>
+                }
+
+                @if (insertItems)
+                {
+                    <WrapperWithCascadingValue>
+                        <Label>6</Label>
+                        <Label>7</Label>
+                    </WrapperWithCascadingValue>
+                }
+                else
+                {
+                    <Label>8</Label>
+                }
+
+                @if (insertItems)
+                {
+                    <Label>9</Label>
+                }
+            </StackPanel>
+            );
+
+        var items = layout.Children.Cast<AC.Label>().Select(l => l.Content).ToArray();
+        Assert.That(items, Is.EqualTo(new[] { "0", "3", "4", "8" }));
+
+        insertItems = true;
+        StateHasChanged();
+
+        items = layout.Children.Cast<AC.Label>().Select(l => l.Content).ToArray();
+        Assert.That(items, Is.EqualTo(new[] { "0", "1", "2", "3", "4", "5", "6", "7", "9" }));
+
+        insertItems = false;
+        StateHasChanged();
+
+        items = layout.Children.Cast<AC.Label>().Select(l => l.Content).ToArray();
+        Assert.That(items, Is.EqualTo(new[] { "0", "3", "4", "8" }));
+    }
+
+
+    [AvaloniaTest]
+    public async Task ReplaceItems()
+    {
+        var replaceItems = true;
+
+        var layout = await Render<AC.StackPanel>(
+            @<StackPanel>
+                @if (replaceItems)
+                {
+                    <Label>1</Label>
+                    
+                    <WrapperWithCascadingValue>
+                        <Label>2</Label>
+                    </WrapperWithCascadingValue>
+                    
+                    <Label>3</Label>
+                }
+                else
+                {
+                    <Label>4</Label>
+                    <Label>5</Label>
+                    <Label>6</Label>
+                }
+            </StackPanel>
+            );
+
+        var items = layout.Children.Cast<AC.Label>().Select(l => l.Content).ToArray();
+        Assert.That(items, Is.EqualTo(new[] { "1", "2", "3" }));
+
+        replaceItems = false;
+        StateHasChanged();
+
+        items = layout.Children.Cast<AC.Label>().Select(l => l.Content).ToArray();
+        Assert.That(items, Is.EqualTo(new[] { "4", "5", "6" }));
+
+        replaceItems = true;
+        StateHasChanged();
+
+        items = layout.Children.Cast<AC.Label>().Select(l => l.Content).ToArray();
+        Assert.That(items, Is.EqualTo(new[] { "1", "2", "3" }));
+    }
+}

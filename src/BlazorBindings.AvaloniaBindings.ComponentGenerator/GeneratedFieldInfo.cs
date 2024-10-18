@@ -144,7 +144,7 @@ public partial class GeneratedFieldInfo
             {{indent}}            }
             {{indent}}            else
             {{indent}}            {
-            {{indent}}                {{_typeInfo.AvaloniaType.GetFullName()}}.Set{{effectiveAvaloniaFieldName}}(({{effectiveBindingHostType}})element, ({{GetOriginalAttachedPropertyType()}})value);
+            {{indent}}                {{_typeInfo.AvaloniaType.GetFullName()}}.Set{{effectiveAvaloniaFieldName}}(({{effectiveBindingHostType}})element, ({{GetOriginalAttachedPropertyType()}})Convert.ChangeType(value, typeof({{GetOriginalAttachedPropertyType()}})));
             {{indent}}            }
             {{indent}}        });
             """;

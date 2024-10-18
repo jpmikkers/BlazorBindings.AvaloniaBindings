@@ -33,7 +33,7 @@ public class GenerateComponentAttribute : Attribute
     public string[] ContentProperties { get; set; }
 
     /// <summary>
-    /// Generate parameters with different name. Format: "{MauiName}:{GeneratedName}".
+    /// Generate parameters with different name. Format: "{AvaloniaName}:{GeneratedName}".
     /// </summary>
     public string[] Aliases { get; set; }
 

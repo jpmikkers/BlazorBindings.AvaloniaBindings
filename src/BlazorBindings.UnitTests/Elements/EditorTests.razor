@@ -1,26 +1,35 @@
+@using Avalonia.Threading
 @inherits ElementTestBase
 
-@code {
-[Test]
-public async Task BindedValueIsUpdatedWhenTextChanged()
+@code
 {
-    string text = null;
-    var entry = await Render<MC.Editor>(@<Editor @bind-Text="text" />);
+    [AvaloniaTest]
+    public async Task BindedValueIsUpdatedWhenTextChanged()
+    {
+        string text = null;
+        var entry = await Render<AC.TextBox>(@<TextBox @bind-Text="text" />);
 
-    entry.UpdateText("test123");
+        entry.Text = "test123";
+        
+        Tick();
 
-    Assert.That(text, Is.EqualTo("test123"));
-}
+        Assert.That(text, Is.EqualTo("test123"));
+    }
 
-[Test]
-public async Task TextIsUpdatedWhenBindedValueChanged()
-{
-    string text = null;
-    var entry = await Render<MC.Editor>(@<Editor @bind-Text="text" />);
+    [AvaloniaTest]
+    public async Task TextIsUpdatedWhenBindedValueChanged()
+    {
+        string text = null;
+        var entry = await Render<AC.TextBox>(@<TextBox @bind-Text="text" />);
 
-    text = "test123";
-    StateHasChanged();
+        text = "test123";
+        StateHasChanged();
 
-    Assert.That(text, Is.EqualTo("test123"));
-}
+        Assert.That(text, Is.EqualTo("test123"));
+    }
+
+    private void Tick()
+    {
+        Avalonia.Threading.Dispatcher.UIThread.RunJobs(DispatcherPriority.SystemIdle);
+    }
 }

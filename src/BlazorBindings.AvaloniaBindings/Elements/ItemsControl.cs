@@ -8,6 +8,7 @@
 using Microsoft.AspNetCore.Components.Rendering;
 using System.Collections.Immutable;
 using System.Collections.Specialized;
+using System.Reflection.Metadata.Ecma335;
 
 #pragma warning disable CA2252
 
@@ -19,6 +20,12 @@ namespace BlazorBindings.AvaloniaBindings.Elements
     public partial class ItemsControl<T> : BlazorBindings.AvaloniaBindings.Elements.Primitives.TemplatedControl
     {
         [Parameter] public IEnumerable<T> ItemsSource { get; set; }
+        [Parameter] public Func<T, object> ItemKeySelector { get; set; }
+
+        /// <summary>
+        /// Gets or sets the data template used to display the items in the control.
+        /// </summary>
+        [Parameter] public RenderFragment<T> ItemTemplate { get; set; }
 
         private bool AssignItemsSourceDirectly => ItemsSource is INotifyCollectionChanged || ItemsSource is IImmutableList<T>;
 
@@ -35,6 +42,13 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                             NativeControl.ItemsSource = ItemsSource;
                     }
                     return true;
+                case nameof(ItemTemplate):
+                    ItemTemplate = (RenderFragment<T>)value;
+                    return true;
+
+                case nameof(ItemKeySelector):
+                    ItemKeySelector = (Func<T, object>)value;
+                    return true;
 
                 default:
                     return base.HandleAdditionalParameter(name, value);
@@ -45,13 +59,14 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         protected override void RenderAdditionalPartialElementContent(RenderTreeBuilder builder, ref int sequence)
         {
             base.RenderAdditionalPartialElementContent(builder, ref sequence);
-            RenderTreeBuilderHelper.AddSyncDataTemplateProperty<AC.ItemsControl, T>(builder, sequence++, ItemTemplate,
+
+            RenderTreeBuilderHelper.AddDataTemplateProperty<AC.ItemsControl, T>(builder, sequence++, ItemTemplate,
                 (nativeElement, nativeDataTemplate) => nativeElement.ItemTemplate = nativeDataTemplate);
 
             sequence++;
             if (!AssignItemsSourceDirectly)
             {
-                RenderTreeBuilderHelper.AddItemsSourceProperty<AC.ItemsControl, T>(builder, sequence, ItemsSource, /*ItemKeySelector*/null, 
+                RenderTreeBuilderHelper.AddItemsSourceProperty<AC.ItemsControl, T>(builder, sequence, ItemsSource, ItemKeySelector, 
                     (nativeElement, items) => nativeElement.ItemsSource = items);
             }
         }

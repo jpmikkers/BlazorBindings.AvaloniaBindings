@@ -1,26 +1,27 @@
 ﻿@implements IDisposable
 
-<ContentPage @ref="_page" Title="Test">
+<ContentControl @ref="_page" Tag="@("Test")">
     <NonPageContent />
-</ContentPage>
+</ContentControl>
 
-@code {
-ContentPage _page;
-
-public event Action OnDispose;
-
-protected override void OnAfterRender(bool firstRender)
+@code
 {
-    if (firstRender)
+    ContentControl _page;
+
+    public event Action OnDispose;
+
+    protected override void OnAfterRender(bool firstRender)
     {
-        // This is needed to be able to get component from tests.
-        _page.NativeControl.SetValue(TestProperties.ComponentProperty, this);
+        if (firstRender)
+        {
+            // This is needed to be able to get component from tests.
+            _page.NativeControl.SetValue(TestProperties.ComponentProperty, this);
+        }
     }
-}
 
-public void Dispose()
-{
-    OnDispose?.Invoke();
-    OnDispose = null;
-}
+    public void Dispose()
+    {
+        OnDispose?.Invoke();
+        OnDispose = null;
+    }
 }

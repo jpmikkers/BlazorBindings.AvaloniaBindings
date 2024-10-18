@@ -40,5 +40,9 @@
 	  <Folder Include="Elements\Layout\" />
 	  <Folder Include="Elements\Media\" />
 	</ItemGroup>
+
+	<ItemGroup>
+		<InternalsVisibleTo Include="BlazorBindings.UnitT3ests" />
+	</ItemGroup>
 	
 </Project>

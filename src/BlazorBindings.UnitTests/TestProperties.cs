@@ -1,8 +1,9 @@
-﻿using Microsoft.Maui.Controls;
+﻿
+using Avalonia;
 
 namespace BlazorBindings.UnitTests;
 
-public static class TestProperties
+public class TestProperties : AvaloniaObject
 {
-    public static readonly BindableProperty ComponentProperty = BindableProperty.Create("Component", typeof(IComponent), typeof(TestProperties));
+    public static readonly AvaloniaProperty ComponentProperty = AvaloniaProperty.RegisterAttached<AvaloniaObject, IComponent>("Component", typeof(TestProperties));
 }

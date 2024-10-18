@@ -14,11 +14,6 @@ public class AvaloniaBlazorBindingsRenderer : NativeComponentRenderer
     {
     }
 
-    internal AvaloniaBlazorBindingsRenderer(AvaloniaBlazorBindingsServiceProvider serviceProvider, ILoggerFactory loggerFactory)
-        : base(serviceProvider, loggerFactory)
-    {
-    }
-
     public override Dispatcher Dispatcher { get; } = new AvaloniaDispatcher();
 
     public Task<IComponent> AddComponent(Type componentType, AvaloniaApplication parent, Dictionary<string, object> parameters = null)
@@ -34,10 +29,9 @@ public class AvaloniaBlazorBindingsRenderer : NativeComponentRenderer
 
         if (!addComponentTask.IsCompleted && parent is AvaloniaApplication app)
         {
-            // MAUI requires the Application to have the MainPage. If rendering task is not completed synchronously,
+            // Avalonia requires the Application to have the MainPage. If rendering task is not completed synchronously,
             // we need to set MainPage to something.
             //app.MainPage ??= new AC.ContentPage();
-            //((IClassicDesktopStyleApplicationLifetime)app.ApplicationLifetime).MainWindow ??= new Avalonia.Controls.Window();
         }
 
         return addComponentTask;

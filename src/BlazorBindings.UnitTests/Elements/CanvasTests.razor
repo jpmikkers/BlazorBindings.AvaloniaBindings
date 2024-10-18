@@ -1,0 +1,68 @@
+﻿@inherits ElementTestBase
+
+@using BlazorBindings.AvaloniaBindings.Elements.Shapes
+
+@code
+{
+    [AvaloniaTest]
+    public async Task AddItemsToLayout()
+    {
+        var layout = await Render<AC.Canvas>(
+            @<Canvas>
+                <Rectangle Fill="Avalonia.Media.Brushes.Silver" Attached="((Rectangle r) => r.CanvasBottom(5))" />
+
+                <Label ChildContent="@(b => b.AddContent(0, "Label text"))" Attached="@((Label l) => l.CanvasLeft(10).CanvasTop(20))" />
+            </Canvas>
+            );
+
+        var rectangle = (Avalonia.Controls.Shapes.Rectangle)layout.Children[0];
+        var label = (AC.Label)layout.Children[1];
+
+        Assert.That(AC.Canvas.GetBottom(rectangle), Is.EqualTo(5));
+
+        Assert.That(AC.Canvas.GetLeft(label), Is.EqualTo(10));
+        Assert.That(AC.Canvas.GetTop(label), Is.EqualTo(20));
+    }
+
+    [AvaloniaTest]
+    public async Task SetLayoutBoundsAsStringWithAllDimensions()
+    {
+        var layout = await Render<AC.Canvas>(
+            @<Canvas>
+                <Rectangle Fill="@(Avalonia.Media.Brushes.Silver)" Canvas.Right="5" />
+            </Canvas>
+            );
+
+        var rectangle = (AC.Shapes.Rectangle)layout.Children[0];
+        var right = AC.Canvas.GetRight(rectangle);
+        Assert.That(right, Is.EqualTo(5));
+    }
+
+    [AvaloniaTest]
+    public async Task SetLayoutBoundsAsStringWithXYOnly()
+    {
+        var layout = await Render<AC.Canvas>(
+            @<Canvas>
+                <Rectangle Fill="Avalonia.Media.Brushes.Silver" Attached="((Rectangle r) => r.CanvasBottom(1))" />
+            </Canvas>
+            );
+
+        var rectangle = (AC.Shapes.Rectangle)layout.Children[0];
+        var bottom = AC.Canvas.GetBottom(rectangle);
+        Assert.That(bottom, Is.EqualTo(1));
+    }
+
+    [AvaloniaTest]
+    public async Task SetLayoutBoundsAsRect()
+    {
+        var layout = await Render<AC.Canvas>(
+            @<Canvas>
+                <Rectangle Fill="Avalonia.Media.Brushes.Silver" Attached="((Rectangle r) => r.CanvasTop(2))" />
+            </Canvas>
+            );
+
+        var rectangle = (AC.Shapes.Rectangle)layout.Children[0];
+        var top = AC.Canvas.GetTop(rectangle);
+        Assert.That(top, Is.EqualTo(2));
+    }
+}

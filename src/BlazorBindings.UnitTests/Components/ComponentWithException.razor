@@ -1,10 +1,11 @@
-﻿<ContentPage>
+﻿<ContentControl>
     <Label>It should fail.</Label>
-</ContentPage>
+</ContentControl>
 
-@code {
-protected override void OnInitialized()
+@code
 {
-    throw new InvalidOperationException("Should fail here.");
-}
+    protected override void OnInitialized()
+    {
+        throw new InvalidOperationException("Should fail here.");
+    }
 }

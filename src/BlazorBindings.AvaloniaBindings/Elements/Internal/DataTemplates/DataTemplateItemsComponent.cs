@@ -30,7 +30,7 @@ internal class DataTemplateItemsComponent<TControl, TItem> : NativeControlCompon
 
     [Parameter] public RenderFragment<TItem> Template { get; set; }
 
-    private readonly List<AvaloniaContentView> _itemRoots = new();
+    private readonly List<AvaloniaContentView> _itemRoots = [];
 
     public AvaloniaContentView AddTemplateRoot()
     {
@@ -44,7 +44,7 @@ internal class DataTemplateItemsComponent<TControl, TItem> : NativeControlCompon
     {
         var parent = (TControl)parentElement;
         var dataTemplate = new AC.Templates.FuncDataTemplate(typeof(TItem),
-            (item, namescope) => AddTemplateRoot());
+            (item, namescope) => (AC.Control)AddTemplateRoot());
         SetDataTemplateAction(parent, dataTemplate);
     }
 
